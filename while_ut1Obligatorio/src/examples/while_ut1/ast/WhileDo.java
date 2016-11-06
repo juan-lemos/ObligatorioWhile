@@ -3,7 +3,7 @@ package examples.while_ut1.ast;
 import java.util.*;
 
 /** Representaci√≥n de las iteraciones while-do.
-*/
+ */
 public class WhileDo extends Stmt {
 	public final Exp condition;
 	public final Stmt body;
@@ -33,7 +33,7 @@ public class WhileDo extends Stmt {
 		if (obj == null || getClass() != obj.getClass()) return false;
 		WhileDo other = (WhileDo)obj;
 		return (this.condition == null ? other.condition == null : this.condition.equals(other.condition))
-			&& (this.body == null ? other.body == null : this.body.equals(other.body));
+				&& (this.body == null ? other.body == null : this.body.equals(other.body));
 	}
 
 	public static WhileDo generate(Random random, int min, int max) {
@@ -51,7 +51,7 @@ public class WhileDo extends Stmt {
 				body.evaluate(statein);
 			}
 			state.mapaValores=State.actualizarValoresMapViejo(state.mapaValores,statein.mapaValores);
-			
+
 			return state;
 		}
 		else{
@@ -87,6 +87,15 @@ public class WhileDo extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		Exp optimizado=condition.optimize();
+		if (optimizado instanceof TruthValue){
+			if (!((TruthValue) optimizado).value){
+				CheckStateLinter.addError("5", "El codigo interno no se ejecutar· nunca", line, column);
+			}
+		}
+
+
+
 		Map mapaAntesWhile= CheckState.clonarMapa(s.mapa);
 		CheckStateLinter checkStateLinterWhileIn=new CheckStateLinter();
 		checkStateLinterWhileIn.mapa=mapaAntesWhile;

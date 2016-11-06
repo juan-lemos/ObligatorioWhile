@@ -100,6 +100,16 @@ public class IfThenElse extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		Exp optimizado=condition.optimize();
+		if (optimizado instanceof TruthValue){
+			if (((TruthValue) optimizado).value){
+				CheckStateLinter.addError("5", "El codigo del else no ejecutará nunca", line, column);
+			}else{
+				CheckStateLinter.addError("5", "El codigo del then no ejecutará nunca", line, column);
+			}
+		}
+		
+		
 		condition.checkLinter(s);
 		thenBody.checkLinter(s);
 		elseBody.checkLinter(s);

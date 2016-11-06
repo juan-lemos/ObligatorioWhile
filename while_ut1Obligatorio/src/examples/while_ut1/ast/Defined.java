@@ -4,7 +4,7 @@ import java.util.*;
 
 /** Representación de conjunciones booleanas (AND).
 */
-public class Defined extends Exp {
+public class Defined extends BExp {
 	public final String id;
 
 	public Defined(String id) {
@@ -54,5 +54,10 @@ public class Defined extends Exp {
 	@Override
 	public String checkLinter(CheckStateLinter s) {
 		return "Boolean";
+	}
+
+	@Override
+	public Exp optimize() {
+		return this;
 	}
 }

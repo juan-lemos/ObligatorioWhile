@@ -145,6 +145,11 @@ public class AssignmentStmtWithType extends Stmt {
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
 		String expressionType = this.expression.checkLinter(s);
+		if (s.mapa.containsKey(id)) CheckStateLinter.addError("14", "la variable " + id + " ya se encuentra declarada", line, column);
+		s.mapa.keySet().forEach((key) -> {
+			if (key.toLowerCase().equals(id.toLowerCase()))
+				CheckStateLinter.addError("18B", "la variable " + id + " se encuentra definida como " + key, line, column);
+		});
 		ObjectState objState = new ObjectState(this.type, true, 2, this);
 		s.mapa.put(this.id, objState);
 		return s;

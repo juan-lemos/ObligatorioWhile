@@ -14,4 +14,5 @@ public abstract class Exp {
 	}
 	
 	abstract public String checkLinter(CheckStateLinter s);
+	abstract public Exp optimize();
 }

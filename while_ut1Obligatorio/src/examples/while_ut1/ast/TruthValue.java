@@ -51,7 +51,12 @@ public class TruthValue extends BExp {
 	@Override
 	public String checkLinter(CheckStateLinter s) {
 		// TODO Auto-generated method stub
-		return null;
+		return "Boolean";
+	}
+
+	@Override
+	public Exp optimize() {
+		return this;
 	}
 	
 }

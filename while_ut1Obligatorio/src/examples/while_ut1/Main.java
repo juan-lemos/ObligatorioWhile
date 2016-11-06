@@ -53,6 +53,8 @@ public class Main {
 	}
 
 	public static CheckState checkInput(String inPut){
+		
+		
 		String testString = inPut;
 		CheckState state = new CheckState();
 		testString = testString.trim();

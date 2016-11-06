@@ -67,6 +67,14 @@ public class Length extends Exp {
 		expression.checkLinter(s);
 		return null;
 	}
-	
+
+	@Override
+	public Exp optimize() {
+		Exp optimizedExpression=expression.optimize();
+		if (optimizedExpression instanceof Str){
+			return new Numeral(((Str)optimizedExpression).value.length());
+		}
+		return this;
+	}
 	
 }

@@ -84,4 +84,26 @@ public class Multiplication extends AExp {
 		this.right.checkLinter(s);
 		return null;
 	}
+
+	@Override
+	public Exp optimize() {
+		Exp leftOptimized =left.optimize();
+		Exp rightOptimized =right.optimize();
+		if (leftOptimized instanceof Numeral && rightOptimized instanceof Numeral){
+			Double leftNumberValue=0.0;
+			Double rightNumberValue=0.0;
+			if (((Numeral)leftOptimized).number instanceof Integer){
+				leftNumberValue =((Integer)((Numeral)leftOptimized).number).doubleValue();
+			}else{
+				leftNumberValue =((Double)((Numeral)leftOptimized).number);
+			}
+			if (((Numeral)rightOptimized).number instanceof Integer){
+				rightNumberValue =((Integer)((Numeral)rightOptimized).number).doubleValue();
+			}else{
+				rightNumberValue =((Double)((Numeral)rightOptimized).number);
+			}
+			return new Numeral(leftNumberValue*rightNumberValue);
+		}	
+		return this;
+	}
 }

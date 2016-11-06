@@ -74,4 +74,16 @@ public class Conjunction extends BExp {
 		this.right.checkLinter(s);
 		return "Boolean";
 	}
+
+	@Override
+	public Exp optimize() {
+		Exp leftOptimized=left.optimize();
+		Exp rightOptimized=right.optimize();
+		if(leftOptimized instanceof TruthValue  && rightOptimized instanceof TruthValue) {
+			return new TruthValue (((TruthValue)leftOptimized).value == ((TruthValue)rightOptimized).value);
+		}
+		else{
+			return this;
+		}
+	}
 }

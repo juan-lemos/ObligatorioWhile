@@ -12,7 +12,7 @@ import junit.framework.TestCase;
 
 /**
  * Regla numeo 1
- * Que no exista mÃ¡s de un salto de lÃ­nea entre dos lÃ­neas de cÃ³digo consecutivas.
+ * Que no exista más de un salto de línea entre dos líneas de código consecutivas.
  */
 public class Rule1 extends TestCase {
 
@@ -22,33 +22,53 @@ public class Rule1 extends TestCase {
 
 	protected void setUp() throws Exception {
 		state = new CheckStateLinter();
-		loadData1();
+		loadData();
 		super.setUp();
 	}
 
-	protected void loadData1() {
+	protected void loadData() {
 		datosPruebas.put(1, "{y=2;\ny=3;}"); // ok
-		datosPruebas.put(2, "{y=2;\n\ny=3;}");  // MAL
-		datosPruebas.put(3, "{y=2;\n\n\ny=3;}"); // ok
-		datosPruebas.put(4, "{y=2;\n\n\n\ny=3;}"); // ok
+		datosPruebas.put(2, "{y=2;\n\ny=3;}");  // ok
+		datosPruebas.put(3, "{y=2;\n\n\ny=3;}"); // ok, deberia dar un mensaje de error
+		datosPruebas.put(4, "{y=2;\n\n\n\ny=3;}"); // ok, deberia dar un mensaje de error
 	}
 
-	public void testData1() {
+	public void testData() {
 		try {
-			Integer numTest =4;
-//			CheckStateLinter.addError("dsdf", "sdf", 1, 1);
+			Integer numTest =4;   // Setear este valor
+			
 			Object obj = Parse.parse(datosPruebas.get(numTest));
 			logger.log(Level.INFO, obj.toString());
-			if (obj instanceof Stmt) {
-				CheckStateLinter check = ((Stmt) obj).checkLinter(state); 
-				logger.log(Level.INFO, check.toString());
-			} else {
-				logger.log(Level.WARNING,"No es instacia de Stmt");
-			}
+			
+			CheckStateLinter check = ((Stmt) obj).checkLinter(state); 
+			
+			String actual = check.toString();
+			String expected = "Error 1: existe mas de un salto de linea consecutivo.";
+			
+			if (numTest == 1 || numTest ==2)
+				expected = "";
+			else 
+				expected = "Error 1: existe mas de un salto de linea consecutivo.";
+				
+			assertTrue("Se esperaba " + expected + "pero el resultado fue " + actual, actual.contains(expected));
 			
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage(), e.getCause());
 		}
+	}
+	
+	public void testAll() {
+        datosPruebas.forEach((numTest,strTest) -> {
+            logger.log(Level.INFO, "test" + numTest + " : " + strTest);
+            try {
+            	Object obj = Parse.parse(datosPruebas.get(numTest));
+                logger.log(Level.INFO,obj.toString());
+    			CheckStateLinter check = ((Stmt) obj).checkLinter(state); 
+    			logger.log(Level.INFO, check.toString());
+            }catch (Exception e){
+                logger.log(Level.SEVERE, e.getMessage(), e.getCause());
+            }
+        });
 	}
 
 }

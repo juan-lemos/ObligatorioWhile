@@ -3,7 +3,7 @@ package examples.while_ut1.ast;
 import java.util.*;
 
 /** Representación de las negaciones de expresiones booleanas.
-*/
+ */
 public class Negation extends BExp {
 	public final Exp condition;
 
@@ -58,7 +58,7 @@ public class Negation extends BExp {
 			s.errores.add("Solo booleanos:"+ this.toString());
 			return "Boolean";
 		}
-		
+
 	}
 
 	@Override
@@ -66,6 +66,16 @@ public class Negation extends BExp {
 		this.condition.checkLinter(s);
 		return "Boolean";
 	}
-	
-	
+
+	@Override
+	public Exp optimize() {
+		Exp optimizedCondition=condition.optimize();
+		if (optimizedCondition instanceof TruthValue){
+			return new TruthValue(!((TruthValue)optimizedCondition).value);
+		}else{
+			return this;
+		}
+	}
+
+
 }

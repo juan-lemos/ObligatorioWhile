@@ -8,9 +8,11 @@ public class AssignmentExp extends Exp {
 	public final String id;
 	public final Exp expression;
 
-	public AssignmentExp(String id, Exp expression) {
+	public AssignmentExp(String id, Exp expression, int column, int line) {
 		this.id = id;
 		this.expression = expression;
+		this.column = column;
+		this.line = line;
 	}
 
 	@Override public String unparse() {
@@ -40,7 +42,7 @@ public class AssignmentExp extends Exp {
 		String id; AExp expression; 
 		id = ""+"abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
 		expression = AExp.generate(random, min-1, max-1);
-		return new AssignmentExp(id, expression);
+		return new AssignmentExp(id, expression, 1, 1);
 	}
 
 	@Override
@@ -109,13 +111,28 @@ public class AssignmentExp extends Exp {
 	@Override
 	public String checkLinter(CheckStateLinter s) {
 		String expressionType = this.expression.checkLinter(s);
-		boolean variableDefined = s.mapa.containsKey(id);
-		ObjectState objState = new ObjectState("Double", true, 3, this);
-		s.mapa.put(this.id, objState);
-		if (variableDefined) {
+		if (s.mapa.containsKey(id)) {
 			s.mapa.get(id).used = true;
+		} else {
+			CheckStateLinter.addError8(id, line, column);
+			ObjectState objState = new ObjectState("Double", true, 4, this);
+			s.mapa.put(this.id, objState);
 		}
 		return expressionType;
+	}
+
+	@Override
+	public Exp optimize() {
+		Exp optimizedExpression = expression.optimize();
+		if (optimizedExpression instanceof Numeral){
+			return optimizedExpression;
+		}else if(optimizedExpression instanceof Str){
+			return optimizedExpression;
+		}else if(optimizedExpression instanceof TruthValue){
+			return optimizedExpression;
+		}else{
+			return this;
+		}
 	}
 
 

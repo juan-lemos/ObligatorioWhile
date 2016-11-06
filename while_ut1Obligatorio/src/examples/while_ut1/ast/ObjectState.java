@@ -5,7 +5,7 @@ public class ObjectState {
 	public String tipo = "";
 	public boolean assigned = false;
 	public boolean used = false;
-	public int queEs = 0; // 1: function, 2: variableWithType, 3: variableWithoutType
+	public int queEs = 0; // 1: function, 2: assignmentStmtWithType, 3: assignmentStmtWithoutType, 4: assignmentExp
 	public Object astNode = null;
 	
 	public ObjectState(String tipo, boolean assigned, int queEs, Object astNode){
@@ -33,6 +33,8 @@ public class ObjectState {
 				return ((AssignmentStmtWithType) this.astNode).line;
 			case 3:
 				return ((AssignmentStmt) this.astNode).line;
+			case 4:
+				return ((AssignmentExp) this.astNode).line;
 			default:
 				return -1;
 		}
@@ -46,6 +48,8 @@ public class ObjectState {
 				return ((AssignmentStmtWithType) this.astNode).column;
 			case 3:
 				return ((AssignmentStmt) this.astNode).column;
+			case 4:
+				return ((AssignmentExp) this.astNode).column;
 			default:
 				return -1;
 		}

@@ -1,67 +1,58 @@
 package examples.while_ut1.ast;
 
-import java.util.*;
+import java.util.ArrayList;
 
-/** Representación de multiplicaciones.
- */
-public class FunctionCall extends Exp {
+public class FunctionCallStmt extends Stmt{
+
 	public final String id;
 	public final ArrayList <Exp> parameters;
 
-	public FunctionCall(String id, ArrayList<Exp> p, int line, int column) {
+	public FunctionCallStmt(String id, ArrayList<Exp> p, int line, int column) {
 		this.id=id;
 		this.parameters = p;
 		this.line = line;
 		this.column = column;
 	}
-
-
-	@Override public String toString() {
-		String devolver=id+" (";
-		int i=0;
-		for (Exp parameter:parameters){
-			devolver+=parameter.toString();
-			i++;
-			if (i!=parameters.size()){
-				devolver+=",";
-			}
-		}
-		devolver+=");";
-		return devolver;
-	}
-
-	@Override public int hashCode() {
-		return (Integer) null;	
-	}
-
-	@Override public boolean equals(Object obj) {
-		return (Boolean) null;
-	}
-
-	public static FunctionCall generate(Random random, int min, int max) {
-		return null;
-	}
-
-	@Override
-	public Object evaluate(State state) {
-		return null;
-	}
-
-	@Override
-	public String check(CheckState s){
-		return null;
-	}
-
-
+	
 	@Override
 	public String unparse() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
-	public String checkLinter(CheckStateLinter s) {
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public State evaluate(State state) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CheckState check(CheckState s) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		// COPIADO DE FUNCTIONCALL REVISAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		if (s.mapa.containsKey(this.id)) {
 			ObjectState objState = s.mapa.get(this.id);
 			objState.used = true;
@@ -79,14 +70,9 @@ public class FunctionCall extends Exp {
 				}
 			}
 			
-			return functionDeclaration.type;
+//			return functionDeclaration.type;
 		}
-		return "Double";
+		return s;
 	}
 
-
-	@Override
-	public Exp optimize() {
-		return this;
-	}
 }

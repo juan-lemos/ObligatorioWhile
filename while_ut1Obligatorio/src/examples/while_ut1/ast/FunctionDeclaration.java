@@ -72,11 +72,14 @@ public class FunctionDeclaration extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
-		if (Character.isUpperCase(this.id.charAt(0))){
-			CheckStateLinter.addError("7", "los nombres de metodos deben comenzar con minuscula", this.line, this.column);
-		}
-		ObjectState objState = new ObjectState(this.type, false, 1, this);
-		s.mapa.put(this.id, objState);
+		if (Character.isUpperCase(id.charAt(0))) CheckStateLinter.addError("7", "los nombres de metodos deben comenzar con minuscula", line, column);
+		if (s.mapa.containsKey(id)) CheckStateLinter.addError("13", "la funcion " + id + " ya se encuentra definida", line, column);
+		s.mapa.keySet().forEach((key) -> {
+			if (key.toLowerCase().equals(id.toLowerCase()))
+				CheckStateLinter.addError("18A", "la funcion " + id + " se encuentra definida como " + key, line, column);
+		});
+		ObjectState objState = new ObjectState(type, false, 1, this);
+		s.mapa.put(id, objState);
 		return s;
 	}
 

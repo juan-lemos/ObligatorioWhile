@@ -67,7 +67,19 @@ public class Numeral extends AExp {
 
 	@Override
 	public String checkLinter(CheckStateLinter s) {
+		if (this.number instanceof Integer){
+			return "Integer";
+		}
+		else if (this.number instanceof Double){
+			return "Double";
+		}else{
+			throw new IllegalStateException(this.unparse());
+		} 
+	}
+
+	@Override
+	public Exp optimize() {
 		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 }

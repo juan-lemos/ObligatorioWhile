@@ -67,11 +67,16 @@ public class Variable extends AExp {
 	@Override
 	public String checkLinter(CheckStateLinter s) {
 		if(!s.mapa.containsKey(id)){
-			CheckStateLinter.addError("8", "variable "+id+" no definida", line, column);
+			CheckStateLinter.addError8(id, line, column);
 			return "Double";
 		} else {
 			s.mapa.get(id).used=true;
 			return s.mapa.get(id).tipo;
 		}	
+	}
+
+	@Override
+	public Exp optimize() {
+		return this;
 	}
 }

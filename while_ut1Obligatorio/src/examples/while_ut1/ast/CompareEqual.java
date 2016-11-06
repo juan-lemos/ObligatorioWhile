@@ -2,8 +2,9 @@ package examples.while_ut1.ast;
 
 import java.util.*;
 
+
 /** Representación de las comparaciones por igual.
-*/
+ */
 public class CompareEqual extends BExp {
 	public final Exp left;
 	public final Exp right;
@@ -33,7 +34,7 @@ public class CompareEqual extends BExp {
 		if (obj == null || getClass() != obj.getClass()) return false;
 		CompareEqual other = (CompareEqual)obj;
 		return (this.left == null ? other.left == null : this.left.equals(other.left))
-			&& (this.right == null ? other.right == null : this.right.equals(other.right));
+				&& (this.right == null ? other.right == null : this.right.equals(other.right));
 	}
 
 	public static CompareEqual generate(Random random, int min, int max) {
@@ -67,4 +68,35 @@ public class CompareEqual extends BExp {
 		right.checkLinter(s);
 		return "Boolean";
 	}
+
+	@Override
+	public Exp optimize() {
+		Exp leftOptimized=left.optimize();
+		Exp rightOptimized=right.optimize();
+		if (leftOptimized instanceof Numeral  && rightOptimized instanceof Numeral){
+			Double leftNumberValue=0.0;
+			Double rightNumberValue=0.0;
+			if (((Numeral)leftOptimized).number instanceof Integer){
+				leftNumberValue =((Integer)((Numeral)leftOptimized).number).doubleValue();
+			}else{
+				leftNumberValue =((Double)((Numeral)leftOptimized).number);
+			}
+			if (((Numeral)rightOptimized).number instanceof Integer){
+				rightNumberValue =((Integer)((Numeral)rightOptimized).number).doubleValue();
+			}else{
+				rightNumberValue =((Double)((Numeral)rightOptimized).number);
+			}
+			return new TruthValue(leftNumberValue == rightNumberValue);
+		}else if(leftOptimized instanceof Str  && rightOptimized instanceof Str) {
+			String leftString=(String)(((Str)leftOptimized).value);
+			String rightString=(String)(((Str)rightOptimized).value);
+			return new TruthValue(leftString.equals(rightString));
+		}else if(leftOptimized instanceof TruthValue  && rightOptimized instanceof TruthValue) {
+			return new TruthValue (((TruthValue)leftOptimized).value == ((TruthValue)rightOptimized).value);
+		}
+		else{
+			return this;
+		}
+	}
+
 }

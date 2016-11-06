@@ -41,5 +41,7 @@ public class CheckStateLinter {
 		return resultado;
 	}
 	
-	
+	public static void addError8(String variableId, int line, int column) {
+		addError("8", "variable " + variableId + " no declarada", line, column);
+	}
 }

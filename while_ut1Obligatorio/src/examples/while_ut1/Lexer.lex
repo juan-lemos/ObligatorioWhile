@@ -49,6 +49,8 @@ String =	\"([^\"\\\n]|\\[bntrf\"\\/]|\\u[0-9a-fA-F]{4})*\"
 
 \n[ \t\r\f\v]*\n[ \t\r\n\f\v]*\n 
 	{ CheckStateLinter.addError("1","existe mas de un salto de linea consecutivo", yyline, yycolumn); }
+[ \t\r\f\v]*\n
+	{ return new Symbol(NEW_LINE, yyline, yycolumn, yytext()); }
 
 "!"
 	{ return new Symbol(EXCLAMATION_MARK, yyline, yycolumn, yytext()); }
@@ -126,11 +128,17 @@ String =	\"([^\"\\\n]|\\[bntrf\"\\/]|\\u[0-9a-fA-F]{4})*\"
 [0-9]*\.[0-9]+
 	{ String $1 = yytext(); Double $0 = Double.parseDouble($1);
 	return new Symbol(NUM, yyline, yycolumn, $0); }
-[a-zA-Z_][a-zA-Z0-9_]*
+[A-Z_][a-zA-Z0-9_]*
+	{ CheckStateLinter.addError("6","las variables deben comenzar con minuscula y sin guiones bajos", yyline, yycolumn);
+	  String $1 = yytext(); String $0;
+	  $0 = $1;
+	  return new Symbol(ID, yyline, yycolumn, $0); }
+[a-z][a-zA-Z0-9_]*
 	{ String $1 = yytext(); String $0;
 	  $0 = $1;
 	  return new Symbol(ID, yyline, yycolumn, $0); }
-	  
+
+
 	  
 [ \t\r\n\f\v]+
 	{ /* Ignore */ }

@@ -69,11 +69,12 @@ public class AssignmentStmt extends Stmt {
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
 		String expressionType = this.expression.checkLinter(s);
-		boolean variableDefined = s.mapa.containsKey(id);
-		ObjectState objState = new ObjectState("Double", true, 3, this);
-		s.mapa.put(this.id, objState);
-		if (variableDefined) {
+		if (s.mapa.containsKey(id)) {
 			s.mapa.get(id).used = true;
+		} else {
+			CheckStateLinter.addError8(id, line, column);
+			ObjectState objState = new ObjectState("Double", true, 3, this);
+			s.mapa.put(this.id, objState);
 		}
 		return s;
 	}
