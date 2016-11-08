@@ -14,9 +14,9 @@ public class CheckStateLinter {
 			ObjectState objState = element.getValue();
 			if (!objState.used) {
 				if (objState.isFunction()) {
-					addError("3", "funcion declarada sin llamar", objState.getLine(), objState.getColumn());
+					addError3(objState.getLine(), objState.getColumn());
 				} else {
-					addError("4", "variable asignada sin usar", objState.getLine(), objState.getColumn());
+					addError4(objState.getLine(), objState.getColumn());
 				}
 			}
 		}
@@ -39,6 +39,14 @@ public class CheckStateLinter {
 	
 	public static void addError2(int line, int column) {
 		addError("2", "No debe haber mas de un statement en la misma linea", line, column);
+	}
+	
+	public static void addError3(int line, int column) {
+		addError("3", "funcion declarada sin llamar", line, column); 
+	}
+	
+	public static void addError4(int line, int column) {
+		addError("4", "variable asignada sin usar", line, column); 
 	}
 	
 	public static void addError5A(int line, int column) {
