@@ -5,7 +5,7 @@ public class ObjectState {
 	public String tipo = "";
 	public boolean assigned = false;
 	public boolean used = false;
-	public int queEs = 0; // 1: function, 2: assignmentStmtWithType, 3: assignmentStmtWithoutType, 4: assignmentExp
+	public int queEs = 0; // 1: function, 2: variable
 	public Object astNode = null;
 	
 	public ObjectState(String tipo, boolean assigned, int queEs, Object astNode){
@@ -26,33 +26,11 @@ public class ObjectState {
 	}
 	
 	public int getLine() {
-		switch (this.queEs){
-			case 1:
-				return ((FunctionDeclaration) this.astNode).line;
-			case 2:
-				return ((AssignmentStmtWithType) this.astNode).line;
-			case 3:
-				return ((AssignmentStmt) this.astNode).line;
-			case 4:
-				return ((AssignmentExp) this.astNode).line;
-			default:
-				return -1;
-		}
+		return ((AstNode) this.astNode).line;
 	}
 	
 	public int getColumn() {
-		switch (this.queEs){
-			case 1:
-				return ((FunctionDeclaration) this.astNode).column;
-			case 2:
-				return ((AssignmentStmtWithType) this.astNode).column;
-			case 3:
-				return ((AssignmentStmt) this.astNode).column;
-			case 4:
-				return ((AssignmentExp) this.astNode).column;
-			default:
-				return -1;
-		}
+		return ((AstNode) this.astNode).column;
 	}
 	
 	public boolean isFunction() {

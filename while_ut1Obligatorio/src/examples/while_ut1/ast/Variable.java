@@ -79,4 +79,14 @@ public class Variable extends AExp {
 	public Exp optimize() {
 		return this;
 	}
+
+	@Override
+	public int getLine() {
+		return line;
+	}
+
+	@Override
+	public int getColumn() {
+		return column;
+	}
 }

@@ -86,4 +86,14 @@ public class Conjunction extends BExp {
 			return this;
 		}
 	}
+
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
+	}
 }

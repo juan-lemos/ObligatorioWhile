@@ -89,4 +89,14 @@ public class FunctionCall extends Exp {
 	public Exp optimize() {
 		return this;
 	}
+
+	@Override
+	public int getLine() {
+		return line;
+	}
+
+	@Override
+	public int getColumn() {
+		return column;
+	}
 }

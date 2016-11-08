@@ -83,5 +83,13 @@ public class FunctionDeclaration extends Stmt {
 		return s;
 	}
 
+	@Override
+	public int getLine() {
+		return line;
+	}
 
+	@Override
+	public int getColumn() {
+		return column;
+	}
 }

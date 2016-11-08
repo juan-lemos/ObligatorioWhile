@@ -58,4 +58,14 @@ public class Print extends Stmt {
 		expression.checkLinter(s);
 		return null;
 	}
+
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
+	}
 }

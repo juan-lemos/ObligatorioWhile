@@ -68,4 +68,14 @@ public class Sequence extends Stmt {
 		}
 		return s;
 	}
+
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
+	}
 }

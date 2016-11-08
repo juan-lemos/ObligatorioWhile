@@ -47,13 +47,6 @@ public class AssignmentStmtWithType extends Stmt {
 				&& (this.expression == null ? other.expression == null : this.expression.equals(other.expression));
 	}
 
-	//	public static AssignmentStmtWithType generate(Random random, int min, int max) {
-	//		String id; AExp expression;
-	//		id = ""+"abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
-	//		expression = AExp.generate(random, min-1, max-1);
-	//		return new AssignmentStmtWithType(id, expression);
-	//	}
-
 	@Override
 	public State evaluate(State state) {
 		if (state.mapaValores.containsKey(id)){
@@ -155,5 +148,13 @@ public class AssignmentStmtWithType extends Stmt {
 		return s;
 	}
 
+	@Override
+	public int getLine() {
+		return line;
+	}
 
+	@Override
+	public int getColumn() {
+		return column;
+	}
 }

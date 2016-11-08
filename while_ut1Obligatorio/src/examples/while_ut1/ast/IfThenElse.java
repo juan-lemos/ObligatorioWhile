@@ -116,4 +116,14 @@ public class IfThenElse extends Stmt {
 		return null;
 	}
 
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
+	}
+
 }

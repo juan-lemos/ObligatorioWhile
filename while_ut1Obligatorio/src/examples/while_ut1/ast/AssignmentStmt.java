@@ -73,11 +73,19 @@ public class AssignmentStmt extends Stmt {
 			s.mapa.get(id).used = true;
 		} else {
 			CheckStateLinter.addError8(id, line, column);
-			ObjectState objState = new ObjectState("Double", true, 3, this);
+			ObjectState objState = new ObjectState("Double", true, 2, this);
 			s.mapa.put(this.id, objState);
 		}
 		return s;
 	}
 
-		
+	@Override
+	public int getLine() {
+		return line;
+	}
+
+	@Override
+	public int getColumn() {
+		return column;
+	}
 }

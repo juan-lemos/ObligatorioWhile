@@ -33,13 +33,6 @@ public class Length extends Exp {
 		Length other = (Length)obj;
 		return (this.expression == null ? other.expression == null : this.expression.equals(other.expression));
 	}
-//
-//	public static Print generate(Random random, int min, int max) {
-//		BExp condition; Stmt thenBody;  
-//		condition = BExp.generate(random, min-1, max-1);
-//		thenBody = Stmt.generate(random, min-1, max-1);
-//		return new Print(condition, thenBody);
-//	}
 
 	@Override
 	public Object evaluate(State state) {
@@ -75,6 +68,16 @@ public class Length extends Exp {
 			return new Numeral(((Str)optimizedExpression).value.length());
 		}
 		return this;
+	}
+
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
 	}
 	
 }

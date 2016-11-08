@@ -3,7 +3,6 @@ package examples.while_ut1.ast;
 import java.util.ArrayList;
 
 public class FunctionCallStmt extends Stmt{
-
 	public final String id;
 	public final ArrayList <Exp> parameters;
 
@@ -73,6 +72,16 @@ public class FunctionCallStmt extends Stmt{
 //			return functionDeclaration.type;
 		}
 		return s;
+	}
+
+	@Override
+	public int getLine() {
+		return line;
+	}
+
+	@Override
+	public int getColumn() {
+		return column;
 	}
 
 }

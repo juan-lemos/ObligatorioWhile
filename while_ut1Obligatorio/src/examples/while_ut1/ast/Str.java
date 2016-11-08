@@ -57,4 +57,14 @@ public class Str extends Exp{
 	public Exp optimize() {
 		return this;
 	}
+
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
+	}
 }

@@ -6,7 +6,7 @@ import java.util.*;
 	construcciones del lenguaje que modifican (potencialmente) los 
 	valores de las variables en el estado del programa.
 */
-public abstract class Stmt {
+public abstract class Stmt extends AstNode {
 
 	public abstract String unparse();
 
@@ -15,9 +15,6 @@ public abstract class Stmt {
 	@Override public abstract int hashCode();
 
 	@Override public abstract boolean equals(Object obj);
-
-	public int line;
-	public int column;
 	
 	public static Stmt generate(Random random, int min, int max) {
 		final int TERMINAL_COUNT = 0;

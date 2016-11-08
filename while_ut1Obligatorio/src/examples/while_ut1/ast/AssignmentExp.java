@@ -115,7 +115,7 @@ public class AssignmentExp extends Exp {
 			s.mapa.get(id).used = true;
 		} else {
 			CheckStateLinter.addError8(id, line, column);
-			ObjectState objState = new ObjectState("Double", true, 4, this);
+			ObjectState objState = new ObjectState("Double", true, 2, this);
 			s.mapa.put(this.id, objState);
 		}
 		return expressionType;
@@ -135,5 +135,13 @@ public class AssignmentExp extends Exp {
 		}
 	}
 
+	@Override
+	public int getLine() {
+		return 0;
+	}
 
+	@Override
+	public int getColumn() {
+		return 0;
+	}
 }
