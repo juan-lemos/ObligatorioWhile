@@ -106,9 +106,9 @@ stmtBasics ::=
   	|	tipo:$5 ID:$1 SEMICOLON:$4
     	{: RESULT = new AssignmentStmtWithType($5, $1,null,$5left, $5right); :}
     |	LEFT_CURLY_BRACKET:$1 repeat$stmtBasics:$2 RIGHT_CURLY_BRACKET:$3
-		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()])); :} 
+		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()]), $1left, $1right); :} 
 	|	SKIP:$1 SEMICOLON:$2
-		{: RESULT = new Sequence(new Stmt[0]); :}
+		{: RESULT = new Sequence(new Stmt[0], $1left, $1right); :}
 	|	WHILE:$1 exp:$2 DO:$3 stmtBasics:$4
 		{: RESULT = new WhileDo($2, $4); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtBasics:$4
@@ -130,9 +130,9 @@ stmtMain ::=
   	|	tipo:$5 ID:$1 SEMICOLON:$4
     	{: RESULT = new AssignmentStmtWithType($5, $1,null,$5left, $5right); :}
     |	LEFT_CURLY_BRACKET:$1 repeat$stmtMain:$2 RIGHT_CURLY_BRACKET:$3
-		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()])); :} 
+		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()]), $1left, $1right); :} 
 	|	SKIP:$1 SEMICOLON:$2
-		{: RESULT = new Sequence(new Stmt[0]); :}
+		{: RESULT = new Sequence(new Stmt[0], $1left, $1right); :}
 	|	WHILE:$1 exp:$2 DO:$3 stmtBasics:$4
 		{: RESULT = new WhileDo($2, $4); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtBasics:$4
@@ -156,9 +156,9 @@ stmtFunctions ::=
 	| 	tipo:$5 ID:$1 SEMICOLON:$4
 		{: RESULT = new AssignmentStmtWithType($5, $1,null,$5left, $5right); :} 
 	|	SKIP:$1 SEMICOLON:$2
-		{: RESULT = new Sequence(new Stmt[0]); :}
+		{: RESULT = new Sequence(new Stmt[0], $1left, $1right); :}
 	|	LEFT_CURLY_BRACKET:$1 repeat$stmtFunctions:$2 RIGHT_CURLY_BRACKET:$3
-		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()])); :}
+		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()]), $1left, $1right); :}
 	|	WHILE:$1 exp:$2 DO:$3 stmtFunctions:$4
 		{: RESULT = new WhileDo($2, $4); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtFunctions:$4
