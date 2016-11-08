@@ -90,12 +90,11 @@ public class IfThen extends Stmt {
 		Exp optimizado=condition.optimize();
 		if (optimizado instanceof TruthValue){
 			if (((TruthValue) optimizado).value){
-				CheckStateLinter.addError("5", "La condición no es necesaria", line, column);
+				CheckStateLinter.addError5A(line, column);
 			}else{
-				CheckStateLinter.addError("5", "El codigo interno no se ejecutará nunca", line, column);
+				CheckStateLinter.addError5B(line, column);
 			}
 		}
-
 
 		condition.checkLinter(s);
 		thenBody.checkLinter(s);
