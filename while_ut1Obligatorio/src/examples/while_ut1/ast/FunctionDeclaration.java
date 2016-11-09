@@ -73,9 +73,9 @@ public class FunctionDeclaration extends Stmt {
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
 		if (Character.isUpperCase(id.charAt(0))) CheckStateLinter.addError7(line, column);
-		if (s.mapa.containsKey(id)) CheckStateLinter.addError13(id, line, column);
+		if (s.mapa.containsKey(id) && s.mapa.get(id).isFunction()) CheckStateLinter.addError13(id, line, column);
 		s.mapa.keySet().forEach((key) -> {
-			if (key.toLowerCase().equals(id.toLowerCase()))
+			if (key.toLowerCase().equals(id.toLowerCase()) && !key.equals(id) && s.mapa.get(key).isFunction())
 				CheckStateLinter.addError18A(id, key, line, column);
 		});
 		

@@ -30,6 +30,6 @@ H.R. Nielson & F. Nielson: "Semantic with Applications: A formal introduction". 
 | 16     | No se puede tener paréntesis superfluos                                                                                                               |JP - MC   | x   |      |
 | 17     | No se puede tener llaves superfluas                                                                                                                   |JP - MC   | x   |      |
 | 18     | No escribir nombres de variables o métodos iguales pero que se diferencien en solamente en mayúsculas y minúsculas Ej: ''numeric a=23; numeric A=23'' | MC       | x   |      |
-| 19     | No permitir redefinición de variables con el mismo nombre dentro de las funciones como variables locales                                              |          | x   |      |
+| 19     | No permitir redefinición de variables con el mismo nombre dentro de las funciones como variables locales                                              | MC       | x   |      |
 | 20     | Warning expresiones con más de 7 operadores.                                                                                                          |          |     |      |
 | 21     | Warning sentencias con más de 5 anidaciones.                                                                                                          |          |     |      |

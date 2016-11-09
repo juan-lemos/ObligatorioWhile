@@ -102,7 +102,7 @@ public class CheckStateLinter {
 	}
 	
 	public static void addError18A(String functionName, String oldFunctionName, int line, int column) {
-		addError("18B",  "la funcion " + functionName + " se encuentra definida como " + oldFunctionName, line, column);
+		addError("18A",  "la funcion " + functionName + " se encuentra definida como " + oldFunctionName, line, column);
 	}
 	
 	public static void addError18B(String variableId, String oldVariableId, int line, int column) {

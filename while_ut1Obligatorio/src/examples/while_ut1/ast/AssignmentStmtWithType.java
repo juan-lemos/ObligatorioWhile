@@ -138,9 +138,9 @@ public class AssignmentStmtWithType extends Stmt {
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
 		String expressionType = this.expression.checkLinter(s);
-		if (s.mapa.containsKey(id)) CheckStateLinter.addError14(id, line, column);
+		if (s.mapa.containsKey(id) && !s.mapa.get(id).isFunction()) CheckStateLinter.addError14(id, line, column);
 		s.mapa.keySet().forEach((key) -> {
-			if (key.toLowerCase().equals(id.toLowerCase()) && !key.equals(id))
+			if (key.toLowerCase().equals(id.toLowerCase()) && !key.equals(id) && !s.mapa.get(key).isFunction())
 				CheckStateLinter.addError18B(id, key, line, column);
 		});
 		ObjectState objState = new ObjectState(this.type, true, 2, this);
