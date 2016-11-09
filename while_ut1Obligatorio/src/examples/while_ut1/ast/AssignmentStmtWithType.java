@@ -15,7 +15,6 @@ public class AssignmentStmtWithType extends Stmt {
 		this.column = column;
 	}
 
-
 	@Override public String unparse() {
 		if (type != null) {
 			return type + " " + id +" = "+ expression.unparse() +"; ";
@@ -25,7 +24,7 @@ public class AssignmentStmtWithType extends Stmt {
 	}
 
 	@Override public String toString() {
-		return "AssignmentWithType("+ id +", "+ expression +")";
+		return "AssignmentStmtWithType("+ id +", "+ expression +")";
 	}
 
 	@Override public int hashCode() {
@@ -96,9 +95,6 @@ public class AssignmentStmtWithType extends Stmt {
 		}
 	}
 
-
-
-
 	@Override
 	public CheckState check(CheckState s) {
 		ObjectState objectState=new ObjectState();
@@ -123,13 +119,10 @@ public class AssignmentStmtWithType extends Stmt {
 		return s;
 	}
 
-
-
 	public void meterTipo(State state){
 		state.mapaTipo.put(id,type);
 		state.mapaValores.put(id,null);
 	}
-
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
