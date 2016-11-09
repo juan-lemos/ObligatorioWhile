@@ -12,8 +12,8 @@ H.R. Nielson & F. Nielson: "Semantic with Applications: A formal introduction". 
 
 | Numero | Descripción Regla                                                                                                                                     | Asignado | Des | Test |
 |--------|-------------------------------------------------------------------------------------------------------------------------------------------------------|----------|-----|------|
-| 1      | Que no exista más de un salto de línea entre dos líneas de código consecutivas.                                                                       | MC       | x   |      |
-| 2      | Que haya solo un statement por línea                                                                                                                  |JP       | x   |      |
+| 1      | Que no exista más de un salto de línea entre dos líneas de código consecutivas.                                                                       | MC       | x   |   x   |
+| 2      | Que haya solo un statement por línea                                                                                                                  |JP       | x   |   -   |
 | 3      | Detectar funciones declaradas sin llamar                                                                                                              | MC       | x   |      |
 | 4      | Detectar variables declaradas sin usar                                                                                                                | MC       | x   |      |
 | 5      | Detectar código que no se va a ejecutar. ej: '' if (15>10) { /\*\*/ } else { /\* esto no se ejecuta nunca \*/ }''                                     | CD - JPL   | x   |  CD  |
