@@ -78,8 +78,18 @@ public class FunctionDeclaration extends Stmt {
 			if (key.toLowerCase().equals(id.toLowerCase()))
 				CheckStateLinter.addError18A(id, key, line, column);
 		});
-		ObjectState objState = new ObjectState(type, false, 1, this);
-		s.mapa.put(id, objState);
+		
+		s.mapa.put(id, new ObjectState(type, false, 1, this));
+		
+		Map<String,ObjectState> clonedMap = CheckState.clonarMapa(s.mapa);
+		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
+			clonedMap.put(parameter.getKey(), new ObjectState(parameter.getValue(), false, 2, this));
+		}
+		
+		CheckStateLinter csl = new CheckStateLinter();
+		csl.mapa = clonedMap;
+		body.checkLinter(csl);
+		
 		return s;
 	}
 
