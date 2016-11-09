@@ -1,9 +1,5 @@
 package examples.while_ut1.ast;
 
-import java.util.*;
-
-import examples.while_ut1.Main;
-
 /** Representación de las asignaciones de valores a variables.
  */
 public class AssignmentStmtWithType extends Stmt {
