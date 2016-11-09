@@ -1,5 +1,6 @@
 package examples.while_ut1.ast;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class TernaryOperator extends Exp {
@@ -88,16 +89,26 @@ public class TernaryOperator extends Exp {
 		Exp optimizado=condition.optimize();
 		if (optimizado instanceof TruthValue){
 			if (((TruthValue) optimizado).value){
+				
 				CheckStateLinter.addError5C(line, column);
 			}else{
+				
 				CheckStateLinter.addError5D(line, column);
 			}
 		}
 		
+		ArrayList <String> tiposAceptados=new ArrayList<String>();
+		tiposAceptados.add("Boolean");
+		CheckStateLinter.evaluarRegla9(this.condition, s, tiposAceptados);
 		
-		this.thenExp.checkLinter(s);
-		this.elseExp.checkLinter(s);
-		return null;
+				
+		String thenTipo=this.thenExp.checkLinter(s);
+		String elseTipo=this.elseExp.checkLinter(s);
+		if (thenTipo.equals(elseTipo)){
+			return thenTipo;
+		}else {
+			return "Double";
+		}
 	}
 
 	@Override
@@ -130,10 +141,5 @@ public class TernaryOperator extends Exp {
 	@Override
 	public int getColumn() {
 		return 0;
-	}
-	
-	@Override
-	public int countOperators() {
-		return 1 + condition.countOperators() + thenExp.countOperators() + elseExp.countOperators();
 	}
 }

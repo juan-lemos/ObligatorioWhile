@@ -49,7 +49,7 @@ String =	\"([^\"\\\n]|\\[bntrf\"\\/]|\\u[0-9a-fA-F]{4})*\"
 
 \n[ \t\r\f\v]*\n[ \t\r\n\f\v]*\n 
 	{ CheckStateLinter.addError1(yyline, yycolumn); }
-[ \t\r\f\v]*\n
+[ \t\r\f\v]*\n[ \t\r\f\v]*
 	{ return new Symbol(NEW_LINE, yyline, yycolumn, yytext()); }
 
 "!"

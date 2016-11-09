@@ -70,9 +70,4 @@ public class Defined extends BExp {
 	public int getColumn() {
 		return 0;
 	}
-	
-	@Override
-	public int countOperators() {
-		return 1;
-	}
 }

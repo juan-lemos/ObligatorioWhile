@@ -89,9 +89,4 @@ public class Numeral extends AExp {
 	public int getColumn() {
 		return 0;
 	}
-	
-	@Override
-	public int countOperators() {
-		return 0;
-	}
 }

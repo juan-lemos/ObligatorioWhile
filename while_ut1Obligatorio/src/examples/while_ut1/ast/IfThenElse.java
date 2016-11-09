@@ -100,7 +100,6 @@ public class IfThenElse extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
-		if (condition.countOperators() > 7) CheckStateLinter.addError20(condition.countOperators(), line, column);
 		Exp optimizado=condition.optimize();
 		if (optimizado instanceof TruthValue){
 			if (((TruthValue) optimizado).value){
@@ -110,8 +109,15 @@ public class IfThenElse extends Stmt {
 			}
 		}
 		
+		
+		ArrayList <String> tiposAceptados=new ArrayList<String>();
+		tiposAceptados.add("Boolean");
+		CheckStateLinter.evaluarRegla9(this.condition, s, tiposAceptados);
+		
 		condition.checkLinter(s);
+		thenBody.idFunction=this.idFunction;
 		thenBody.checkLinter(s);
+		elseBody.idFunction=this.idFunction;
 		elseBody.checkLinter(s);
 		return s;
 	}

@@ -57,8 +57,13 @@ public class Length extends Exp {
 
 	@Override
 	public String checkLinter(CheckStateLinter s) {
+		ArrayList <String> tiposAceptados=new ArrayList<String>();
+		tiposAceptados.add("String");
+		CheckStateLinter.evaluarRegla9(this.expression, s, tiposAceptados);
+		
+		
 		expression.checkLinter(s);
-		return null;
+		return "Integer";
 	}
 
 	@Override
@@ -80,8 +85,4 @@ public class Length extends Exp {
 		return 0;
 	}
 	
-	@Override
-	public int countOperators() {
-		return 1 + expression.countOperators();
-	}
 }
