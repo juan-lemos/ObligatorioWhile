@@ -140,7 +140,7 @@ public class AssignmentStmtWithType extends Stmt {
 		String expressionType = this.expression.checkLinter(s);
 		if (s.mapa.containsKey(id)) CheckStateLinter.addError14(id, line, column);
 		s.mapa.keySet().forEach((key) -> {
-			if (key.toLowerCase().equals(id.toLowerCase()))
+			if (key.toLowerCase().equals(id.toLowerCase()) && !key.equals(id))
 				CheckStateLinter.addError18B(id, key, line, column);
 		});
 		ObjectState objState = new ObjectState(this.type, true, 2, this);
