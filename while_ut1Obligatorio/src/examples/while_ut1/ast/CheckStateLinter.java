@@ -114,6 +114,6 @@ public class CheckStateLinter {
 	}
 	
 	private static String createErrorMsg(String code, String msg, int line, int column) {
-		return "Error " + code + ": " + msg + "." + " Line: " + line + ", Column: " + column;
+		return "Offense detected - " + code + ": " + msg + "." + " Line: " + line + ", Column: " + column;
 	}
 }
