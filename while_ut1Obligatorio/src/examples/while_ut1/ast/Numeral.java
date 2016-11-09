@@ -7,8 +7,10 @@ import java.util.*;
 public class Numeral extends AExp {
 	public final Object number;
 
-	public Numeral(Double number) {
+	public Numeral(Double number, int line, int column) {
 		this.number = number;
+		this.line = line;
+		this.column = column;
 	}
 
 	public Numeral(Integer number) {
@@ -41,12 +43,6 @@ public class Numeral extends AExp {
 		}
 	}
 
-	public static Numeral generate(Random random, int min, int max) {
-		Double number;
-		number = Math.round(random.nextDouble() * 1000) / 100.0;
-		return new Numeral(number);
-	}
-
 	@Override
 	public Object evaluate(State state) {
 		return number;
@@ -67,6 +63,7 @@ public class Numeral extends AExp {
 
 	@Override
 	public String checkLinter(CheckStateLinter s) {
+		if (getIsInsideParenthesis()) CheckStateLinter.addError16(line, column);
 		if (this.number instanceof Integer){
 			return "Integer";
 		}

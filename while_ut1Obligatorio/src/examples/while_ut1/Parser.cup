@@ -193,11 +193,11 @@ tipoFuncionesDef ::=
 
 exp ::=
 		NUM:$1
-		{: RESULT = new Numeral($1); :}
+		{: RESULT = new Numeral($1, $1left, $1right); :}
 	|	NUMInt:$1
 		{: RESULT = new  Numeral($1); :}
 	|	STR:$1
-		{: RESULT = new Str($1); :}
+		{: RESULT = new Str($1, $1left, $1right); :}
 	|	ID:$1
 		{: RESULT = new Variable($1,$1left,$1right); :}
 	|	exp:$1 ASTERISK:$2 exp:$3
@@ -209,17 +209,23 @@ exp ::=
 	|	exp:$1 HYPHEN_MINUS:$2 exp:$3
 		{: RESULT = new Subtraction($1, $3); :}
 	|	LEFT_PARENTHESIS:$1 exp:$2 RIGHT_PARENTHESIS:$3
-		{: RESULT = $2; :}
+		{:
+			if ($2.getIsInsideParenthesis())
+				CheckStateLinter.addError16($1left, $1right);
+			else
+				$2.setIsInsideParenthesis(true);
+			RESULT = $2;
+		:}
 	|	TRUE:$1
-		{: RESULT = new TruthValue(true); :}
+		{: RESULT = new TruthValue(true, $1left, $1right); :}
 	|	FALSE:$1
-		{: RESULT = new TruthValue(false); :}
+		{: RESULT = new TruthValue(false, $1left, $1right); :}
 	|	exp:$1 DOUBLE_EQUALS_SIGN:$2 exp:$3
 		{: RESULT = new CompareEqual($1, $3); :}
 	|	exp:$1 LESS_THAN_OR_EQUAL:$2 exp:$3
 		{: RESULT = new CompareLessOrEqual($1, $3); :}
 	|	EXCLAMATION_MARK:$1 exp:$2
-		{: RESULT = new Negation($2); :}
+		{: RESULT = new Negation($2, $1left, $1right); :}
 	|	exp:$1 DOUBLE_AMPERSAND:$2 exp:$3
 		{: RESULT = new Conjunction($1, $3); :}
 	|	ID:$1 EQUALS_SIGN:$2 exp:$3

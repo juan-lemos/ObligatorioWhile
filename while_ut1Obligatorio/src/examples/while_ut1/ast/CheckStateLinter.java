@@ -93,6 +93,10 @@ public class CheckStateLinter {
 		addError("14", "la variable " + variableId + " ya se encuentra declarada", line, column);
 	}
 	
+	public static void addError16(int line, int column) {
+		addError("16", "existen parentesis superfluos", line, column);
+	}
+	
 	public static void addError17(int line, int column) {
 		addError("17", "existen llaves superfluas", line, column);
 	}

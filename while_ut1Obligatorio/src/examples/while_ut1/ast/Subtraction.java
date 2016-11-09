@@ -102,7 +102,7 @@ public class Subtraction extends AExp {
 			}else{
 				rightNumberValue =((Double)((Numeral)rightOptimized).number);
 			}
-			return new Numeral(leftNumberValue-rightNumberValue);
+			return new Numeral(leftNumberValue-rightNumberValue, left.line, left.column);
 		}	
 		return this;
 	}

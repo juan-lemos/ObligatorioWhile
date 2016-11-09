@@ -7,8 +7,10 @@ import java.util.*;
 public class Negation extends BExp {
 	public final Exp condition;
 
-	public Negation(Exp condition) {
+	public Negation(Exp condition, int line, int column) {
 		this.condition = condition;
+		this.line = line;
+		this.column = column;
 	}
 
 	@Override public String unparse() {
@@ -30,12 +32,6 @@ public class Negation extends BExp {
 		if (obj == null || getClass() != obj.getClass()) return false;
 		Negation other = (Negation)obj;
 		return (this.condition == null ? other.condition == null : this.condition.equals(other.condition));
-	}
-
-	public static Negation generate(Random random, int min, int max) {
-		BExp condition; 
-		condition = BExp.generate(random, min-1, max-1);
-		return new Negation(condition);
 	}
 
 	@Override
@@ -71,7 +67,7 @@ public class Negation extends BExp {
 	public Exp optimize() {
 		Exp optimizedCondition=condition.optimize();
 		if (optimizedCondition instanceof TruthValue){
-			return new TruthValue(!((TruthValue)optimizedCondition).value);
+			return new TruthValue(!((TruthValue)optimizedCondition).value, condition.line, condition.column);
 		}else{
 			return this;
 		}

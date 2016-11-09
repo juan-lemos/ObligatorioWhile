@@ -66,6 +66,7 @@ public class Variable extends AExp {
 
 	@Override
 	public String checkLinter(CheckStateLinter s) {
+		if (getIsInsideParenthesis()) CheckStateLinter.addError16(line, column);
 		if(!s.mapa.containsKey(id)){
 			CheckStateLinter.addError8(id, line, column);
 			return "Double";

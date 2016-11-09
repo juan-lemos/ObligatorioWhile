@@ -7,8 +7,10 @@ import java.util.*;
 public class TruthValue extends BExp {
 	public final Boolean value;
 
-	public TruthValue(Boolean value) {
+	public TruthValue(Boolean value, int line, int column) {
 		this.value = value;
+		this.line = line;
+		this.column = column;
 	}
 
 	@Override public String unparse() {
@@ -32,12 +34,6 @@ public class TruthValue extends BExp {
 		return (this.value == null ? other.value == null : this.value.equals(other.value));
 	}
 
-	public static TruthValue generate(Random random, int min, int max) {
-		Boolean value; 
-		value = random.nextBoolean();
-		return new TruthValue(value);
-	}
-
 	@Override
 	public Object evaluate(State state) {
 		return value;
@@ -50,7 +46,7 @@ public class TruthValue extends BExp {
 
 	@Override
 	public String checkLinter(CheckStateLinter s) {
-		// TODO Auto-generated method stub
+		if (getIsInsideParenthesis()) CheckStateLinter.addError16(line, column);
 		return "Boolean";
 	}
 

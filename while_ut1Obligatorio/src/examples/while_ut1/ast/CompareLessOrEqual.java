@@ -96,7 +96,7 @@ public class CompareLessOrEqual extends BExp {
 			}else{
 				rightNumberValue =((Double)((Numeral)rightOptimized).number);
 			}
-			return new TruthValue(leftNumberValue <= rightNumberValue);
+			return new TruthValue(leftNumberValue <= rightNumberValue, left.line, left.column);
 		}
 		else{
 			return this;

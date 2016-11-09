@@ -80,7 +80,7 @@ public class Conjunction extends BExp {
 		Exp leftOptimized=left.optimize();
 		Exp rightOptimized=right.optimize();
 		if(leftOptimized instanceof TruthValue  && rightOptimized instanceof TruthValue) {
-			return new TruthValue (((TruthValue)leftOptimized).value == ((TruthValue)rightOptimized).value);
+			return new TruthValue (((TruthValue)leftOptimized).value == ((TruthValue)rightOptimized).value, left.line, left.column);
 		}
 		else{
 			return this;
