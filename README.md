@@ -2,7 +2,7 @@
 
 El obligatorio tiene como objetivo agregar funcionalidades al lenguaje While dictado en el curso. 
 
-Integrantes: Juan Lemos, Mauricio Coniglio, Cynthia Duhalde, Fernando Torterolo
+Integrantes: Juan Lemos, Mauricio Coniglio, Cynthia Duhalde, Fernando Torterolo, Sebastian Caredio
 
 [NIELSON1999] (http://www.daimi.au.dk/~bra8130/Wiley_book/wiley.html)
 H.R. Nielson & F. Nielson: "Semantic with Applications: A formal introduction". John Wiley & Sons, revised edition ISBN 0-471-92980-8.
