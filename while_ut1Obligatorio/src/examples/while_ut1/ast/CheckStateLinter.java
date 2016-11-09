@@ -16,7 +16,7 @@ public class CheckStateLinter {
 				if (objState.isFunction()) {
 					addError3(objState.getLine(), objState.getColumn());
 				} else {
-					addError4(objState.getLine(), objState.getColumn());
+					addError4_11(objState.getLine(), objState.getColumn());
 				}
 			}
 		}
@@ -45,8 +45,8 @@ public class CheckStateLinter {
 		addError("3", "funcion declarada sin llamar", line, column); 
 	}
 	
-	public static void addError4(int line, int column) {
-		addError("4", "variable asignada sin usar", line, column); 
+	public static void addError4_11(int line, int column) {
+		addError("4-11", "variable definida sin usar", line, column); 
 	}
 	
 	public static void addError5A(int line, int column) {
@@ -89,8 +89,8 @@ public class CheckStateLinter {
 		addError("13", "la funcion " + functionName + " ya se encuentra definida", line, column); 
 	}
 	
-	public static void addError14(String variableId, int line, int column) {
-		addError("14", "la variable " + variableId + " ya se encuentra declarada", line, column);
+	public static void addError14_19(String variableId, int line, int column) {
+		addError("14-19", "la variable " + variableId + " ya se encuentra declarada", line, column);
 	}
 	
 	public static void addError16(int line, int column) {
