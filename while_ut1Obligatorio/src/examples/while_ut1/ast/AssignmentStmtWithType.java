@@ -139,7 +139,7 @@ public class AssignmentStmtWithType extends Stmt {
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
 		if (Character.isUpperCase(id.charAt(0)) || id.charAt(0) == '_') CheckStateLinter.addError6(line, column);
 		String expressionType = this.expression.checkLinter(s);
-		if (s.mapa.containsKey(id) && !s.mapa.get(id).isFunction()) CheckStateLinter.addError14(id, line, column);
+		if (s.mapa.containsKey(id) && !s.mapa.get(id).isFunction()) CheckStateLinter.addError14_19(id, line, column);
 		s.mapa.keySet().forEach((key) -> {
 			if (key.toLowerCase().equals(id.toLowerCase()) && !key.equals(id) && !s.mapa.get(key).isFunction())
 				CheckStateLinter.addError18B(id, key, line, column);
