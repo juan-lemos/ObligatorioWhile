@@ -12,12 +12,17 @@ import examples.while_ut1.ast.*;
 public class Main {
 	public static String variable="";
 	
+//	public static String line="{a((d));   \n int a=3; \n  int a=3;}";
+	public static String line="{int a=3;}";
+//	public static String line="a=32;";
+	
 	public static void main(String[] args) throws Exception {
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+//		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		System.out.print("> ");
 		State state = new State();
-		for (String line; (line = in.readLine()) != null;) {
-			line = line.trim();
+//		for (String line; (line = in.readLine()) != null;) {
+//			line = line.trim();
+		System.out.println(line);
 			try {
 				if (line.length() > 0) {
 					Stmt prog = (Stmt) (Parser.parse(line).value);
@@ -32,7 +37,7 @@ public class Main {
 				System.err.print(err);
 				err.printStackTrace();
 			}
-		}
+//		}
 	}
 
 

@@ -65,7 +65,7 @@ public class AssignmentExp extends Exp {
 		}
 		return expression.check(s);
 	}
-	
+
 	public static Object asignarValor(Exp expression,State state,String id,String unparse2){
 		Object valor = expression.evaluate(state);
 		if (valor instanceof String){
@@ -113,6 +113,14 @@ public class AssignmentExp extends Exp {
 		String expressionType = this.expression.checkLinter(s);
 		if (s.mapa.containsKey(id)) {
 			s.mapa.get(id).used = true;
+			s.mapa.get(id).assigned=true;
+
+			
+			ArrayList <String> tiposAceptados=new ArrayList<String>();
+			tiposAceptados.add(s.mapa.get(this.id).tipo);
+			CheckStateLinter.evaluarRegla9(expression, s, tiposAceptados);
+			
+			
 		} else {
 			CheckStateLinter.addError8(id, line, column);
 			ObjectState objState = new ObjectState("Double", true, 2, this);
@@ -124,12 +132,11 @@ public class AssignmentExp extends Exp {
 	@Override
 	public Exp optimize() {
 		Exp optimizedExpression = expression.optimize();
-		if (optimizedExpression instanceof Numeral){
+		if (optimizedExpression instanceof Numeral||
+				optimizedExpression instanceof Str ||
+				optimizedExpression instanceof TruthValue){
 			return optimizedExpression;
-		}else if(optimizedExpression instanceof Str){
-			return optimizedExpression;
-		}else if(optimizedExpression instanceof TruthValue){
-			return optimizedExpression;
+
 		}else{
 			return this;
 		}
@@ -143,10 +150,5 @@ public class AssignmentExp extends Exp {
 	@Override
 	public int getColumn() {
 		return 0;
-	}
-	
-	@Override
-	public int countOperators() {
-		return 1 + expression.countOperators();
 	}
 }

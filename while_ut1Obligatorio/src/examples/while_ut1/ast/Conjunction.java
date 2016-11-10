@@ -72,6 +72,14 @@ public class Conjunction extends BExp {
 	public String checkLinter(CheckStateLinter s) {
 		this.left.checkLinter(s);
 		this.right.checkLinter(s);
+		
+		
+		ArrayList <String> tiposAceptados=new ArrayList<String>();
+		tiposAceptados.add("Boolean");
+		CheckStateLinter.evaluarRegla9(this.left, s, tiposAceptados);
+		CheckStateLinter.evaluarRegla9(this.right, s, tiposAceptados);	
+		
+		
 		return "Boolean";
 	}
 
@@ -95,10 +103,5 @@ public class Conjunction extends BExp {
 	@Override
 	public int getColumn() {
 		return 0;
-	}
-	
-	@Override
-	public int countOperators() {
-		return 1 + left.countOperators() + right.countOperators();
 	}
 }

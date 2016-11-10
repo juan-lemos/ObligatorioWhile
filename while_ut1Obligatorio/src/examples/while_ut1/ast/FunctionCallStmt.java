@@ -51,12 +51,7 @@ public class FunctionCallStmt extends Stmt{
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
-		int paramsOperators = 0;
-		for (Exp exp : parameters) {
-			paramsOperators += exp.countOperators();
-		}
-		if (paramsOperators > 7) CheckStateLinter.addError20(paramsOperators, line, column);
-		
+		// COPIADO DE FUNCTIONCALL REVISAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		if (s.mapa.containsKey(this.id)) {
 			ObjectState objState = s.mapa.get(this.id);
 			objState.used = true;

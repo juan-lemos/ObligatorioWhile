@@ -56,12 +56,13 @@ public class Sequence extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
-		if (statements.length == 0) CheckStateLinter.addError17(line, column);
-		for (Stmt stmt : statements) {
-			if (stmt instanceof Sequence) {
-				CheckStateLinter.addError17(line, column);
+		if (statements.length <= 1) CheckStateLinter.addError17(line, column);
+		for (int i=0; i<statements.length; i++){
+			if (statements[i] instanceof Sequence) {
+					CheckStateLinter.addError17(line, column);
 			}
-			s = stmt.checkLinter(s);
+			statements[i].idFunction=this.idFunction;
+			s=statements[i].checkLinter(s);
 		}
 		return s;
 	}

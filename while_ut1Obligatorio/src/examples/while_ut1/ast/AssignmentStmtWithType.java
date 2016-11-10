@@ -1,5 +1,7 @@
 package examples.while_ut1.ast;
 
+import java.util.ArrayList;
+
 /** Representación de las asignaciones de valores a variables.
  */
 public class AssignmentStmtWithType extends Stmt {
@@ -126,7 +128,6 @@ public class AssignmentStmtWithType extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
-		if (expression.countOperators() > 7) CheckStateLinter.addError20(expression.countOperators(), line, column);
 		if (Character.isUpperCase(id.charAt(0)) || id.charAt(0) == '_') CheckStateLinter.addError6(line, column);
 		String expressionType = this.expression.checkLinter(s);
 		if (s.mapa.containsKey(id) && !s.mapa.get(id).isFunction()) CheckStateLinter.addError14_19(id, line, column);
@@ -136,6 +137,14 @@ public class AssignmentStmtWithType extends Stmt {
 		});
 		ObjectState objState = new ObjectState(this.type, true, 2, this);
 		s.mapa.put(this.id, objState);
+		
+		
+		
+		ArrayList <String> tiposAceptados=new ArrayList<String>();
+		tiposAceptados.add(this.type);
+		CheckStateLinter.evaluarRegla9(expression, s, tiposAceptados);
+		
+		
 		return s;
 	}
 

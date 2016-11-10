@@ -80,9 +80,25 @@ public class Subtraction extends AExp {
 
 	@Override
 	public String checkLinter(CheckStateLinter s) {
-		this.left.checkLinter(s);
-		this.right.checkLinter(s);
-		return null;
+		String left=this.left.checkLinter(s);
+		String right=this.right.checkLinter(s);
+		if ((left.equals(right)) && left.equals("Integer")){
+			return left;
+		}else if (((left.equals("Double")) && left.equals("Integer"))||
+				(left.equals("Integer")) && left.equals("Double") ||
+				(left.equals("Double")) && left.equals("Double")
+				){
+			return "Double";
+		}else{
+			ArrayList <String> tiposAceptados=new ArrayList<String>();
+			tiposAceptados.add("Integer");
+			tiposAceptados.add("Double");
+			CheckStateLinter.evaluarRegla9(this.left, s, tiposAceptados);
+			CheckStateLinter.evaluarRegla9(this.right, s, tiposAceptados);
+			
+			
+			return left;
+		}
 	}
 
 	@Override
@@ -115,10 +131,5 @@ public class Subtraction extends AExp {
 	@Override
 	public int getColumn() {
 		return 0;
-	}
-	
-	@Override
-	public int countOperators() {
-		return 1 + left.countOperators() + right.countOperators();
 	}
 }

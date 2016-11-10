@@ -26,7 +26,6 @@ parser code {:
 			System.out.println(parse(new InputStreamReader(new FileInputStream(args[i]), "UTF8")).value);
 		}
 	}
-
 :}
 
 
@@ -254,7 +253,9 @@ parametros ::=
 		$0 = new ArrayList<Exp>();
 		$0.add($2);
 		RESULT = $0; :}
+
 ;
+
 
 
 parametrosConTipo ::=  		
@@ -281,7 +282,8 @@ repeat$stmtBasics ::=
 	|	repeat$stmtBasics:$1 stmtBasics:$2
 		{: List<Stmt> $0;
 		$1.add($2); $0 = $1;
-		CheckStateLinter.addError2($2left, $2right);
+		if ($1.size()>1){
+		CheckStateLinter.addError2($2left, $2right);}
 		RESULT = $0; :}
 	|	repeat$stmtBasics:$1 NEW_LINE stmtBasics:$2
 		{: List<Stmt> $0;
@@ -296,7 +298,8 @@ repeat$stmtFunctions ::=
 	|	repeat$stmtFunctions:$1 stmtFunctions:$2
 		{: List<Stmt> $0;
 		$1.add($2); $0 = $1;
-		CheckStateLinter.addError2($2left, $2right);
+		if ($1.size()>1){
+		CheckStateLinter.addError2($2left, $2right);}
 		RESULT = $0; :}
 	|	repeat$stmtFunctions:$1 NEW_LINE stmtFunctions:$2
 		{: List<Stmt> $0;
@@ -311,7 +314,8 @@ repeat$stmtMain ::=
 	|	repeat$stmtMain:$1 stmtMain:$2
 		{: List<Stmt> $0;
 		$1.add($2); $0 = $1;
-		CheckStateLinter.addError2($2left, $2right);
+		if ($1.size()>1){
+		CheckStateLinter.addError2($2left, $2right);}
 		RESULT = $0; :}
 	|	repeat$stmtMain:$1 NEW_LINE stmtMain:$2
 		{: List<Stmt> $0;

@@ -15,6 +15,7 @@ public abstract class Stmt extends AstNode {
 	@Override public abstract int hashCode();
 
 	@Override public abstract boolean equals(Object obj);
+	public String idFunction="";
 	
 	public static Stmt generate(Random random, int min, int max) {
 		final int TERMINAL_COUNT = 0;

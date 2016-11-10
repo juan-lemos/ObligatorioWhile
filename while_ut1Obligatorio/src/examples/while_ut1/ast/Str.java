@@ -64,9 +64,4 @@ public class Str extends Exp{
 	public int getColumn() {
 		return 0;
 	}
-	
-	@Override
-	public int countOperators() {
-		return 0;
-	}
 }

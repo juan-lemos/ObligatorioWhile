@@ -95,6 +95,11 @@ public class FunctionDeclaration extends Stmt {
 		cslForParams = body.checkLinter(cslForParams);
 		CheckStateLinter.generateErrors(cslForParams);
 		
+		
+		
+		body.idFunction=id;
+		body.checkLinter(s);
+		
 		return s;
 	}
 

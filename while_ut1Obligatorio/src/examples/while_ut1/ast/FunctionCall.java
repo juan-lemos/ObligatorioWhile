@@ -98,13 +98,4 @@ public class FunctionCall extends Exp {
 	public int getColumn() {
 		return column;
 	}
-	
-	@Override
-	public int countOperators() {
-		int paramsOperators = 0;
-		for (Exp exp : parameters) {
-			paramsOperators += exp.countOperators();
-		}
-		return 1 + paramsOperators;
-	}
 }
