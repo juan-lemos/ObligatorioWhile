@@ -111,9 +111,9 @@ stmtBasics ::=
 	|	WHILE:$1 exp:$2 DO:$3 stmtBasics:$4
 		{: RESULT = new WhileDo($2, $4); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtBasics:$4
-		{: RESULT = new IfThen($2, $4); :}
+		{: RESULT = new IfThen($2, $4, $2left, $2right); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtBasics:$4 ELSE:$5 stmtBasics:$6
-		{: RESULT = new IfThenElse($2, $4, $6); :}
+		{: RESULT = new IfThenElse($2, $4, $6, $2left, $2right); :}
 	|	PRINT:$2 LEFT_PARENTHESIS exp:$1 RIGHT_PARENTHESIS SEMICOLON
 		{: RESULT = new Print($1,$2left, $2right); :}
 	|	ID:$4 LEFT_PARENTHESIS parametros:$2 RIGHT_PARENTHESIS SEMICOLON
@@ -135,9 +135,9 @@ stmtMain ::=
 	|	WHILE:$1 exp:$2 DO:$3 stmtBasics:$4
 		{: RESULT = new WhileDo($2, $4); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtBasics:$4
-		{: RESULT = new IfThen($2, $4); :}
+		{: RESULT = new IfThen($2, $4, $2left, $2right); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtBasics:$4 ELSE:$5 stmtBasics:$6
-		{: RESULT = new IfThenElse($2, $4, $6); :}
+		{: RESULT = new IfThenElse($2, $4, $6, $2left, $2right); :}
 	|	PRINT:$2 LEFT_PARENTHESIS exp:$1 RIGHT_PARENTHESIS SEMICOLON
 		{: RESULT = new Print($1,$2left, $2right); :}
 	|	ID:$4 LEFT_PARENTHESIS parametros:$2 RIGHT_PARENTHESIS SEMICOLON
@@ -161,9 +161,9 @@ stmtFunctions ::=
 	|	WHILE:$1 exp:$2 DO:$3 stmtFunctions:$4
 		{: RESULT = new WhileDo($2, $4); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtFunctions:$4
-		{: RESULT = new IfThen($2, $4); :}
+		{: RESULT = new IfThen($2, $4, $2left, $2right); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtFunctions:$4 ELSE:$5 stmtFunctions:$6
-		{: RESULT = new IfThenElse($2, $4, $6); :}
+		{: RESULT = new IfThenElse($2, $4, $6, $2left, $2right); :}
 	|	PRINT:$2 LEFT_PARENTHESIS exp:$1 RIGHT_PARENTHESIS SEMICOLON
 		{: RESULT = new Print($1,$2left, $2right); :}
 	|	ID:$4 LEFT_PARENTHESIS parametros:$2 RIGHT_PARENTHESIS SEMICOLON

@@ -118,6 +118,10 @@ public class CheckStateLinter {
 		addError("18B", "la variable " + variableId + " se encuentra definida como " + oldVariableId, line, column);
 	}
 	
+	public static void addError21(int nestingLevels, int line, int column) {
+		 addError("21", "existe un statement con " + nestingLevels + " niveles de anidacion", line, column);
+	}
+	
 	private static void addError(String code, String msg, int line, int column) {
 		errores.add(createErrorMsg(code, msg, line, column));
 	}

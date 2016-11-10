@@ -12,17 +12,11 @@ import examples.while_ut1.ast.*;
 public class Main {
 	public static String variable="";
 	
-//	public static String line="{a((d));   \n int a=3; \n  int a=3;}";
-	public static String line="{int a=3;}";
-//	public static String line="a=32;";
-	
 	public static void main(String[] args) throws Exception {
-//		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		System.out.print("> ");
-		State state = new State();
-//		for (String line; (line = in.readLine()) != null;) {
-//			line = line.trim();
-		System.out.println(line);
+		for (String line; (line = in.readLine()) != null;) {
+			line = line.trim();
 			try {
 				if (line.length() > 0) {
 					Stmt prog = (Stmt) (Parser.parse(line).value);
@@ -37,7 +31,7 @@ public class Main {
 				System.err.print(err);
 				err.printStackTrace();
 			}
-//		}
+		}
 	}
 
 
@@ -58,8 +52,6 @@ public class Main {
 	}
 
 	public static CheckState checkInput(String inPut){
-		
-		
 		String testString = inPut;
 		CheckState state = new CheckState();
 		testString = testString.trim();
@@ -75,46 +67,4 @@ public class Main {
 		}
 		return state;
 	}
-
-
-
-//	public static boolean equalsMaps(Object o,Map map2) {
-//		if (o == map2)
-//			return true;
-//
-//		if (!(o instanceof Map))
-//			return false;
-//		Map<String,ObjectValorTipo> m = (Map<String,ObjectValorTipo>) o;
-//		if (m.size() != map2.size())
-//			return false;
-//
-//		try {
-//			Iterator<Entry<String,ObjectValorTipo>> i = map2.entrySet().iterator();
-//			while (i.hasNext()) {
-//				Entry<String,ObjectValorTipo> e = i.next();
-//				String key = e.getKey();
-//				ObjectValorTipo value = e.getValue();
-//				if (value == null) {
-//					if (!(m.get(key)==null && m.containsKey(key)))
-//						return false;
-//				} else {
-//					if (!value.equals(m.get(key)))
-//						return false;
-//				}
-//			}
-//		} catch (ClassCastException unused) {
-//			return false;
-//		} catch (NullPointerException unused) {
-//			return false;
-//		}
-//
-//		return true;
-//	}
-
-
-	
-
-
-
-
 }

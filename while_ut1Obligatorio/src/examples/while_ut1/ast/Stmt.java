@@ -47,4 +47,6 @@ public abstract class Stmt extends AstNode {
 			throw new IllegalStateException(unparse);
 		}
 	}
+	
+	abstract public int countNestingLevels();
 }

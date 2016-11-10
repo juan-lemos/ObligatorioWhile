@@ -68,4 +68,9 @@ public class Print extends Stmt {
 	public int getColumn() {
 		return 0;
 	}
+	
+	@Override
+	public int countNestingLevels() {
+		return 0;
+	}
 }

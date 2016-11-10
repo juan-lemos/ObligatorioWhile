@@ -56,7 +56,9 @@ public class Sequence extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
-		if (statements.length <= 1) CheckStateLinter.addError17(line, column);
+		if (statements.length == 0) CheckStateLinter.addError17(line, column);
+		if (countNestingLevels() > 5) CheckStateLinter.addError21(countNestingLevels(), line, column);
+		
 		for (int i=0; i<statements.length; i++){
 			if (statements[i] instanceof Sequence) {
 					CheckStateLinter.addError17(line, column);
@@ -75,5 +77,15 @@ public class Sequence extends Stmt {
 	@Override
 	public int getColumn() {
 		return column;
+	}
+
+	@Override
+	public int countNestingLevels() {
+		int maxNestingLevels = 0;
+		for (Stmt stmt : statements) {
+			if (stmt.countNestingLevels() > maxNestingLevels)
+				maxNestingLevels = stmt.countNestingLevels();
+		}
+		return maxNestingLevels;
 	}
 }

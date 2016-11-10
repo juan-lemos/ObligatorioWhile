@@ -73,6 +73,7 @@ public class FunctionDeclaration extends Stmt {
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
 		if (Character.isUpperCase(id.charAt(0))) CheckStateLinter.addError7(line, column);
+		if (body.countNestingLevels() > 5) CheckStateLinter.addError21(body.countNestingLevels(), line, column);
 		if (s.mapa.containsKey(id) && s.mapa.get(id).isFunction()) CheckStateLinter.addError13(id, line, column);
 		s.mapa.keySet().forEach((key) -> {
 			if (key.toLowerCase().equals(id.toLowerCase()) && !key.equals(id) && s.mapa.get(key).isFunction())
@@ -96,11 +97,6 @@ public class FunctionDeclaration extends Stmt {
 		cslForParams = body.checkLinter(cslForParams);
 		CheckStateLinter.generateErrors(cslForParams);
 		
-		
-		
-
-
-		
 		return s;
 	}
 
@@ -112,5 +108,10 @@ public class FunctionDeclaration extends Stmt {
 	@Override
 	public int getColumn() {
 		return column;
+	}
+	
+	@Override
+	public int countNestingLevels() {
+		return body.countNestingLevels();
 	}
 }

@@ -95,4 +95,9 @@ public class AssignmentStmt extends Stmt {
 	public int getColumn() {
 		return column;
 	}
+	
+	@Override
+	public int countNestingLevels() {
+		return 0;
+	}
 }

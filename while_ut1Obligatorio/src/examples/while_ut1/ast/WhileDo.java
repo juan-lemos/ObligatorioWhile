@@ -87,6 +87,8 @@ public class WhileDo extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		if (countNestingLevels() > 5) CheckStateLinter.addError21(countNestingLevels(), line, column);
+		
 		Exp optimizado=condition.optimize();
 		if (optimizado instanceof TruthValue){
 			if (!((TruthValue) optimizado).value){
@@ -120,5 +122,10 @@ public class WhileDo extends Stmt {
 	@Override
 	public int getColumn() {
 		return 0;
+	}
+	
+	@Override
+	public int countNestingLevels() {
+		return 1 + body.countNestingLevels();
 	}
 }
