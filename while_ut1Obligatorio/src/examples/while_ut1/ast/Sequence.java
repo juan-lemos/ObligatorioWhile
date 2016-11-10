@@ -56,7 +56,7 @@ public class Sequence extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
-		if (statements.length <= 1) CheckStateLinter.addError17(line, column);
+		if (statements.length == 0) CheckStateLinter.addError17(line, column);
 		for (Stmt stmt : statements) {
 			if (stmt instanceof Sequence) {
 				CheckStateLinter.addError17(line, column);
