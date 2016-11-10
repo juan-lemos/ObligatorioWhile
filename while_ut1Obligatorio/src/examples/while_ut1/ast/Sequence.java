@@ -7,8 +7,10 @@ import java.util.*;
 public class Sequence extends Stmt {
 	public final Stmt[] statements;
 
-	public Sequence(Stmt[] statements) {
+	public Sequence(Stmt[] statements, int line, int column) {
 		this.statements = statements;
+		this.line = line;
+		this.column = column;
 	}
 
 	@Override public String unparse() {
@@ -36,15 +38,6 @@ public class Sequence extends Stmt {
 		return Arrays.equals(this.statements, other.statements);
 	}
 
-	public static Sequence generate(Random random, int min, int max) {
-		Stmt[] statements; 
-		statements = new Stmt[random.nextInt(Math.max(0, max)+1)];
-		for (int i = 0; i < statements.length; i++) {
-			statements[i] = Stmt.generate(random, min-1, max-1);
-		}
-		return new Sequence(statements);
-	}
-
 	@Override
 	public State evaluate(State state) {
 		for (int i=0; i<statements.length; i++){
@@ -63,9 +56,23 @@ public class Sequence extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
-		for (int i=0; i<statements.length; i++){
-			s=statements[i].checkLinter(s);
+		if (statements.length == 0) CheckStateLinter.addError17(line, column);
+		for (Stmt stmt : statements) {
+			if (stmt instanceof Sequence) {
+				CheckStateLinter.addError17(line, column);
+			}
+			s = stmt.checkLinter(s);
 		}
 		return s;
+	}
+
+	@Override
+	public int getLine() {
+		return line;
+	}
+
+	@Override
+	public int getColumn() {
+		return column;
 	}
 }

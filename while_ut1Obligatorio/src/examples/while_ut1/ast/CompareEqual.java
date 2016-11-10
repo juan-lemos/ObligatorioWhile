@@ -86,17 +86,31 @@ public class CompareEqual extends BExp {
 			}else{
 				rightNumberValue =((Double)((Numeral)rightOptimized).number);
 			}
-			return new TruthValue(leftNumberValue == rightNumberValue);
+			return new TruthValue(leftNumberValue == rightNumberValue, left.line, left.column);
 		}else if(leftOptimized instanceof Str  && rightOptimized instanceof Str) {
 			String leftString=(String)(((Str)leftOptimized).value);
 			String rightString=(String)(((Str)rightOptimized).value);
-			return new TruthValue(leftString.equals(rightString));
+			return new TruthValue(leftString.equals(rightString), left.line, left.column);
 		}else if(leftOptimized instanceof TruthValue  && rightOptimized instanceof TruthValue) {
-			return new TruthValue (((TruthValue)leftOptimized).value == ((TruthValue)rightOptimized).value);
+			return new TruthValue (((TruthValue)leftOptimized).value == ((TruthValue)rightOptimized).value, left.line, left.column);
 		}
 		else{
 			return this;
 		}
 	}
 
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
+	}
+
+	@Override
+	public int countOperators() {
+		return 1 + left.countOperators() + right.countOperators();
+	}
 }

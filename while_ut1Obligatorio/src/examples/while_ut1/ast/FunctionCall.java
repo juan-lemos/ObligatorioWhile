@@ -67,14 +67,13 @@ public class FunctionCall extends Exp {
 			objState.used = true;
 			FunctionDeclaration functionDeclaration = (FunctionDeclaration) objState.astNode;
 			if (!(this.parameters.size() == functionDeclaration.parameters.size())) {
-				CheckStateLinter.addError("10A", "cantidad de parametros de funcion incorrectos", line, column);
+				CheckStateLinter.addError10A(line, column);
 			} else {
 				for (int i = 0; i < this.parameters.size(); i++){
 					String parameterType = this.parameters.get(i).checkLinter(s);
 					String expectedType = (String) functionDeclaration.parameters.values().toArray()[i];
 				    if (!(parameterType == expectedType)) {
-				    	String msg = "parametro de funcion de tipo incorrecto. Esperado: " + expectedType + ", actual: " + parameterType;
-				    	CheckStateLinter.addError("10B", msg, line, column);
+				    	CheckStateLinter.addError10B(expectedType, parameterType, line, column);
 				    }
 				}
 			}
@@ -88,5 +87,24 @@ public class FunctionCall extends Exp {
 	@Override
 	public Exp optimize() {
 		return this;
+	}
+
+	@Override
+	public int getLine() {
+		return line;
+	}
+
+	@Override
+	public int getColumn() {
+		return column;
+	}
+	
+	@Override
+	public int countOperators() {
+		int paramsOperators = 0;
+		for (Exp exp : parameters) {
+			paramsOperators += exp.countOperators();
+		}
+		return 1 + paramsOperators;
 	}
 }

@@ -60,4 +60,19 @@ public class Defined extends BExp {
 	public Exp optimize() {
 		return this;
 	}
+
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
+	}
+	
+	@Override
+	public int countOperators() {
+		return 1;
+	}
 }

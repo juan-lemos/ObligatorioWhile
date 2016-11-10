@@ -72,16 +72,39 @@ public class FunctionDeclaration extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
-		if (Character.isUpperCase(id.charAt(0))) CheckStateLinter.addError("7", "los nombres de metodos deben comenzar con minuscula", line, column);
-		if (s.mapa.containsKey(id)) CheckStateLinter.addError("13", "la funcion " + id + " ya se encuentra definida", line, column);
+		if (Character.isUpperCase(id.charAt(0))) CheckStateLinter.addError7(line, column);
+		if (s.mapa.containsKey(id) && s.mapa.get(id).isFunction()) CheckStateLinter.addError13(id, line, column);
 		s.mapa.keySet().forEach((key) -> {
-			if (key.toLowerCase().equals(id.toLowerCase()))
-				CheckStateLinter.addError("18A", "la funcion " + id + " se encuentra definida como " + key, line, column);
+			if (key.toLowerCase().equals(id.toLowerCase()) && !key.equals(id) && s.mapa.get(key).isFunction())
+				CheckStateLinter.addError18A(id, key, line, column);
 		});
-		ObjectState objState = new ObjectState(type, false, 1, this);
-		s.mapa.put(id, objState);
+		
+		s.mapa.put(id, new ObjectState(type, false, 1, this));
+		
+		Map<String,ObjectState> clonedMap = CheckState.clonarMapa(s.mapa);
+		CheckStateLinter cslForOutsideVariables = new CheckStateLinter();
+		cslForOutsideVariables.mapa = clonedMap;
+		body.checkLinter(cslForOutsideVariables);
+		
+		Map<String,ObjectState> parametersMap = new HashMap<String,ObjectState>();
+		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
+			parametersMap.put(parameter.getKey(), new ObjectState(parameter.getValue(), false, 2, this));
+		}
+		CheckStateLinter cslForParams = new CheckStateLinter();
+		cslForParams.mapa = parametersMap;
+		cslForParams = body.checkLinter(cslForParams);
+		CheckStateLinter.generateErrors(cslForParams);
+		
 		return s;
 	}
 
+	@Override
+	public int getLine() {
+		return line;
+	}
 
+	@Override
+	public int getColumn() {
+		return column;
+	}
 }

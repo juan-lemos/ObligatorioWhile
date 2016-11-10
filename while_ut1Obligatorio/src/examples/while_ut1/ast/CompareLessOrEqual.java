@@ -96,10 +96,25 @@ public class CompareLessOrEqual extends BExp {
 			}else{
 				rightNumberValue =((Double)((Numeral)rightOptimized).number);
 			}
-			return new TruthValue(leftNumberValue == rightNumberValue);
+			return new TruthValue(leftNumberValue <= rightNumberValue, left.line, left.column);
 		}
 		else{
 			return this;
 		}
+	}
+
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
+	}
+	
+	@Override
+	public int countOperators() {
+		return 1 + left.countOperators() + right.countOperators();
 	}
 }

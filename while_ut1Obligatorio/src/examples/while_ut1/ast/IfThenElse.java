@@ -100,20 +100,30 @@ public class IfThenElse extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		if (condition.countOperators() > 7) CheckStateLinter.addError20(condition.countOperators(), line, column);
 		Exp optimizado=condition.optimize();
 		if (optimizado instanceof TruthValue){
 			if (((TruthValue) optimizado).value){
-				CheckStateLinter.addError("5", "El codigo del else no ejecutará nunca", line, column);
+				CheckStateLinter.addError5C(line, column);
 			}else{
-				CheckStateLinter.addError("5", "El codigo del then no ejecutará nunca", line, column);
+				CheckStateLinter.addError5D(line, column);
 			}
 		}
-		
 		
 		condition.checkLinter(s);
 		thenBody.checkLinter(s);
 		elseBody.checkLinter(s);
-		return null;
+		return s;
+	}
+
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
 	}
 
 }

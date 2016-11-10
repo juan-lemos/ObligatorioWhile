@@ -87,24 +87,31 @@ public class WhileDo extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		if (condition.countOperators() > 7) CheckStateLinter.addError20(condition.countOperators(), line, column);
+		
 		Exp optimizado=condition.optimize();
 		if (optimizado instanceof TruthValue){
 			if (!((TruthValue) optimizado).value){
-				CheckStateLinter.addError("5", "El codigo interno no se ejecutará nunca", line, column);
+				CheckStateLinter.addError5B(line, column);
 			}
 		}
 
-
-
 		Map mapaAntesWhile= CheckState.clonarMapa(s.mapa);
 		CheckStateLinter checkStateLinterWhileIn=new CheckStateLinter();
-		checkStateLinterWhileIn.mapa=mapaAntesWhile;
+		checkStateLinterWhileIn.mapa = mapaAntesWhile;
 		if (condition.checkLinter(s).equals("Boolean")){
 			checkStateLinterWhileIn=body.checkLinter(checkStateLinterWhileIn);
-			return s;
-		}else{
-			CheckStateLinter.addError("0", "debe ir condicion boolean en el if", line, column);
-			return s;
 		}
+		return s;
+	}
+
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
 	}
 }

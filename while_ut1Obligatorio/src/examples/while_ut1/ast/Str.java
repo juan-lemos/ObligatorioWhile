@@ -7,8 +7,10 @@ import java.util.Random;
 public class Str extends Exp{
 	public final String value;
 	
-	public Str(String value) {
+	public Str(String value, int line, int column) {
 		this.value = value;
+		this.line = line;
+		this.column = column;
 	}
 
 	@Override public String unparse() {
@@ -32,16 +34,10 @@ public class Str extends Exp{
 		return (this.value == null ? other.value == null : this.value.equals(other.value));
 	}
 
-	public static Str generate(Random random, int min, int max) {
-		SecureRandom random1 = new SecureRandom();
-		return new Str(new BigInteger(130, random1).toString(32));
-	}
-
 	@Override
 	public Object evaluate(State state) {
 		return value;
 	}
-	
 	
 	@Override
 	public String check(CheckState s){
@@ -50,11 +46,27 @@ public class Str extends Exp{
 
 	@Override
 	public String checkLinter(CheckStateLinter s) {
+		if (getIsInsideParenthesis()) CheckStateLinter.addError16(line, column);
 		return "String";
 	}
 
 	@Override
 	public Exp optimize() {
 		return this;
+	}
+
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
+	}
+	
+	@Override
+	public int countOperators() {
+		return 0;
 	}
 }

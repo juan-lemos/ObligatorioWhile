@@ -68,16 +68,25 @@ public class AssignmentStmt extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		if (expression.countOperators() > 7) CheckStateLinter.addError20(expression.countOperators(), line, column);
 		String expressionType = this.expression.checkLinter(s);
 		if (s.mapa.containsKey(id)) {
 			s.mapa.get(id).used = true;
 		} else {
 			CheckStateLinter.addError8(id, line, column);
-			ObjectState objState = new ObjectState("Double", true, 3, this);
+			ObjectState objState = new ObjectState("Double", true, 2, this);
 			s.mapa.put(this.id, objState);
 		}
 		return s;
 	}
 
-		
+	@Override
+	public int getLine() {
+		return line;
+	}
+
+	@Override
+	public int getColumn() {
+		return column;
+	}
 }

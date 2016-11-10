@@ -88,9 +88,9 @@ public class TernaryOperator extends Exp {
 		Exp optimizado=condition.optimize();
 		if (optimizado instanceof TruthValue){
 			if (((TruthValue) optimizado).value){
-				CheckStateLinter.addError("5", "El codigo del else no ejecutará nunca", line, column);
+				CheckStateLinter.addError5C(line, column);
 			}else{
-				CheckStateLinter.addError("5", "El codigo del then no ejecutará nunca", line, column);
+				CheckStateLinter.addError5D(line, column);
 			}
 		}
 		
@@ -122,4 +122,18 @@ public class TernaryOperator extends Exp {
 		return this;
 	}
 
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
+	}
+	
+	@Override
+	public int countOperators() {
+		return 1 + condition.countOperators() + thenExp.countOperators() + elseExp.countOperators();
+	}
 }

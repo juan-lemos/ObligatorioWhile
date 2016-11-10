@@ -45,7 +45,17 @@ public class Return extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
-		// TODO Auto-generated method stub
+		if (exp.countOperators() > 7) CheckStateLinter.addError20(exp.countOperators(), line, column);
 		return null;
+	}
+
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
 	}
 }
