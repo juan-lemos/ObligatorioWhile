@@ -90,4 +90,9 @@ public class Variable extends AExp {
 	public int getColumn() {
 		return column;
 	}
+	
+	@Override
+	public int countOperators() {
+		return 0;
+	}
 }

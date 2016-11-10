@@ -109,4 +109,8 @@ public class CompareEqual extends BExp {
 		return 0;
 	}
 
+	@Override
+	public int countOperators() {
+		return 1 + left.countOperators() + right.countOperators();
+	}
 }

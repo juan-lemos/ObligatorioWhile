@@ -120,4 +120,9 @@ public class Addition extends AExp {
 	public int getColumn() {
 		return 0;
 	}
+	
+	@Override
+	public int countOperators() {
+		return 1 + left.countOperators() + right.countOperators();
+	}
 }

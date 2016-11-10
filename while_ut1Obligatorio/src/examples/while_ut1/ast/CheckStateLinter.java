@@ -109,6 +109,10 @@ public class CheckStateLinter {
 		addError("18B", "la variable " + variableId + " se encuentra definida como " + oldVariableId, line, column);
 	}
 	
+	public static void addError20(int operators, int line, int column) {
+		addError("20", "existe una expresion con " + operators + " operadores", line, column);
+	}
+	
 	private static void addError(String code, String msg, int line, int column) {
 		errores.add(createErrorMsg(code, msg, line, column));
 	}

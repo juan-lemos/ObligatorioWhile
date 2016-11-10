@@ -22,4 +22,6 @@ public abstract class Exp extends AstNode {
 	public void setIsInsideParenthesis(boolean isInsideParenthesis) {
 		this.isInsideParenthesis = isInsideParenthesis;
 	}
+	
+	abstract public int countOperators();
 }

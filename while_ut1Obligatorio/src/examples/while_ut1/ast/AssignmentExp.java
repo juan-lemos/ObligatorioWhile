@@ -144,4 +144,9 @@ public class AssignmentExp extends Exp {
 	public int getColumn() {
 		return 0;
 	}
+	
+	@Override
+	public int countOperators() {
+		return 1 + expression.countOperators();
+	}
 }

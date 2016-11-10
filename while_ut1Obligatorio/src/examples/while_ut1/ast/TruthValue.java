@@ -64,6 +64,11 @@ public class TruthValue extends BExp {
 	public int getColumn() {
 		return 0;
 	}
+	
+	@Override
+	public int countOperators() {
+		return 0;
+	}
 }
 
 

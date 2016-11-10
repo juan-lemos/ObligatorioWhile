@@ -87,6 +87,8 @@ public class WhileDo extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		if (condition.countOperators() > 7) CheckStateLinter.addError20(condition.countOperators(), line, column);
+		
 		Exp optimizado=condition.optimize();
 		if (optimizado instanceof TruthValue){
 			if (!((TruthValue) optimizado).value){

@@ -131,4 +131,9 @@ public class TernaryOperator extends Exp {
 	public int getColumn() {
 		return 0;
 	}
+	
+	@Override
+	public int countOperators() {
+		return 1 + condition.countOperators() + thenExp.countOperators() + elseExp.countOperators();
+	}
 }
