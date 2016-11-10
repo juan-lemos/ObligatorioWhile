@@ -2,7 +2,7 @@ package examples.while_ut1.ast;
 
 import java.util.*;
 
-/** Representación de las asignaciones de valores a variables.
+/** RepresentaciÃ³n de las asignaciones de valores a variables.
  */
 public class FunctionDeclaration extends Stmt {
 	public final String id;
@@ -10,7 +10,7 @@ public class FunctionDeclaration extends Stmt {
 	public final LinkedHashMap<String, String> parameters;
 	public final Stmt body;
 
-	//hay que clonar el estado para guardar las variables locales de la funic�n
+	//hay que clonar el estado para guardar las variables locales de la funicón
 
 	public FunctionDeclaration(String id, String type,
 			LinkedHashMap<String, String> parameters,Stmt body,
@@ -92,13 +92,14 @@ public class FunctionDeclaration extends Stmt {
 		}
 		CheckStateLinter cslForParams = new CheckStateLinter();
 		cslForParams.mapa = parametersMap;
+		body.idFunction=id;
 		cslForParams = body.checkLinter(cslForParams);
 		CheckStateLinter.generateErrors(cslForParams);
 		
 		
 		
-		body.idFunction=id;
-		body.checkLinter(s);
+
+
 		
 		return s;
 	}
