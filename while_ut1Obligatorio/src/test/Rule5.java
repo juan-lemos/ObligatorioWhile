@@ -11,8 +11,8 @@ import examples.while_ut1.ast.Stmt;
 import junit.framework.TestCase;
 
 /**
- * Regla número 5
- * Detectar código que no se va a ejecutar. ej: '' if (15>10) { -- } else { // esto no se ejecuta nunca  }
+ * Regla nï¿½mero 5 Detectar cï¿½digo que no se va a ejecutar. ej: '' if (15>10) {
+ * -- } else { // esto no se ejecuta nunca }
  */
 public class Rule5 extends TestCase {
 
@@ -22,31 +22,41 @@ public class Rule5 extends TestCase {
 
 	protected void setUp() throws Exception {
 		state = new CheckStateLinter();
-		loadData5();
+		loadData();
 		super.setUp();
 	}
 
-	protected void loadData5() {
-		datosPruebas.put(1, "{if (15>10){ y=2; } else { x=3; }}"); // 
-		datosPruebas.put(2, "{if (15<10){ y=2; } else { x=3; }}");  // 
-		datosPruebas.put(3, "{while(15<10){ y=2;\n x=3; }}"); // 
-		datosPruebas.put(4, "{while(true){ y=2;\n x=3; }}"); // 
-		datosPruebas.put(5, "{while(15<10){ y=2;\nx=3; }}"); //
+	protected void loadData() {
+		datosPruebas.put(1, "{int y=2;int x=3;if(x<=y)then{int z=10;} else {int z=11;}}");
+		// if "+ condition.unparse() +" then { "+ thenBody.unparse() +" } else
+		// { "+ elseBody.unparse() +" }";
+		datosPruebas.put(2, "{if(15<=10)then{y=2;}else{x=3;}}"); //
+		datosPruebas.put(3, "{while(15<=10)do{ y=2;\n x=3; }}"); //
+		datosPruebas.put(4, "{while(true)do{ y=2;\n x=3; }}"); //
+		datosPruebas.put(5, "{while(15<=10)do{ y=2;\nx=3; }}"); //
 		datosPruebas.put(6, "{y=2; x=3; }"); //
 	}
 
-	public void testData1() {
+	public void testData() {
 		try {
-			Integer numTest =2;
-//			
+			Integer numTest =1;   // Setear este valor
+			
 			Object obj = Parse.parse(datosPruebas.get(numTest));
 			logger.log(Level.INFO, obj.toString());
-			if (obj instanceof Stmt) {
-				CheckStateLinter check = ((Stmt) obj).checkLinter(state); 
-				logger.log(Level.INFO, check.toString());
-			} else {
-				logger.log(Level.WARNING,"No es instacia de Stmt");
-			}
+			
+			CheckStateLinter check = ((Stmt) obj).checkLinter(state); 
+			//logger.log(Level.INFO, "Despues");
+			
+			String actual = check.toString();
+			//logger.log(Level.INFO, actual); //borrar
+			String expected = "";
+			
+			if (numTest == 1 || numTest ==2)
+				expected = "";
+			else 
+				expected = "Error 5: El codigo interno no se ejecutarï¿½ nunca.";
+				
+			assertTrue("Se esperaba " + expected + "pero el resultado fue " + actual, actual.contains(expected));
 			
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage(), e.getCause());
@@ -54,4 +64,3 @@ public class Rule5 extends TestCase {
 	}
 
 }
-
