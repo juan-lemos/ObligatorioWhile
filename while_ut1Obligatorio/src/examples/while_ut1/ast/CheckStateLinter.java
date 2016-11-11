@@ -51,19 +51,19 @@ public class CheckStateLinter {
 	}
 	
 	public static void addError5A(int line, int column) {
-		addError("5A", "La condición no es necesaria", line, column);
+		addError("5A", "La condiciï¿½n no es necesaria", line, column);
 	}
 
 	public static void addError5B(int line, int column) {
-		addError("5B", "El codigo interno no se ejecutará nunca", line, column);
+		addError("5B", "El codigo interno no se ejecutarï¿½ nunca", line, column);
 	}
 	
 	public static void addError5C(int line, int column) {
-		addError("5C", "El codigo del else no ejecutará nunca", line, column);
+		addError("5C", "El codigo del else no ejecutarï¿½ nunca", line, column);
 	}
 	
 	public static void addError5D(int line, int column) {
-		addError("5D", "El codigo del then no ejecutará nunca", line, column);
+		addError("5D", "El codigo del then no ejecutarï¿½ nunca", line, column);
 	}
 	
 	public static void addError6(int line, int column) {
@@ -91,7 +91,7 @@ public class CheckStateLinter {
 	}
 	
 	public static void addError12B(String functionName, int line, int column) {
-		addError("12B", "El tipo de la expresion del return no coincide con el la función " + functionName, line, column); 
+		addError("12B", "El tipo de la expresion del return no coincide con el la funciï¿½n " + functionName, line, column); 
 	}
 	
 	public static void addError13(String functionName, int line, int column) {
@@ -116,6 +116,10 @@ public class CheckStateLinter {
 	
 	public static void addError18B(String variableId, String oldVariableId, int line, int column) {
 		addError("18B", "la variable " + variableId + " se encuentra definida como " + oldVariableId, line, column);
+	}
+	
+	public static void addError20(int operators, int line, int column) {
+		addError("20", "existe una expresion con " + operators + " operadores", line, column);
 	}
 	
 	public static void addError21(int nestingLevels, int line, int column) {

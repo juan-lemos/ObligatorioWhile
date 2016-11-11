@@ -12,7 +12,7 @@ public class FunctionCallStmt extends Stmt{
 		this.line = line;
 		this.column = column;
 	}
-	
+
 	@Override
 	public String unparse() {
 		// TODO Auto-generated method stub
@@ -51,6 +51,12 @@ public class FunctionCallStmt extends Stmt{
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		int paramsOperators = 0;
+		for (Exp exp : parameters) {
+			paramsOperators += exp.countOperators();
+		}
+		if (paramsOperators > 7) CheckStateLinter.addError20(paramsOperators, line, column);
+
 		// COPIADO DE FUNCTIONCALL REVISAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		if (s.mapa.containsKey(this.id)) {
 			ObjectState objState = s.mapa.get(this.id);
@@ -62,13 +68,13 @@ public class FunctionCallStmt extends Stmt{
 				for (int i = 0; i < this.parameters.size(); i++){
 					String parameterType = this.parameters.get(i).checkLinter(s);
 					String expectedType = (String) functionDeclaration.parameters.values().toArray()[i];
-				    if (!(parameterType == expectedType)) {
-				    	CheckStateLinter.addError10B(expectedType, parameterType, line, column);
-				    }
+					if (!(parameterType == expectedType)) {
+						CheckStateLinter.addError10B(expectedType, parameterType, line, column);
+					}
 				}
 			}
-			
-//			return functionDeclaration.type;
+
+			//			return functionDeclaration.type;
 		}
 		return s;
 	}
@@ -82,7 +88,7 @@ public class FunctionCallStmt extends Stmt{
 	public int getColumn() {
 		return column;
 	}
-	
+
 	@Override
 	public int countNestingLevels() {
 		return 0;

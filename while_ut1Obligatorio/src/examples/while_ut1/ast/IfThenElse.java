@@ -95,6 +95,7 @@ public class IfThenElse extends Stmt {
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
 		if (countNestingLevels() > 5) CheckStateLinter.addError21(countNestingLevels(), line, column);
+		if (condition.countOperators() > 7) CheckStateLinter.addError20(condition.countOperators(), line, column);
 		
 		Exp optimizado=condition.optimize();
 		if (optimizado instanceof TruthValue){

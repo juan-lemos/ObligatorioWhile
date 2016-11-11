@@ -95,8 +95,8 @@ public class Multiplication extends AExp {
 			tiposAceptados.add("Double");
 			CheckStateLinter.evaluarRegla9(this.left, s, tiposAceptados);
 			CheckStateLinter.evaluarRegla9(this.right, s, tiposAceptados);
-			
-			
+
+
 			return "Double";
 		}
 	}
@@ -131,5 +131,10 @@ public class Multiplication extends AExp {
 	@Override
 	public int getColumn() {
 		return 0;
+	}
+
+	@Override
+	public int countOperators() {
+		return 1 + left.countOperators() + right.countOperators();
 	}
 }

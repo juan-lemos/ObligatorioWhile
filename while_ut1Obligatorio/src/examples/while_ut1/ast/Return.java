@@ -46,6 +46,8 @@ public class Return extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		if (exp.countOperators() > 7) CheckStateLinter.addError20(exp.countOperators(), line, column);
+		
 		String tipoExp=exp.checkLinter(s);		
 		if (s.mapa.get(this.idFunction).tipo.equals("Void")){
 			CheckStateLinter.addError12A(this.idFunction, line, column);

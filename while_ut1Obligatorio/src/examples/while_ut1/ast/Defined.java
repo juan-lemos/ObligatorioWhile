@@ -3,7 +3,7 @@ package examples.while_ut1.ast;
 import java.util.*;
 
 /** Representación de conjunciones booleanas (AND).
-*/
+ */
 public class Defined extends BExp {
 	public final String id;
 
@@ -32,12 +32,12 @@ public class Defined extends BExp {
 		return (this.id == null ? other.id == null : this.id.equals(other.id));
 	}
 
-//	public static Defined generate(Random random, int min, int max) {
-//		BExp left; BExp right; 
-//		left = BExp.generate(random, min-1, max-1);
-//		right = BExp.generate(random, min-1, max-1);
-//		return new Defined(left, right);
-//	}
+	//	public static Defined generate(Random random, int min, int max) {
+	//		BExp left; BExp right; 
+	//		left = BExp.generate(random, min-1, max-1);
+	//		right = BExp.generate(random, min-1, max-1);
+	//		return new Defined(left, right);
+	//	}
 
 	@Override
 	public Object evaluate(State state) {
@@ -69,5 +69,10 @@ public class Defined extends BExp {
 	@Override
 	public int getColumn() {
 		return 0;
+	}
+
+	@Override
+	public int countOperators() {
+		return 1;
 	}
 }

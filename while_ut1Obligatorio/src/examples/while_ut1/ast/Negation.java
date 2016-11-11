@@ -59,7 +59,7 @@ public class Negation extends BExp {
 
 	@Override
 	public String checkLinter(CheckStateLinter s) {
-		
+
 		ArrayList <String> tiposAceptados=new ArrayList<String>();
 		tiposAceptados.add("Boolean");
 		CheckStateLinter.evaluarRegla9(this.condition, s, tiposAceptados);
@@ -88,5 +88,9 @@ public class Negation extends BExp {
 		return 0;
 	}
 
+	@Override
+	public int countOperators() {
+		return 1 + condition.countOperators();
+	}
 
 }
