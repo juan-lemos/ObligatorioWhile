@@ -3,7 +3,7 @@ package examples.while_ut1.ast;
 import java.util.*;
 
 /** Representación de valores de verdad (cierto o falso).
-*/
+ */
 public class TruthValue extends BExp {
 	public final Boolean value;
 
@@ -38,7 +38,7 @@ public class TruthValue extends BExp {
 	public Object evaluate(State state) {
 		return value;
 	}
-	
+
 	@Override
 	public String check(CheckState s){
 		return "Boolean";
@@ -62,6 +62,11 @@ public class TruthValue extends BExp {
 
 	@Override
 	public int getColumn() {
+		return 0;
+	}
+
+	@Override
+	public int countOperators() {
 		return 0;
 	}
 }

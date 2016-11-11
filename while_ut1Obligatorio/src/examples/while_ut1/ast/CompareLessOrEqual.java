@@ -76,14 +76,14 @@ public class CompareLessOrEqual extends BExp {
 	public String checkLinter(CheckStateLinter s) {
 		left.checkLinter(s);
 		right.checkLinter(s);
-		
+
 		ArrayList <String> tiposAceptados=new ArrayList<String>();
 		tiposAceptados.add("Integer");
 		tiposAceptados.add("Double");
 		CheckStateLinter.evaluarRegla9(this.left, s, tiposAceptados);
 		CheckStateLinter.evaluarRegla9(this.right, s, tiposAceptados);
-		
-		
+
+
 		return "Boolean";
 	}
 
@@ -120,4 +120,10 @@ public class CompareLessOrEqual extends BExp {
 	public int getColumn() {
 		return 0;
 	}
+
+	@Override
+	public int countOperators() {
+		return 1 + left.countOperators() + right.countOperators();
+	}
+
 }

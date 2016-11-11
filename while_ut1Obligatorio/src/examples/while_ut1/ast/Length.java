@@ -5,7 +5,7 @@ import java.util.*;
 import javax.swing.text.html.parser.ParserDelegator;
 
 /** Representación de las sentencias condicionales.
-*/
+ */
 public class Length extends Exp {
 	public final Exp expression;
 
@@ -48,7 +48,7 @@ public class Length extends Exp {
 	@Override
 	public String check(CheckState s) {
 		if (expression.check(s).equals("String")){
-			
+
 		}else{
 			s.errores.add("Error solo Strings:"+this.toString());
 		}
@@ -60,8 +60,8 @@ public class Length extends Exp {
 		ArrayList <String> tiposAceptados=new ArrayList<String>();
 		tiposAceptados.add("String");
 		CheckStateLinter.evaluarRegla9(this.expression, s, tiposAceptados);
-		
-		
+
+
 		expression.checkLinter(s);
 		return "Integer";
 	}
@@ -84,5 +84,10 @@ public class Length extends Exp {
 	public int getColumn() {
 		return 0;
 	}
-	
+
+	@Override
+	public int countOperators() {
+		return 1 + expression.countOperators();
+	}
+
 }

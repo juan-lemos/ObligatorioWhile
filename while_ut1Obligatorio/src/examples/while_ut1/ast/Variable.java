@@ -3,11 +3,11 @@ package examples.while_ut1.ast;
 import java.util.*;
 
 /** Representación de usos de variable en expresiones.
-*/
+ */
 public class Variable extends AExp {
 	public final String id;
 
-	
+
 	public Variable(String id,int line, int column) {
 		this.id = id;
 		this.line=line;
@@ -48,20 +48,20 @@ public class Variable extends AExp {
 		}
 		throw new IllegalStateException(this.unparse());
 	}
-	
+
 	@Override
 	public String check(CheckState s){
 		if (s.mapa.containsKey(id)){
 			return s.mapa.get(id).tipo;
 		}else{
 			s.errores.add("Error varible "+id+" no definida:"+this.unparse());
-//			ObjectState objectState=new ObjectState();
-//			objectState.assigned=false;
-//			objectState.tipo="Numeral";
-//			s.mapa.put(id, objectState);
+			//			ObjectState objectState=new ObjectState();
+			//			objectState.assigned=false;
+			//			objectState.tipo="Numeral";
+			//			s.mapa.put(id, objectState);
 			return "Double";
 		}
-		
+
 	}
 
 	@Override
@@ -89,5 +89,10 @@ public class Variable extends AExp {
 	@Override
 	public int getColumn() {
 		return column;
+	}
+
+	@Override
+	public int countOperators() {
+		return 0;
 	}
 }

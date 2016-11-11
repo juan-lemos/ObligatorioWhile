@@ -55,8 +55,9 @@ public class Print extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		if (expression.countOperators() > 7) CheckStateLinter.addError20(expression.countOperators(), line, column);
 		expression.checkLinter(s);
-		return null;
+		return s;
 	}
 
 	@Override

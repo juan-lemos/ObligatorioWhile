@@ -58,7 +58,7 @@ public class Numeral extends AExp {
 		}else{
 			throw new IllegalStateException(this.unparse());
 		} 
-		
+
 	}
 
 	@Override
@@ -89,4 +89,11 @@ public class Numeral extends AExp {
 	public int getColumn() {
 		return 0;
 	}
+
+
+	@Override
+	public int countOperators() {
+		return 0;
+	}
+
 }

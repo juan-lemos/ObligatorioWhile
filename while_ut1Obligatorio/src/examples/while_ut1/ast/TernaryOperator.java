@@ -7,7 +7,7 @@ public class TernaryOperator extends Exp {
 	public final Exp condition;
 	public final Exp thenExp;
 	public final Exp elseExp;
-	
+
 	public TernaryOperator(Exp condition, Exp thenExp, Exp elseExp) {
 		this.condition = condition;
 		this.thenExp = thenExp;
@@ -55,13 +55,13 @@ public class TernaryOperator extends Exp {
 		if (!checkCondition.equals("Boolean")){
 			s.errores.add("Error en el if debe poner condicion boolean:"+this.toString());
 		} //asumimos para que en el caso de que la condicion no sea boolean lo es
-		
+
 		String checkThenExp=thenExp.check(s);
 		if (!(checkThenExp.equals("Boolean") || checkThenExp.equals("Integer") || 
 				checkThenExp.equals("String")  || checkThenExp.equals("Double"))){
 			s.errores.add("Se debe devolver un valor:"+this.toString());
 		}
-		
+
 		String checkElseExp=elseExp.check(s);
 		if (!(checkElseExp.equals("Boolean") || checkElseExp.equals("Integer") || 
 				checkElseExp.equals("String")  || checkElseExp.equals("Double"))){
@@ -89,19 +89,19 @@ public class TernaryOperator extends Exp {
 		Exp optimizado=condition.optimize();
 		if (optimizado instanceof TruthValue){
 			if (((TruthValue) optimizado).value){
-				
+
 				CheckStateLinter.addError5C(line, column);
 			}else{
-				
+
 				CheckStateLinter.addError5D(line, column);
 			}
 		}
-		
+
 		ArrayList <String> tiposAceptados=new ArrayList<String>();
 		tiposAceptados.add("Boolean");
 		CheckStateLinter.evaluarRegla9(this.condition, s, tiposAceptados);
-		
-				
+
+
 		String thenTipo=this.thenExp.checkLinter(s);
 		String elseTipo=this.elseExp.checkLinter(s);
 		if (thenTipo.equals(elseTipo)){
@@ -141,5 +141,10 @@ public class TernaryOperator extends Exp {
 	@Override
 	public int getColumn() {
 		return 0;
+	}
+
+	@Override
+	public int countOperators() {
+		return 1 + condition.countOperators() + thenExp.countOperators() + elseExp.countOperators();
 	}
 }

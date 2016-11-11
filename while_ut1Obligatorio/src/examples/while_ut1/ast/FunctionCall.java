@@ -72,12 +72,12 @@ public class FunctionCall extends Exp {
 				for (int i = 0; i < this.parameters.size(); i++){
 					String parameterType = this.parameters.get(i).checkLinter(s);
 					String expectedType = (String) functionDeclaration.parameters.values().toArray()[i];
-				    if (!(parameterType == expectedType)) {
-				    	CheckStateLinter.addError10B(expectedType, parameterType, line, column);
-				    }
+					if (!(parameterType == expectedType)) {
+						CheckStateLinter.addError10B(expectedType, parameterType, line, column);
+					}
 				}
 			}
-			
+
 			return functionDeclaration.type;
 		}
 		return "Double";
@@ -97,5 +97,14 @@ public class FunctionCall extends Exp {
 	@Override
 	public int getColumn() {
 		return column;
+	}
+
+	@Override
+	public int countOperators() {
+		int paramsOperators = 0;
+		for (Exp exp : parameters) {
+			paramsOperators += exp.countOperators();
+		}
+		return 1 + paramsOperators;
 	}
 }
