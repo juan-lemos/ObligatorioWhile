@@ -26,7 +26,7 @@ H.R. Nielson & F. Nielson: "Semantic with Applications: A formal introduction". 
 | 12     | Chequear que las funciones que deben devolver algo lo hagan y lo hagan en el tipo definido en la firma así como las que no devuelven nada no lo hagan | JP         | X    |      |
 | 13     | No se puede redefinir funciones                                                                                                                       | MC       | x   |      |
 | 14     | No se puede redefinir variables                                                                                                                       | MC       | x   |      |
-| 15     | Comprobar que el tipo de la variable y la expresión coincidan al momento de asignar                                                                   | JP        |     |      |
+| 15     | Comprobar que el tipo de la variable y la expresión coincidan al momento de asignar                                                                   | JP        |x    |      |
 | 16     | No se puede tener paréntesis superfluos                                                                                                               |JP - MC   | x   |      |
 | 17     | No se puede tener llaves superfluas                                                                                                                   |JP - MC   | x   |      |
 | 18     | No escribir nombres de variables o métodos iguales pero que se diferencien en solamente en mayúsculas y minúsculas Ej: ''numeric a=23; numeric A=23'' | MC       | x   |      |
