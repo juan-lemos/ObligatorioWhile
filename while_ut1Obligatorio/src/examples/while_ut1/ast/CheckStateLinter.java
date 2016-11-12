@@ -104,6 +104,10 @@ public class CheckStateLinter {
 		addError("14-19", "la variable " + variableId + " ya se encuentra declarada", line, column);
 	}
 	
+	public static void addError15(int line, int column, String idVariable) {
+		addError("15", "El tipo de la variable "+idVariable+" y la expresión no coinciden", line, column);
+	}
+	
 	public static void addError16(int line, int column) {
 		addError("16", "existen parentesis superfluos", line, column);
 	}

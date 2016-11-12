@@ -130,15 +130,22 @@ public class AssignmentStmtWithType extends Stmt {
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
 		if (expression.countOperators() > 7) CheckStateLinter.addError20(expression.countOperators(), line, column);
 		if (Character.isUpperCase(id.charAt(0)) || id.charAt(0) == '_') CheckStateLinter.addError6(line, column);
-		String expressionType = this.expression.checkLinter(s);
 		if (s.mapa.containsKey(id) && !s.mapa.get(id).isFunction()) CheckStateLinter.addError14_19(id, line, column);
 		s.mapa.keySet().forEach((key) -> {
 			if (key.toLowerCase().equals(id.toLowerCase()) && !key.equals(id) && !s.mapa.get(key).isFunction())
 				CheckStateLinter.addError18B(id, key, line, column);
 		});
-		ObjectState objState = new ObjectState(this.type, true, 2, this);
-		s.mapa.put(this.id, objState);
 		
+		Boolean assigned=false;
+		if(!(expression==null)){
+			assigned=true;
+			String expressionType = this.expression.checkLinter(s);
+			if(!expressionType.equals(this.type)){
+				CheckStateLinter.addError15(this.line, this.column, this.id);
+			}
+		}
+		ObjectState objState = new ObjectState(this.type, assigned, 2, this);
+		s.mapa.put(this.id, objState);
 		
 		
 		ArrayList <String> tiposAceptados=new ArrayList<String>();

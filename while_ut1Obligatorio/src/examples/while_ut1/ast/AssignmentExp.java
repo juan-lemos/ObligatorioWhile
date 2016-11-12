@@ -120,6 +120,9 @@ public class AssignmentExp extends Exp {
 			tiposAceptados.add(s.mapa.get(this.id).tipo);
 			CheckStateLinter.evaluarRegla9(expression, s, tiposAceptados);
 			
+			if(!expressionType.equals(s.mapa.get(id).tipo)){
+				CheckStateLinter.addError15(this.line, this.column, this.id);
+			}
 			
 		} else {
 			CheckStateLinter.addError8(id, line, column);
