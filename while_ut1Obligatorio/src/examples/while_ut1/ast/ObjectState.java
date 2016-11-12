@@ -5,7 +5,7 @@ public class ObjectState {
 	public String tipo = "";
 	public boolean assigned = false;
 	public boolean used = false;
-	public int queEs = 0; // 1: function, 2: variable
+	public int queEs = 0; // 1: function, 2: variable, 3:parametro
 	public Object astNode = null;
 	
 	public ObjectState(String tipo, boolean assigned, int queEs, Object astNode){
@@ -38,6 +38,10 @@ public class ObjectState {
 	
 	public boolean isFunction() {
 		return this.queEs == 1;
+	}
+	
+	public boolean isParameter() {
+		return this.queEs == 3;
 	}
 }
 
