@@ -99,8 +99,12 @@ public class IfThen extends Stmt {
 		CheckStateLinter.evaluarRegla9(this.condition, s, tiposAceptados);
 
 		condition.checkLinter(s);
-		thenBody.idFunction=this.idFunction;
-		thenBody.checkLinter(s);
+		Map<String,ObjectState> clonMapaThen= CheckState.clonarMapa(s.mapa);
+		CheckStateLinter cslThen=new CheckStateLinter();
+		cslThen.mapa=clonMapaThen;
+		thenBody.idFunction=this.idFunction;//regla 12
+		thenBody.checkLinter(cslThen);
+		
 		return s;
 	}
 

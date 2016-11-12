@@ -85,6 +85,7 @@ public class FunctionDeclaration extends Stmt {
 		Map<String,ObjectState> clonedMap = CheckState.clonarMapa(s.mapa);
 		CheckStateLinter cslForOutsideVariables = new CheckStateLinter();
 		cslForOutsideVariables.mapa = clonedMap;
+		body.idFunction=id;
 		body.checkLinter(cslForOutsideVariables);
 		
 		Map<String,ObjectState> parametersMap = new HashMap<String,ObjectState>();
@@ -93,7 +94,6 @@ public class FunctionDeclaration extends Stmt {
 		}
 		CheckStateLinter cslForParams = new CheckStateLinter();
 		cslForParams.mapa = parametersMap;
-		body.idFunction=id;
 		cslForParams = body.checkLinter(cslForParams);
 		CheckStateLinter.generateErrors(cslForParams);
 		

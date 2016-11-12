@@ -33,6 +33,8 @@ public class CheckStateLinter {
 
 		return resultado;
 	}
+	
+	
 
 	public static void addError1(int line, int column) {
 		addError("1", "existe mas de un salto de linea consecutivo", line, column); 
@@ -151,4 +153,15 @@ public class CheckStateLinter {
 		}
 	}
 
+	
+	public static Map<String,ObjectState> clonarMapa(Map<String,ObjectState> mapaOriginal){
+		Map <String,ObjectState>mapaClonado=new HashMap<String,ObjectState>();
+		Iterator<String> it = mapaOriginal.keySet().iterator();
+		while(it.hasNext()){
+			String key = it.next();
+			ObjectState osClone=mapaOriginal.get(key).clone();
+			mapaClonado.put(key, osClone);
+		}
+		return mapaClonado;
+	}
 }

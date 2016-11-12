@@ -20,8 +20,11 @@ public class ObjectState {
 	@Override
 	public ObjectState clone(){
 		ObjectState objectState=new ObjectState();
-		objectState.assigned=new Boolean(this.assigned);
 		objectState.tipo=new String(this.tipo);
+		objectState.assigned=new Boolean(this.assigned);
+		objectState.used=new Boolean(this.used);
+		objectState.queEs=new Integer(this.queEs);
+		objectState.astNode=this.astNode;
 		return objectState;
 	}
 	
