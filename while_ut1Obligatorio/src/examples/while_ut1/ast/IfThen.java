@@ -104,6 +104,7 @@ public class IfThen extends Stmt {
 		cslThen.mapa=clonMapaThen;
 		thenBody.idFunction=this.idFunction;//regla 12
 		thenBody.checkLinter(cslThen);
+		CheckStateLinter.generateErrors(CheckStateLinter.variablesNuevas(s, cslThen));
 		
 		return s;
 	}

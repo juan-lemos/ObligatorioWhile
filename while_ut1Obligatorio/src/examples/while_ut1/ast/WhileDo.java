@@ -108,12 +108,8 @@ public class WhileDo extends Stmt {
 		
 		body.idFunction=this.idFunction; //regla 12
 		checkStateLinterWhileIn=body.checkLinter(checkStateLinterWhileIn);
-//		if (condition.checkLinter(s).equals("Boolean")){
-//			
-//			return s;
-//		}else{
-//			return s;
-//		}
+		CheckStateLinter.generateErrors(CheckStateLinter.variablesNuevas(s, checkStateLinterWhileIn));
+		
 		return s;
 		
 	}

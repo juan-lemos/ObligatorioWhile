@@ -118,11 +118,13 @@ public class IfThenElse extends Stmt {
 		cslThen.mapa=clonMapaThen;
 		thenBody.idFunction=this.idFunction;//regla 12
 		thenBody.checkLinter(cslThen);
+		CheckStateLinter.generateErrors(CheckStateLinter.variablesNuevas(s, cslThen));
 		Map<String,ObjectState> clonMapaElse= CheckState.clonarMapa(s.mapa);
 		CheckStateLinter cslElse=new CheckStateLinter();
 		cslElse.mapa=clonMapaElse;
 		elseBody.idFunction=this.idFunction;//regla 12
 		elseBody.checkLinter(cslElse);
+		CheckStateLinter.generateErrors(CheckStateLinter.variablesNuevas(s, cslElse));
 		
 		return s;
 	}

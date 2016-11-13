@@ -40,6 +40,10 @@ public class ObjectState {
 		return this.queEs == 1;
 	}
 	
+	public boolean isVariable() {
+		return this.queEs == 2;
+	}
+	
 	public boolean isParameter() {
 		return this.queEs == 3;
 	}

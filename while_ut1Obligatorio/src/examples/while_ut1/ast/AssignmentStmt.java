@@ -83,8 +83,8 @@ public class AssignmentStmt extends Stmt {
 			}
 		} else {
 			CheckStateLinter.addError8(id, line, column);
-			ObjectState objState = new ObjectState("Double", true, 2, this);
-			s.mapa.put(this.id, objState);
+			ObjectState objState = new ObjectState("Double", true, 2, this);//revisar
+			s.mapa.put(this.id, objState);//revisar
 		}
 		return s;
 	}

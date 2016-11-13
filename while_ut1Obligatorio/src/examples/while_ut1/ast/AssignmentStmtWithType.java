@@ -144,8 +144,8 @@ public class AssignmentStmtWithType extends Stmt {
 				CheckStateLinter.addError15(this.line, this.column, this.id);
 			}
 		}
-		ObjectState objState = new ObjectState(this.type, assigned, 2, this);
-		s.mapa.put(this.id, objState);
+		ObjectState objState = new ObjectState(this.type, assigned, 2, this);//revisar 
+		s.mapa.put(this.id, objState);//revisar
 		
 		
 		ArrayList <String> tiposAceptados=new ArrayList<String>();

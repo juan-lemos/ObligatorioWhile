@@ -17,15 +17,12 @@ public class CheckStateLinter {
 				if (objState.isFunction()) {
 					addError3(objState.getLine(), objState.getColumn());
 				}
-				else{
+				else if(objState.isVariable()){
 					addError4(objState.getLine(), objState.getColumn());
 				}
 			}
 		}
 	}
-	
-	
-	
 
 	@Override
 	public String toString() {
@@ -34,11 +31,8 @@ public class CheckStateLinter {
 		for (String value : errores) {
 			resultado = resultado + "\n" + value;
 		}
-
 		return resultado;
 	}
-
-
 
 	public static void addError1(int line, int column) {
 		addError("1", "existe mas de un salto de linea consecutivo", line, column); 
@@ -82,6 +76,18 @@ public class CheckStateLinter {
 
 	public static void addError8(String variableId, int line, int column) {
 		addError("8", "variable " + variableId + " no declarada", line, column);
+	}
+
+	public static void addError9(int line, int column){
+		CheckStateLinter.addError("9", "Función no definida", line, column);
+	}
+
+	public static void addError9A(int line, int column){
+		CheckStateLinter.addError("9A", "La funcion no devuelve valor alguno", line,column);
+	}
+
+	public static void addError9B(int line, int column){
+		CheckStateLinter.addError("9B", "La funcion no devuelve el tipo esperado", line,column);
 	}
 
 	public static void addError10A(int line, int column) {
@@ -151,20 +157,17 @@ public class CheckStateLinter {
 	public static void evaluarRegla9(Exp expression,CheckStateLinter s, ArrayList<String> tiposAceptados){
 		if (expression!=null && expression instanceof FunctionCall && s.mapa.containsKey(((FunctionCall) expression).id)){
 			String functionId=((FunctionCall) expression).id;
-			if (s.mapa.get(functionId).tipo.equals("Void")){
-				CheckStateLinter.addError("9A", "La funcion no devuelve valor alguno", ((FunctionCall)expression).line,
-						((FunctionCall)expression).column);
+			if ( s.mapa.get(functionId).tipo.equals("Void")){
+				CheckStateLinter.addError9A(((FunctionCall)expression).line,((FunctionCall)expression).column);
 			}else if(!tiposAceptados.contains(s.mapa.get(functionId).tipo)){
-				CheckStateLinter.addError("9B", "La funcion no devuelve el tipo esperado", ((FunctionCall)expression).line,
-						((FunctionCall)expression).column);
+				CheckStateLinter.addError9B(((FunctionCall)expression).line, ((FunctionCall)expression).column);
 			}
 		}
 		else if (expression!=null && expression instanceof FunctionCall && !s.mapa.containsKey(((FunctionCall) expression).id)) {
-			CheckStateLinter.addError("9", "Función no definida", ((FunctionCall)expression).line,
-					((FunctionCall)expression).column);
+			CheckStateLinter.addError9(((FunctionCall)expression).line, ((FunctionCall)expression).column);
 		}
 	}
-	
+
 	public static void evaluarRegla11(CheckStateLinter cslint) {
 		for (Map.Entry<String, ObjectState> element : cslint.mapa.entrySet()) {
 			ObjectState objState = element.getValue();
@@ -173,7 +176,6 @@ public class CheckStateLinter {
 			}
 		}
 	}
-
 
 	public static Map<String,ObjectState> clonarMapa(Map<String,ObjectState> mapaOriginal){
 		Map <String,ObjectState>mapaClonado=new HashMap<String,ObjectState>();
@@ -185,15 +187,24 @@ public class CheckStateLinter {
 		}
 		return mapaClonado;
 	}
-	
-	public static CheckStateLinter setVariableUsedIfUsedInside(CheckStateLinter original, CheckStateLinter inside){
+
+	public static void setVariableUsedIfUsedInside(CheckStateLinter original, CheckStateLinter inside){
 		for (Map.Entry<String, ObjectState> element : original.mapa.entrySet()){
 			String id=element.getKey();
 			if (inside.mapa.containsKey(id) && !inside.mapa.get(id).isParameter()){
 				original.mapa.get(id).used=inside.mapa.get(id).used;
 			}
 		}
-		return original;
 	}
 	
+	public static CheckStateLinter variablesNuevas(CheckStateLinter viejo, CheckStateLinter nuevo){
+		CheckStateLinter newCheckStateLinter=new CheckStateLinter();
+		for (Map.Entry<String, ObjectState> element : nuevo.mapa.entrySet()){
+			String id=element.getKey();
+			if (!viejo.mapa.containsKey(id)){
+				newCheckStateLinter.mapa.put(id, element.getValue());
+			}
+		}
+		return newCheckStateLinter;
+	}
 }

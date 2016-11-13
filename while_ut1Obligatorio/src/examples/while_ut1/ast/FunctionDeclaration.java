@@ -80,7 +80,7 @@ public class FunctionDeclaration extends Stmt {
 				CheckStateLinter.addError18A(id, key, line, column);
 		});
 		
-		s.mapa.put(id, new ObjectState(type, false, 1, this));
+		s.mapa.put(id, new ObjectState(type, false, 1, this));//revisar
 		
 //		Map<String,ObjectState> clonedMap = CheckState.clonarMapa(s.mapa);
 //		CheckStateLinter cslForOutsideVariables = new CheckStateLinter();
@@ -107,8 +107,8 @@ public class FunctionDeclaration extends Stmt {
 		cslForOutsideVariables = body.checkLinter(cslForOutsideVariables);
 		body.idFunction=id;//regla 12
 		body.checkLinter(cslForOutsideVariables);
+		CheckStateLinter.generateErrors(CheckStateLinter.variablesNuevas(s, cslForOutsideVariables));
 		CheckStateLinter.evaluarRegla11(cslForOutsideVariables);
-		
 		
 		CheckStateLinter.setVariableUsedIfUsedInside(s, cslForOutsideVariables);
 		return s;
