@@ -27,8 +27,8 @@ H.R. Nielson & F. Nielson: "Semantic with Applications: A formal introduction". 
 | 13     | No se puede redefinir funciones                                                                                                                       | MC       | x   |      |
 | 14     | No se puede redefinir variables                                                                                                                       | MC       | x   |      |
 | 15     | Comprobar que el tipo de la variable y la expresión coincidan al momento de asignar                                                                   | JP        |x    |      |
-| 16     | No se puede tener paréntesis superfluos                                                                                                               |JP - MC   | x   |      |
-| 17     | No se puede tener llaves superfluas                                                                                                                   |JP - MC   | x   |      |
+| 16     | No se puede tener paréntesis superfluos                                                                                                               |JP - MC   | x   |  CD  |
+| 17     | No se puede tener llaves superfluas                                                                                                                   |JP - MC   | x   |  CD  |
 | 18     | No escribir nombres de variables o métodos iguales pero que se diferencien en solamente en mayúsculas y minúsculas Ej: ''numeric a=23; numeric A=23'' | MC       | x   |      |
 | 19     | No permitir redefinición de variables con el mismo nombre dentro de las funciones como variables locales                                              | MC       | x   |      |
 | 20     | Warning expresiones con más de 7 operadores.                                                                                                          | MC       | x   |      |
