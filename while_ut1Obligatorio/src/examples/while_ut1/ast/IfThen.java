@@ -106,6 +106,7 @@ public class IfThen extends Stmt {
 		thenBody.checkLinter(cslThen);
 		CheckStateLinter.generateErrors(CheckStateLinter.variablesNuevas(s, cslThen));
 		
+		CheckStateLinter.setVariableUsedIfUsedInside(s, cslThen);
 		return s;
 	}
 

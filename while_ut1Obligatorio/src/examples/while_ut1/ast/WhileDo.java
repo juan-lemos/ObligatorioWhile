@@ -110,8 +110,8 @@ public class WhileDo extends Stmt {
 		checkStateLinterWhileIn=body.checkLinter(checkStateLinterWhileIn);
 		CheckStateLinter.generateErrors(CheckStateLinter.variablesNuevas(s, checkStateLinterWhileIn));
 		
+		CheckStateLinter.setVariableUsedIfUsedInside(s, checkStateLinterWhileIn);
 		return s;
-		
 	}
 
 	@Override

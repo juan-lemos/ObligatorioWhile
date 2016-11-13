@@ -126,6 +126,10 @@ public class IfThenElse extends Stmt {
 		elseBody.checkLinter(cslElse);
 		CheckStateLinter.generateErrors(CheckStateLinter.variablesNuevas(s, cslElse));
 		
+		
+		
+		CheckStateLinter.setVariableUsedIfUsedInside(s, cslThen);
+		CheckStateLinter.setVariableUsedIfUsedInside(s, cslElse);
 		return s;
 	}
 
