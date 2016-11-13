@@ -80,23 +80,37 @@ public class FunctionDeclaration extends Stmt {
 				CheckStateLinter.addError18A(id, key, line, column);
 		});
 		
-		s.mapa.put(id, new ObjectState(type, false, 1, this));
+		s.mapa.put(id, new ObjectState(type, false, 1, this));//revisar
 		
-		Map<String,ObjectState> clonedMap = CheckState.clonarMapa(s.mapa);
+//		Map<String,ObjectState> clonedMap = CheckState.clonarMapa(s.mapa);
+//		CheckStateLinter cslForOutsideVariables = new CheckStateLinter();
+//		cslForOutsideVariables.mapa = clonedMap;
+//		body.idFunction=id;
+//		body.checkLinter(cslForOutsideVariables);
+//		
+//		Map<String,ObjectState> parametersMap = new HashMap<String,ObjectState>();
+//		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
+//			parametersMap.put(parameter.getKey(), new ObjectState(parameter.getValue(), true, 2, this));
+//		}
+//		CheckStateLinter cslForParams = new CheckStateLinter();
+//		cslForParams.mapa = parametersMap;
+//		cslForParams = body.checkLinter(cslForParams);
+//		CheckStateLinter.generateErrors(cslForParams);
+		
+		
 		CheckStateLinter cslForOutsideVariables = new CheckStateLinter();
+		Map<String,ObjectState> clonedMap = CheckState.clonarMapa(s.mapa);
 		cslForOutsideVariables.mapa = clonedMap;
-		body.checkLinter(cslForOutsideVariables);
-		
-		Map<String,ObjectState> parametersMap = new HashMap<String,ObjectState>();
 		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
-			parametersMap.put(parameter.getKey(), new ObjectState(parameter.getValue(), false, 2, this));
+			clonedMap.put(parameter.getKey(), new ObjectState(parameter.getValue(), true, 3, this));
 		}
-		CheckStateLinter cslForParams = new CheckStateLinter();
-		cslForParams.mapa = parametersMap;
-		body.idFunction=id;
-		cslForParams = body.checkLinter(cslForParams);
-		CheckStateLinter.generateErrors(cslForParams);
+		cslForOutsideVariables = body.checkLinter(cslForOutsideVariables);
+		body.idFunction=id;//regla 12
+		body.checkLinter(cslForOutsideVariables);
+		CheckStateLinter.generateErrors(CheckStateLinter.variablesNuevas(s, cslForOutsideVariables));
+		CheckStateLinter.evaluarRegla11(cslForOutsideVariables);
 		
+		CheckStateLinter.setVariableUsedIfUsedInside(s, cslForOutsideVariables);
 		return s;
 	}
 

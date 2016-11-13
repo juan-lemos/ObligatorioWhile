@@ -111,11 +111,25 @@ public class IfThenElse extends Stmt {
 		tiposAceptados.add("Boolean");
 		CheckStateLinter.evaluarRegla9(this.condition, s, tiposAceptados);
 		
+		
 		condition.checkLinter(s);
-		thenBody.idFunction=this.idFunction;
-		thenBody.checkLinter(s);
-		elseBody.idFunction=this.idFunction;
-		elseBody.checkLinter(s);
+		Map<String,ObjectState> clonMapaThen= CheckState.clonarMapa(s.mapa);
+		CheckStateLinter cslThen=new CheckStateLinter();
+		cslThen.mapa=clonMapaThen;
+		thenBody.idFunction=this.idFunction;//regla 12
+		thenBody.checkLinter(cslThen);
+		CheckStateLinter.generateErrors(CheckStateLinter.variablesNuevas(s, cslThen));
+		Map<String,ObjectState> clonMapaElse= CheckState.clonarMapa(s.mapa);
+		CheckStateLinter cslElse=new CheckStateLinter();
+		cslElse.mapa=clonMapaElse;
+		elseBody.idFunction=this.idFunction;//regla 12
+		elseBody.checkLinter(cslElse);
+		CheckStateLinter.generateErrors(CheckStateLinter.variablesNuevas(s, cslElse));
+		
+		
+		
+		CheckStateLinter.setVariableUsedIfUsedInside(s, cslThen);
+		CheckStateLinter.setVariableUsedIfUsedInside(s, cslElse);
 		return s;
 	}
 

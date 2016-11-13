@@ -89,7 +89,6 @@ public class TernaryOperator extends Exp {
 		Exp optimizado=condition.optimize();
 		if (optimizado instanceof TruthValue){
 			if (((TruthValue) optimizado).value){
-
 				CheckStateLinter.addError5C(line, column);
 			}else{
 

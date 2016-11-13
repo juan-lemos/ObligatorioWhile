@@ -102,18 +102,16 @@ public class WhileDo extends Stmt {
 		tiposAceptados.add("Boolean");
 		CheckStateLinter.evaluarRegla9(this.condition, s, tiposAceptados);
 
-		Map mapaAntesWhile= CheckState.clonarMapa(s.mapa);
+		Map<String,ObjectState> mapaAntesWhile= CheckState.clonarMapa(s.mapa);
 		CheckStateLinter checkStateLinterWhileIn=new CheckStateLinter();
 		checkStateLinterWhileIn.mapa=mapaAntesWhile;
-		if (condition.checkLinter(s).equals("Boolean")){
-			body.idFunction=this.idFunction;
-			checkStateLinterWhileIn=body.checkLinter(checkStateLinterWhileIn);
-			return s;
-		}else{
-			
-			return s;
-		}
 		
+		body.idFunction=this.idFunction; //regla 12
+		checkStateLinterWhileIn=body.checkLinter(checkStateLinterWhileIn);
+		CheckStateLinter.generateErrors(CheckStateLinter.variablesNuevas(s, checkStateLinterWhileIn));
+		
+		CheckStateLinter.setVariableUsedIfUsedInside(s, checkStateLinterWhileIn);
+		return s;
 	}
 
 	@Override

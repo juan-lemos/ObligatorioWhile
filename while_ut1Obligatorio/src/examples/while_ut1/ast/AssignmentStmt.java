@@ -7,8 +7,8 @@ import java.util.*;
 public class AssignmentStmt extends Stmt {
 	public final String id;
 	public final Exp expression;
-	
-	
+
+
 	public AssignmentStmt(String id, Exp expression,int line, int column) {
 		this.id = id;
 		this.expression = expression;
@@ -47,7 +47,7 @@ public class AssignmentStmt extends Stmt {
 	public State evaluate(State state) {
 		AssignmentExp.asignarValor(expression,state,id,this.unparse());
 		return state;
-				
+
 	}
 
 	@Override
@@ -73,16 +73,18 @@ public class AssignmentStmt extends Stmt {
 		if (s.mapa.containsKey(id)) {
 			s.mapa.get(id).used = true;
 			s.mapa.get(id).assigned=true;
-			
+
 			ArrayList <String> tiposAceptados=new ArrayList<String>();
 			tiposAceptados.add(s.mapa.get(this.id).tipo);
 			CheckStateLinter.evaluarRegla9(expression, s, tiposAceptados);
 
-			
+			if(!expressionType.equals(s.mapa.get(id).tipo)){
+				CheckStateLinter.addError15(this.line, this.column, this.id);
+			}
 		} else {
 			CheckStateLinter.addError8(id, line, column);
-			ObjectState objState = new ObjectState("Double", true, 2, this);
-			s.mapa.put(this.id, objState);
+			ObjectState objState = new ObjectState("Double", true, 2, this);//revisar
+			s.mapa.put(this.id, objState);//revisar
 		}
 		return s;
 	}
@@ -96,7 +98,7 @@ public class AssignmentStmt extends Stmt {
 	public int getColumn() {
 		return column;
 	}
-	
+
 	@Override
 	public int countNestingLevels() {
 		return 0;
