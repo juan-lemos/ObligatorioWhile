@@ -20,8 +20,8 @@ class rule4 extends Specification {
 
   val error = "Offense detected - variable definida sin usar"
 
-  s"The '$case1' string" should {
-    s"not contain message $error" in {
+  s"atLeastOnce parsing '$case1'" should {
+    s"contain message $error" in {
       CheckStateLinter.errores.clear()
       Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(state)
       atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error)
