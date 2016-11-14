@@ -7,7 +7,7 @@ public class CheckStateLinter {
 	public final static List<String> errores = Collections.synchronizedList(new ArrayList<String>());
 
 	public Map<String,ObjectState> mapa = new HashMap<String,ObjectState>();
-
+	public Map<Integer,ArrayList<Integer>> filaColumnaRegla2=new HashMap<Integer,ArrayList<Integer>>();
 
 	public static void generateErrors(CheckStateLinter cslint) {
 		for (Map.Entry<String, ObjectState> element : cslint.mapa.entrySet()) {
@@ -21,6 +21,7 @@ public class CheckStateLinter {
 				}
 			}
 		}
+		evaluarRegla2(cslint);
 	}
 
 	@Override
@@ -189,6 +190,18 @@ public class CheckStateLinter {
 		}
 	}
 
+	public static void evaluarRegla2(CheckStateLinter s){
+		for (Map.Entry<Integer, ArrayList<Integer>> element : s.filaColumnaRegla2.entrySet()) {
+			ArrayList<Integer> columnas = element.getValue();
+			if (columnas.size()>1) {
+				for (int columnaN=1;columnaN<columnas.size();columnaN++){
+					CheckStateLinter.addError2(element.getKey(), columnas.get(columnaN));
+				}
+			}
+		}
+	}
+
+
 	public static Map<String,ObjectState> clonarMapa(Map<String,ObjectState> mapaOriginal){
 		Map <String,ObjectState>mapaClonado=new HashMap<String,ObjectState>();
 		Iterator<String> it = mapaOriginal.keySet().iterator();
@@ -208,7 +221,7 @@ public class CheckStateLinter {
 			}
 		}
 	}
-	
+
 	public static CheckStateLinter variablesNuevas(CheckStateLinter viejo, CheckStateLinter nuevo){
 		CheckStateLinter newCheckStateLinter=new CheckStateLinter();
 		for (Map.Entry<String, ObjectState> element : nuevo.mapa.entrySet()){
@@ -219,4 +232,5 @@ public class CheckStateLinter {
 		}
 		return newCheckStateLinter;
 	}
+
 }

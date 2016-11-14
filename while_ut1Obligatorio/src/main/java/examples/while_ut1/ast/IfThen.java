@@ -82,6 +82,8 @@ public class IfThen extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		putIntoLineColumn(s,this.line,this.column);//regla2
+		thenBody.idFunction=this.idFunction;//regla 12
 		if (countNestingLevels() > 5) CheckStateLinter.addError21(countNestingLevels(), line, column);
 		if (condition.countOperators() > 7) CheckStateLinter.addError20(condition.countOperators(), line, column);
 		
@@ -102,7 +104,6 @@ public class IfThen extends Stmt {
 		Map<String,ObjectState> clonMapaThen= CheckState.clonarMapa(s.mapa);
 		CheckStateLinter cslThen=new CheckStateLinter();
 		cslThen.mapa=clonMapaThen;
-		thenBody.idFunction=this.idFunction;//regla 12
 		thenBody.checkLinter(cslThen);
 		CheckStateLinter.generateErrors(CheckStateLinter.variablesNuevas(s, cslThen));
 		

@@ -17,6 +17,17 @@ public abstract class Stmt extends AstNode {
 	@Override public abstract boolean equals(Object obj);
 	public String idFunction="";
 	
+	public void putIntoLineColumn(CheckStateLinter s,int line,int column){
+		if (s.filaColumnaRegla2.containsKey(line)){
+			s.filaColumnaRegla2.get(line).add(column);
+		}else{
+			ArrayList<Integer> a=new ArrayList<Integer>();
+			a.add(column);
+			s.filaColumnaRegla2.put(line, a);
+		}
+	}
+	
+	
 	public static Stmt generate(Random random, int min, int max) {
 		final int TERMINAL_COUNT = 0;
 		final int NONTERMINAL_COUNT = 4;

@@ -128,6 +128,7 @@ public class AssignmentStmtWithType extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		putIntoLineColumn(s,this.line,this.column);//regla2
 		if (expression.countOperators() > 7) CheckStateLinter.addError20(expression.countOperators(), line, column);
 		if (Character.isUpperCase(id.charAt(0)) || id.charAt(0) == '_') CheckStateLinter.addError6(line, column);
 		if (s.mapa.containsKey(id) && !s.mapa.get(id).isFunction()) CheckStateLinter.addError14_19(id, line, column);

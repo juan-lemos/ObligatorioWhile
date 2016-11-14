@@ -3,11 +3,11 @@ package examples.while_ut1.ast;
 import java.util.*;
 
 /** Representación de las comparaciones por igual.
-*/
+ */
 public class Return extends Stmt {
 	public final Exp exp;	
-	
-	
+
+
 	public Return(Exp exp, int line, int column) {
 		this.exp = exp;
 		this.line = line;
@@ -46,23 +46,25 @@ public class Return extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		putIntoLineColumn(s,this.line,this.column);//regla2
 		if (exp.countOperators() > 7) CheckStateLinter.addError20(exp.countOperators(), line, column);
-		
-		String tipoExp=exp.checkLinter(s);		
+
+		String tipoExp=exp.checkLinter(s);
+		//		if (!this.idFunction.equals("")){
 		if (s.mapa.get(this.idFunction).tipo.equals("Void")){
 			CheckStateLinter.addError12A(this.idFunction, line, column);
 		}
 		else if (tipoExp.equals(s.mapa.get(this.idFunction).tipo)){
 			CheckStateLinter.addError12B(this.idFunction, line, column);
 		}
-		
-		
+		//		}
+
 		ArrayList <String> tiposAceptados=new ArrayList<String>();
 		tiposAceptados.add(s.mapa.get(this.idFunction).tipo);
 		CheckStateLinter.evaluarRegla9(this.exp, s, tiposAceptados);
-		
-		
-		
+
+
+
 		///ver que hago con idFunction de stmt
 		return s;
 	}

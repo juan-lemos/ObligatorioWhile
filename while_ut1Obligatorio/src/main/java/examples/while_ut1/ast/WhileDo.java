@@ -87,6 +87,8 @@ public class WhileDo extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		putIntoLineColumn(s,this.line,this.column);//regla2
+		body.idFunction=this.idFunction; //regla 12
 		if (countNestingLevels() > 5) CheckStateLinter.addError21(countNestingLevels(), line, column);
 		if (condition.countOperators() > 7) CheckStateLinter.addError20(condition.countOperators(), line, column);
 		
@@ -106,7 +108,7 @@ public class WhileDo extends Stmt {
 		CheckStateLinter checkStateLinterWhileIn=new CheckStateLinter();
 		checkStateLinterWhileIn.mapa=mapaAntesWhile;
 		
-		body.idFunction=this.idFunction; //regla 12
+		
 		checkStateLinterWhileIn=body.checkLinter(checkStateLinterWhileIn);
 		CheckStateLinter.generateErrors(CheckStateLinter.variablesNuevas(s, checkStateLinterWhileIn));
 		

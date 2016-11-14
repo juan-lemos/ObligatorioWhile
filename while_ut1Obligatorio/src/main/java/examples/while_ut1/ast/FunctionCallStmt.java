@@ -51,6 +51,7 @@ public class FunctionCallStmt extends Stmt{
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		putIntoLineColumn(s,this.line,this.column);//regla2
 		int paramsOperators = 0;
 		for (Exp exp : parameters) {
 			paramsOperators += exp.countOperators();
