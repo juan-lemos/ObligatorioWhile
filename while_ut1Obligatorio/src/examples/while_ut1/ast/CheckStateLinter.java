@@ -37,7 +37,7 @@ public class CheckStateLinter {
 	}
 
 	public static void addError1(int line, int column) {
-		addError("1", "existe mas de un salto de linea consecutivo", line, column); 
+		addError("1", "Existe mas de un salto de linea consecutivo", line, column); 
 	}
 
 	public static void addError2(int line, int column) {
@@ -45,107 +45,107 @@ public class CheckStateLinter {
 	}
 
 	public static void addError3(int line, int column) {
-		addError("3", "funcion declarada sin llamar", line, column); 
+		addError("3", "Funcion declarada sin llamar", line, column); 
 	}
 
 	public static void addError4(int line, int column) {
-		addError("4", "variable definida sin usar", line, column); 
+		addError("4", "Variable definida sin usar", line, column); 
 	}
 
 	public static void addError5A(int line, int column) {
-		addError("5A", "La condici�n no es necesaria", line, column);
+		addError("5A", "La condicion no es necesaria", line, column);
 	}
 
 	public static void addError5B(int line, int column) {
-		addError("5B", "El codigo interno no se ejecutar� nunca", line, column);
+		addError("5B", "El codigo interno no se ejecutara nunca", line, column);
 	}
 
 	public static void addError5C(int line, int column) {
-		addError("5C", "El codigo del else no ejecutar� nunca", line, column);
+		addError("5C", "El codigo del else no ejecutara nunca", line, column);
 	}
 
 	public static void addError5D(int line, int column) {
-		addError("5D", "El codigo del then no ejecutar� nunca", line, column);
+		addError("5D", "El codigo del then no ejecutara nunca", line, column);
 	}
 
 	public static void addError6(int line, int column) {
-		addError("6", "las variables deben comenzar con minuscula y sin guiones bajos", line, column); 
+		addError("6", "Las variables deben comenzar con minuscula y sin guiones bajos", line, column); 
 	}
 
 	public static void addError7(int line, int column) {
-		addError("7", "los nombres de metodos deben comenzar con minuscula", line, column); 
+		addError("7", "Los nombres de metodos deben comenzar con minuscula", line, column); 
 	}
 
 	public static void addError8(String variableId, int line, int column) {
-		addError("8", "variable " + variableId + " no declarada", line, column);
+		addError("8", "Variable " + variableId + " no declarada", line, column);
 	}
 
 	public static void addError9(int line, int column){
-		CheckStateLinter.addError("9", "Función no definida", line, column);
+		addError("9", "Funcion no definida", line, column);
 	}
 
 	public static void addError9A(int line, int column){
-		CheckStateLinter.addError("9A", "La funcion no devuelve valor alguno", line,column);
+		addError("9A", "La funcion no devuelve valor alguno", line,column);
 	}
 
 	public static void addError9B(int line, int column){
-		CheckStateLinter.addError("9B", "La funcion no devuelve el tipo esperado", line,column);
+		addError("9B", "La funcion no devuelve el tipo esperado", line,column);
 	}
 
 	public static void addError10A(int line, int column) {
-		addError("10A", "cantidad de parametros de funcion incorrectos", line, column);
+		addError("10A", "Cantidad de parametros de funcion incorrectos", line, column);
 	}
 
 	public static void addError10B(String expectedType, String parameterType, int line, int column) {
-		addError("10B", "parametro de funcion de tipo incorrecto. Esperado: " + expectedType + ", actual: " + parameterType, line, column);
+		addError("10B", "Parametro de funcion de tipo incorrecto. Esperado: " + expectedType + ", actual: " + parameterType, line, column);
 	}
 
 	public static void addError11(int line, int column) {
-		addError("11", "parametro sin usar", line, column); 
+		addError("11", "Parametro sin usar", line, column); 
 	}
 
 	public static void addError12A(String functionName, int line, int column) {
-		addError("12A", "la funcion " + functionName + " no devuelve nada segun su definicion", line, column); 
+		addError("12A", "La funcion " + functionName + " no devuelve nada segun su definicion", line, column); 
 	}
 
 	public static void addError12B(String functionName, int line, int column) {
-		addError("12B", "El tipo de la expresion del return no coincide con el la funci�n " + functionName, line, column); 
+		addError("12B", "El tipo de la expresion del return no coincide con el la funcion " + functionName, line, column); 
 	}
 
 	public static void addError13(String functionName, int line, int column) {
-		addError("13", "la funcion " + functionName + " ya se encuentra definida", line, column); 
+		addError("13", "La funcion " + functionName + " ya se encuentra definida", line, column); 
 	}
 
 	public static void addError14_19(String variableId, int line, int column) {
-		addError("14-19", "la variable " + variableId + " ya se encuentra declarada", line, column);
+		addError("14-19", "La variable " + variableId + " ya se encuentra declarada", line, column);
 	}
 
 	public static void addError15(int line, int column, String idVariable) {
-		addError("15", "El tipo de la variable "+idVariable+" y la expresión no coinciden", line, column);
+		addError("15", "El tipo de la variable "+idVariable+" y la expresion no coinciden", line, column);
 	}
 
 	public static void addError16(int line, int column) {
-		addError("16", "existen parentesis superfluos", line, column);
+		addError("16", "Existen parentesis superfluos", line, column);
 	}
 
 	public static void addError17(int line, int column) {
-		addError("17", "existen llaves superfluas", line, column);
+		addError("17", "Existen llaves superfluas", line, column);
 	}
 
 	public static void addError18A(String functionName, String oldFunctionName, int line, int column) {
-		addError("18A",  "la funcion " + functionName + " se encuentra definida como " + oldFunctionName, line, column);
+		addError("18A",  "La funcion " + functionName + " se encuentra definida como " + oldFunctionName, line, column);
 	}
 
 	public static void addError18B(String variableId, String oldVariableId, int line, int column) {
-		addError("18B", "la variable " + variableId + " se encuentra definida como " + oldVariableId, line, column);
+		addError("18B", "La variable " + variableId + " se encuentra definida como " + oldVariableId, line, column);
 	}
 
 	public static void addError20(int operators, int line, int column) {
-		addError("20", "existe una expresion con " + operators + " operadores", line, column);
+		addError("20", "Existe una expresion con " + operators + " operadores", line, column);
 	}
 
 	public static void addError21(int nestingLevels, int line, int column) {
-		addError("21", "existe un statement con " + nestingLevels + " niveles de anidacion", line, column);
+		addError("21", "Existe un statement con " + nestingLevels + " niveles de anidacion", line, column);
 	}
 
 	private static void addError(String code, String msg, int line, int column) {
