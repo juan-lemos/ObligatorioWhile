@@ -72,6 +72,7 @@ public class FunctionDeclaration extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		putIntoLineColumn(s,this.line,this.column);//regla2
 		body.idFunction=id;//regla 12
 		if (Character.isUpperCase(id.charAt(0))) CheckStateLinter.addError7(line, column);
 		if (body.countNestingLevels() > 5) CheckStateLinter.addError21(body.countNestingLevels(), line, column);
