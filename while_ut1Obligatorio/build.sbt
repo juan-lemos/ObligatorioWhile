@@ -163,7 +163,7 @@ scalacOptions ++= Seq("-unchecked", "-deprecation")
 
 // Execute tests in the current project serially
 //   Tests from other projects may still run concurrently.
-// parallelExecution in Test := false
+ parallelExecution in Test := false
 
 // set the location of the JDK to use for compiling Java code.
 // if 'fork' is true, this is used for 'run' as well
