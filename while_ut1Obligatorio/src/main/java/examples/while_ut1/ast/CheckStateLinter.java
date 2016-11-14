@@ -3,8 +3,8 @@ package examples.while_ut1.ast;
 import java.util.*;
 
 public class CheckStateLinter {
-	public static ArrayList<String> errores = new ArrayList<String>();
-//	public final static List errores = Collections.synchronizedList(new ArrayList<String>());
+//	public static ArrayList<String> errores = new ArrayList<String>();
+	public final static List<String> errores = Collections.synchronizedList(new ArrayList<String>());
 
 	public Map<String,ObjectState> mapa = new HashMap<String,ObjectState>();
 
@@ -27,18 +27,18 @@ public class CheckStateLinter {
 	public String toString() {
 		String resultado = "";
 
-		for (String value : errores) {
-			resultado = resultado + "\n" + value;
-		}
-//		synchronized (errores) {
-//           Iterator i = errores.listIterator(); // Must be in synchronized block
-//           while (i.hasNext())
-//			   resultado = resultado + "\n" + i.next();
-//       }
+//		for (String value : errores) {
+//			resultado = resultado + "\n" + value;
+//		}
+		synchronized (errores) {
+           Iterator i = errores.listIterator(); // Must be in synchronized block
+           while (i.hasNext())
+			   resultado = resultado + "\n" + i.next();
+       }
 		return resultado;
 	}
 
-	public static void clear2() {
+	public static void clear() {
 		synchronized (errores) {
 			errores.clear();
 		}
@@ -157,7 +157,9 @@ public class CheckStateLinter {
 	}
 
 	private static void addError(String code, String msg, int line, int column) {
-		errores.add(createErrorMsg(code, msg, line, column));
+		synchronized (errores) {
+			errores.add(createErrorMsg(code, msg, line, column));
+		}
 	}
 
 	private static String createErrorMsg(String code, String msg, int line, int column) {

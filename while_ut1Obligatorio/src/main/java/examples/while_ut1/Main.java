@@ -23,9 +23,9 @@ public class Main {
 					CheckStateLinter cslint = new CheckStateLinter();
 					cslint = prog.checkLinter(cslint);
 					CheckStateLinter.generateErrors(cslint);
-					for (String error : CheckStateLinter.errores) {
-						System.out.println(error);
-					}
+//					for (String error : CheckStateLinter.errores) {
+//						System.out.println(error);
+//					}
 				}
 			} catch (Exception err) {
 				System.err.print(err);
