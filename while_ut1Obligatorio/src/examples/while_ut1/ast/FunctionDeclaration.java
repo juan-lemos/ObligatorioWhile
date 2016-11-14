@@ -72,6 +72,7 @@ public class FunctionDeclaration extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		body.idFunction=id;//regla 12
 		if (Character.isUpperCase(id.charAt(0))) CheckStateLinter.addError7(line, column);
 		if (body.countNestingLevels() > 5) CheckStateLinter.addError21(body.countNestingLevels(), line, column);
 		if (s.mapa.containsKey(id) && s.mapa.get(id).isFunction()) CheckStateLinter.addError13(id, line, column);
@@ -82,21 +83,6 @@ public class FunctionDeclaration extends Stmt {
 		
 		s.mapa.put(id, new ObjectState(type, false, 1, this));//revisar
 		
-//		Map<String,ObjectState> clonedMap = CheckState.clonarMapa(s.mapa);
-//		CheckStateLinter cslForOutsideVariables = new CheckStateLinter();
-//		cslForOutsideVariables.mapa = clonedMap;
-//		body.idFunction=id;
-//		body.checkLinter(cslForOutsideVariables);
-//		
-//		Map<String,ObjectState> parametersMap = new HashMap<String,ObjectState>();
-//		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
-//			parametersMap.put(parameter.getKey(), new ObjectState(parameter.getValue(), true, 2, this));
-//		}
-//		CheckStateLinter cslForParams = new CheckStateLinter();
-//		cslForParams.mapa = parametersMap;
-//		cslForParams = body.checkLinter(cslForParams);
-//		CheckStateLinter.generateErrors(cslForParams);
-		
 		
 		CheckStateLinter cslForOutsideVariables = new CheckStateLinter();
 		Map<String,ObjectState> clonedMap = CheckState.clonarMapa(s.mapa);
@@ -105,8 +91,8 @@ public class FunctionDeclaration extends Stmt {
 			clonedMap.put(parameter.getKey(), new ObjectState(parameter.getValue(), true, 3, this));
 		}
 		cslForOutsideVariables = body.checkLinter(cslForOutsideVariables);
-		body.idFunction=id;//regla 12
-		body.checkLinter(cslForOutsideVariables);
+		
+
 		CheckStateLinter.generateErrors(CheckStateLinter.variablesNuevas(s, cslForOutsideVariables));
 		CheckStateLinter.evaluarRegla11(cslForOutsideVariables);
 		
