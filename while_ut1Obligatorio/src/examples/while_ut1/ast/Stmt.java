@@ -53,7 +53,7 @@ public abstract class Stmt extends AstNode {
 		if (obj instanceof Integer){
 			return ((Integer) obj).doubleValue();
 		}else if (obj instanceof Double){
-			return ((Double) obj).doubleValue();
+			return (Double) obj;
 		}else{
 			throw new IllegalStateException(unparse);
 		}
