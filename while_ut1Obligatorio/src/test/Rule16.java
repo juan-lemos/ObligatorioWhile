@@ -26,38 +26,34 @@ public class Rule16 extends TestCase {
 	}
 
 	protected void loadData() {
-		datosPruebas.put(1, "{if((10<=15))then{int c=10;} else{int z=11;}}");//
-		datosPruebas.put(2, "{while((15<=10))do{ y=2;\n x=3; }}"); //
-		datosPruebas.put(3, "{int z= (15<=10)}"); // 
+		datosPruebas.put(1, "{if((10<=15))then{int c=10;} else{int z=11;}}");//ok
+		datosPruebas.put(2, "{while((15<=10))do{ y=2;\n x=3; }}"); //ok
+		datosPruebas.put(3, "{int z= (((15<=10)));}"); // ok
 		datosPruebas.put(4, "{int y=3;int x=32 ;int z= (((15==10))) ? 2 : 3;}"); //
 		datosPruebas.put(5, "{int z= (10==10) ? 15<=10 : 15==10;}"); // 
-		datosPruebas.put(6, "{int y=3;int x=32 ;int z= ((15<=10)) ? 15<=10 : 15==10;}"); //
+		datosPruebas.put(6, "{int y=3;int x=32 ;int z= ((15<=10)) ? 15<=10 : ((15==10));}"); //
 	}
 
 	public void testData() {
 		try {
-			Integer numTest =6;   // Setear este valor
+			Integer numTest =4;   // Setear este valor
 			
 			Object obj = Parse.parse(datosPruebas.get(numTest));
 			logger.log(Level.INFO, obj.toString());
 			
 			CheckStateLinter check = ((Stmt) obj).checkLinter(state); 
-			//logger.log(Level.INFO, "Despues");
+			CheckStateLinter.generateErrors(check);
 			
 			String actual = check.toString();
 			logger.log(Level.INFO, actual); //borrar
 			String expected = "";
 			
-			if (numTest == 6 )
+			if (numTest == 5 )
 				expected = "";
 			else{ 
-				if(numTest ==1|| numTest ==5)
-					expected = "Offense detected - 5C: El codigo del else no ejecutar� nunca";				
-				else if(numTest ==2 || numTest ==4)
-					expected = "Offense detected - 5D: El codigo del then no ejecutar� nunca";
-				else if(numTest ==3)
-					expected = "Offense detected - 5B: El codigo interno no se ejecutar� nunca";
-				 
+				if(numTest ==1|| numTest ==2||numTest ==3||numTest ==4||numTest ==6)
+					expected = "Offense detected - 16: Existen parentesis superfluos";				
+				
 				}
 			
 			assertTrue("Se esperaba " + expected + "pero el resultado fue " + actual, actual.contains(expected));
