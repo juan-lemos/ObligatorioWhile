@@ -14,8 +14,6 @@ class rule8 extends Specification {
 
   sequential
 
-  val state = new CheckStateLinter()
-
   val case1 = "{int a=1; int b=2; int c=3; a=1; b=d;}"
 
   val errorLocal08 = "Offense detected - 8: Variable d no declarada."
@@ -24,7 +22,7 @@ class rule8 extends Specification {
 //    s"contain messages:\n $error02\n $error08\n $error15" in {
 
     CheckStateLinter.errores.clear()
-    val newState = Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(state)
+    val newState = Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
     CheckStateLinter.generateErrors(newState)
 //    println(CheckStateLinter.errores.asScala.mkString("\n"))
 

@@ -14,8 +14,6 @@ class rule6 extends Specification {
 
   sequential
 
-  val state = new CheckStateLinter()
-
   val case1 = "{int a=1; int Ba=2; }"
 
   val case2 =  "{int a=1; int _ad=2; }"
@@ -25,7 +23,7 @@ class rule6 extends Specification {
   s"The case1: '$case1' string" should {
     s"contain message $error06" in {
       CheckStateLinter.errores.clear()
-      val newState = Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(state)
+      val newState = Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
       CheckStateLinter.generateErrors(newState)
       atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error06)
     }
@@ -34,7 +32,7 @@ class rule6 extends Specification {
   s"The case2: '$case2' string" should {
     s"contain message $error06" in {
       CheckStateLinter.errores.clear()
-      val newState = Parser.parse(case2).value.asInstanceOf[Stmt].checkLinter(state)
+      val newState = Parser.parse(case2).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
       CheckStateLinter.generateErrors(newState)
       atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error06)
     }

@@ -101,13 +101,13 @@ public class CompareEqual extends BExp {
 			boolean finalValue=true;
 			if (returnValue==0){finalValue=true;}
 			else{finalValue=false;}
-			return new TruthValue(finalValue, left.line, left.column);
+			return new TruthValue(finalValue, this.line, this.column);
 		}else if(leftOptimized instanceof Str  && rightOptimized instanceof Str) {
 			String leftString=(String)(((Str)leftOptimized).value);
 			String rightString=(String)(((Str)rightOptimized).value);
-			return new TruthValue(leftString.equals(rightString), left.line, left.column);
+			return new TruthValue(leftString.equals(rightString), this.line, this.column);
 		}else if(leftOptimized instanceof TruthValue  && rightOptimized instanceof TruthValue) {
-			return new TruthValue (((TruthValue)leftOptimized).value == ((TruthValue)rightOptimized).value, left.line, left.column);
+			return new TruthValue (((TruthValue)leftOptimized).value == ((TruthValue)rightOptimized).value, this.line, this.column);
 		}
 		else{
 			return this;

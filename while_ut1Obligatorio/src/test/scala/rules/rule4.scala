@@ -14,7 +14,6 @@ class rule4 extends Specification {
 
   sequential
 
-  val state = new CheckStateLinter()
   val case1 = "{int a=1; int b=2; int c=3; a=1; b=a;}"
 
 
@@ -23,7 +22,7 @@ class rule4 extends Specification {
   s"atLeastOnce parsing '$case1'" should {
     s"contain message $error" in {
       CheckStateLinter.errores.clear()
-      val newState = Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(state)
+      val newState = Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
       CheckStateLinter.generateErrors(newState)
 //      println(CheckStateLinter.errores)
       atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error).setMessage(CheckStateLinter.errores.asScala.mkString(","))
