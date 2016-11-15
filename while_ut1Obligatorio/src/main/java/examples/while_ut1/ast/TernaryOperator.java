@@ -8,10 +8,12 @@ public class TernaryOperator extends Exp {
 	public final Exp thenExp;
 	public final Exp elseExp;
 
-	public TernaryOperator(Exp condition, Exp thenExp, Exp elseExp) {
+	public TernaryOperator(Exp condition, Exp thenExp, Exp elseExp, int line, int column) {
 		this.condition = condition;
 		this.thenExp = thenExp;
 		this.elseExp = elseExp;
+		this.line = line;
+		this.column = column;
 	}
 
 	@Override
@@ -57,13 +59,13 @@ public class TernaryOperator extends Exp {
 		} //asumimos para que en el caso de que la condicion no sea boolean lo es
 
 		String checkThenExp=thenExp.check(s);
-		if (!(checkThenExp.equals("Boolean") || checkThenExp.equals("Integer") || 
+		if (!(checkThenExp.equals("Boolean") || checkThenExp.equals("Integer") ||
 				checkThenExp.equals("String")  || checkThenExp.equals("Double"))){
 			s.errores.add("Se debe devolver un valor:"+this.toString());
 		}
 
 		String checkElseExp=elseExp.check(s);
-		if (!(checkElseExp.equals("Boolean") || checkElseExp.equals("Integer") || 
+		if (!(checkElseExp.equals("Boolean") || checkElseExp.equals("Integer") ||
 				checkElseExp.equals("String")  || checkElseExp.equals("Double"))){
 			s.errores.add("Se debe devolver un valor:"+this.toString());
 		}
@@ -86,6 +88,7 @@ public class TernaryOperator extends Exp {
 
 	@Override
 	public String checkLinter(CheckStateLinter s) {
+		if (condition.getIsInsideParenthesis()) CheckStateLinter.addError16(condition.line, condition.column);
 		Exp optimizado=condition.optimize();
 		if (optimizado instanceof TruthValue){
 			if (((TruthValue) optimizado).value){
@@ -134,12 +137,12 @@ public class TernaryOperator extends Exp {
 
 	@Override
 	public int getLine() {
-		return 0;
+		return line;
 	}
 
 	@Override
 	public int getColumn() {
-		return 0;
+		return column;
 	}
 
 	@Override

@@ -9,8 +9,10 @@ import javax.swing.text.html.parser.ParserDelegator;
 public class Length extends Exp {
 	public final Exp expression;
 
-	public Length(Exp expression) {
+	public Length(Exp expression,int line,int column) {
 		this.expression = expression;
+		this.line=line;
+		this.column=column;
 	}
 
 	@Override public String unparse() {
@@ -70,7 +72,7 @@ public class Length extends Exp {
 	public Exp optimize() {
 		Exp optimizedExpression=expression.optimize();
 		if (optimizedExpression instanceof Str){
-			return new Numeral(((Str)optimizedExpression).value.length());
+			return new Numeral(((Str)optimizedExpression).value.length(),this.line,this.column);
 		}
 		return this;
 	}

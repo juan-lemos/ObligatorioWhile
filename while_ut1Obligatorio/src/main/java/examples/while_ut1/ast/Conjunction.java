@@ -8,9 +8,11 @@ public class Conjunction extends BExp {
 	public final Exp left;
 	public final Exp right;
 
-	public Conjunction(Exp left, Exp right) {
+	public Conjunction(Exp left, Exp right,int line, int column) {
 		this.left = left;
 		this.right = right;
+		this.line=line;
+		this.column=column;
 	}
 
 	@Override public String unparse() {
@@ -36,12 +38,12 @@ public class Conjunction extends BExp {
 				&& (this.right == null ? other.right == null : this.right.equals(other.right));
 	}
 
-	public static Conjunction generate(Random random, int min, int max) {
-		BExp left; BExp right; 
-		left = BExp.generate(random, min-1, max-1);
-		right = BExp.generate(random, min-1, max-1);
-		return new Conjunction(left, right);
-	}
+//	public static Conjunction generate(Random random, int min, int max) {
+//		BExp left; BExp right; 
+//		left = BExp.generate(random, min-1, max-1);
+//		right = BExp.generate(random, min-1, max-1);
+//		return new Conjunction(left, right);
+//	}
 
 	@Override
 	public Object evaluate(State state) {

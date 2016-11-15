@@ -8,9 +8,11 @@ public class Division extends AExp {
 	public final Exp left;
 	public final Exp right;
 
-	public Division(Exp left, Exp right) {
+	public Division(Exp left, Exp right,int line , int column) {
 		this.left = left;
 		this.right = right;
+		this.line=line;
+		this.column=column;
 	}
 
 	@Override public String unparse() {
@@ -36,12 +38,12 @@ public class Division extends AExp {
 				&& (this.right == null ? other.right == null : this.right.equals(other.right));
 	}
 
-	public static Division generate(Random random, int min, int max) {
-		AExp left; AExp right;
-		left = AExp.generate(random, min-1, max-1);
-		right = AExp.generate(random, min-1, max-1);
-		return new Division(left, right);
-	}
+//	public static Division generate(Random random, int min, int max) {
+//		AExp left; AExp right;
+//		left = AExp.generate(random, min-1, max-1);
+//		right = AExp.generate(random, min-1, max-1);
+//		return new Division(left, right);
+//	}
 
 	@Override
 	public Object evaluate(State state) {

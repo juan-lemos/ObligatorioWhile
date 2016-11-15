@@ -109,11 +109,11 @@ stmtBasics ::=
 	|	SKIP:$1 SEMICOLON:$2
 		{: RESULT = new Sequence(new Stmt[0], $1left, $1right); :}
 	|	WHILE:$1 exp:$2 DO:$3 stmtBasics:$4
-		{: RESULT = new WhileDo($2, $4); :}
+		{: RESULT = new WhileDo($2, $4,$1left,$1right); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtBasics:$4
-		{: RESULT = new IfThen($2, $4, $2left, $2right); :}
+		{: RESULT = new IfThen($2, $4, $1left, $1right); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtBasics:$4 ELSE:$5 stmtBasics:$6
-		{: RESULT = new IfThenElse($2, $4, $6, $2left, $2right); :}
+		{: RESULT = new IfThenElse($2, $4, $6, $1left, $1right); :}
 	|	PRINT:$2 LEFT_PARENTHESIS exp:$1 RIGHT_PARENTHESIS SEMICOLON
 		{: RESULT = new Print($1,$2left, $2right); :}
 	|	ID:$4 LEFT_PARENTHESIS parametros:$2 RIGHT_PARENTHESIS SEMICOLON
@@ -133,11 +133,11 @@ stmtMain ::=
 	|	SKIP:$1 SEMICOLON:$2
 		{: RESULT = new Sequence(new Stmt[0], $1left, $1right); :}
 	|	WHILE:$1 exp:$2 DO:$3 stmtBasics:$4
-		{: RESULT = new WhileDo($2, $4); :}
+		{: RESULT = new WhileDo($2, $4,$1left,$1right); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtBasics:$4
-		{: RESULT = new IfThen($2, $4, $2left, $2right); :}
+		{: RESULT = new IfThen($2, $4, $1left, $1right); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtBasics:$4 ELSE:$5 stmtBasics:$6
-		{: RESULT = new IfThenElse($2, $4, $6, $2left, $2right); :}
+		{: RESULT = new IfThenElse($2, $4, $6, $1left, $1right); :}
 	|	PRINT:$2 LEFT_PARENTHESIS exp:$1 RIGHT_PARENTHESIS SEMICOLON
 		{: RESULT = new Print($1,$2left, $2right); :}
 	|	ID:$4 LEFT_PARENTHESIS parametros:$2 RIGHT_PARENTHESIS SEMICOLON
@@ -159,11 +159,11 @@ stmtFunctions ::=
 	|	LEFT_CURLY_BRACKET:$1 repeat$stmtFunctions:$2 RIGHT_CURLY_BRACKET:$3
 		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()]), $1left, $1right); :}
 	|	WHILE:$1 exp:$2 DO:$3 stmtFunctions:$4
-		{: RESULT = new WhileDo($2, $4); :}
+		{: RESULT = new WhileDo($2, $4,$1left,$1right); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtFunctions:$4
-		{: RESULT = new IfThen($2, $4, $2left, $2right); :}
+		{: RESULT = new IfThen($2, $4, $1left, $1right); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtFunctions:$4 ELSE:$5 stmtFunctions:$6
-		{: RESULT = new IfThenElse($2, $4, $6, $2left, $2right); :}
+		{: RESULT = new IfThenElse($2, $4, $6, $1left, $1right); :}
 	|	PRINT:$2 LEFT_PARENTHESIS exp:$1 RIGHT_PARENTHESIS SEMICOLON
 		{: RESULT = new Print($1,$2left, $2right); :}
 	|	ID:$4 LEFT_PARENTHESIS parametros:$2 RIGHT_PARENTHESIS SEMICOLON
@@ -194,19 +194,19 @@ exp ::=
 		NUM:$1
 		{: RESULT = new Numeral($1, $1left, $1right); :}
 	|	NUMInt:$1
-		{: RESULT = new  Numeral($1); :}
+		{: RESULT = new  Numeral($1,$1left, $1right); :}
 	|	STR:$1
 		{: RESULT = new Str($1, $1left, $1right); :}
 	|	ID:$1
 		{: RESULT = new Variable($1,$1left,$1right); :}
 	|	exp:$1 ASTERISK:$2 exp:$3
-		{: RESULT = new Multiplication($1, $3); :}
+		{: RESULT = new Multiplication($1, $3, $2left, $2right); :}
 	|	exp:$1 SLASH:$2 exp:$3
-		{: RESULT = new Division($1, $3);:}
+		{: RESULT = new Division($1, $3,  $2left, $2right);:}
 	|	exp:$1 PLUS_SIGN:$2 exp:$3
-		{: RESULT = new Addition($1, $3); :}
+		{: RESULT = new Addition($1, $3,$2left, $2right); :}
 	|	exp:$1 HYPHEN_MINUS:$2 exp:$3
-		{: RESULT = new Subtraction($1, $3); :}
+		{: RESULT = new Subtraction($1, $3,$2left, $2right); :}
 	|	LEFT_PARENTHESIS:$1 exp:$2 RIGHT_PARENTHESIS:$3
 		{:
 			if ($2.getIsInsideParenthesis())
@@ -220,19 +220,19 @@ exp ::=
 	|	FALSE:$1
 		{: RESULT = new TruthValue(false, $1left, $1right); :}
 	|	exp:$1 DOUBLE_EQUALS_SIGN:$2 exp:$3
-		{: RESULT = new CompareEqual($1, $3); :}
+		{: RESULT = new CompareEqual($1, $3,$2left,$2right); :}
 	|	exp:$1 LESS_THAN_OR_EQUAL:$2 exp:$3
-		{: RESULT = new CompareLessOrEqual($1, $3); :}
+		{: RESULT = new CompareLessOrEqual($1, $3,$2left,$2right); :}
 	|	EXCLAMATION_MARK:$1 exp:$2
 		{: RESULT = new Negation($2, $1left, $1right); :}
 	|	exp:$1 DOUBLE_AMPERSAND:$2 exp:$3
-		{: RESULT = new Conjunction($1, $3); :}
+		{: RESULT = new Conjunction($1, $3, $2left,$2right); :}
 	|	ID:$1 EQUALS_SIGN:$2 exp:$3
 		{: RESULT = new AssignmentExp($1, $3, $1left, $1right); :}
-	|	DEFINED LEFT_PARENTHESIS ID:$1 RIGHT_PARENTHESIS
-		{: RESULT = new Defined($1); :}
-	|	LENGTH LEFT_PARENTHESIS exp:$1 RIGHT_PARENTHESIS
-		{: RESULT = new Length($1); :}
+	|	DEFINED:$0 LEFT_PARENTHESIS ID:$1 RIGHT_PARENTHESIS
+		{: RESULT = new Defined($1,$0left,$0right); :}
+	|	LENGTH:$0 LEFT_PARENTHESIS exp:$1 RIGHT_PARENTHESIS
+		{: RESULT = new Length($1,$0left,$0right); :}
 	|	LEFT_PARENTHESIS:$0  exp:$1 RIGHT_PARENTHESIS QUESTION_MARK exp:$2 COLON exp:$3
 		{: RESULT = new TernaryOperator($1, $2, $3, $0left, $0right); :}
 	|	ID:$4 LEFT_PARENTHESIS parametros:$2 RIGHT_PARENTHESIS
