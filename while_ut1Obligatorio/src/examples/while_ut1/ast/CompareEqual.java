@@ -9,9 +9,11 @@ public class CompareEqual extends BExp {
 	public final Exp left;
 	public final Exp right;
 
-	public CompareEqual(Exp left, Exp right) {
+	public CompareEqual(Exp left, Exp right, int line ,int column) {
 		this.left = left;
 		this.right = right;
+		this.line=line;
+		this.column=column;
 	}
 
 	@Override public String unparse() {
@@ -37,12 +39,12 @@ public class CompareEqual extends BExp {
 				&& (this.right == null ? other.right == null : this.right.equals(other.right));
 	}
 
-	public static CompareEqual generate(Random random, int min, int max) {
-		AExp left; AExp right; 
-		left = AExp.generate(random, min-1, max-1);
-		right = AExp.generate(random, min-1, max-1);
-		return new CompareEqual(left, right);
-	}
+//	public static CompareEqual generate(Random random, int min, int max) {
+//		AExp left; AExp right; 
+//		left = AExp.generate(random, min-1, max-1);
+//		right = AExp.generate(random, min-1, max-1);
+//		return new CompareEqual(left, right);
+//	}
 
 	@Override
 	public Object evaluate(State state) {
