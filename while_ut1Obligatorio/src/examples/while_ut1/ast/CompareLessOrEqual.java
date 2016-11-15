@@ -110,7 +110,7 @@ public class CompareLessOrEqual extends BExp {
 			boolean finalValue=true;
 			if (returnValue==0 || returnValue<0){finalValue=true;}
 			else{finalValue=false;}
-			return new TruthValue(finalValue, left.line, left.column);
+			return new TruthValue(finalValue, this.line, this.column);
 		}
 		else{
 			return this;

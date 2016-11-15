@@ -107,7 +107,7 @@ public class CompareEqual extends BExp {
 			String rightString=(String)(((Str)rightOptimized).value);
 			return new TruthValue(leftString.equals(rightString), left.line, left.column);
 		}else if(leftOptimized instanceof TruthValue  && rightOptimized instanceof TruthValue) {
-			return new TruthValue (((TruthValue)leftOptimized).value == ((TruthValue)rightOptimized).value, left.line, left.column);
+			return new TruthValue (((TruthValue)leftOptimized).value == ((TruthValue)rightOptimized).value, this.line, this.column);
 		}
 		else{
 			return this;
