@@ -88,6 +88,7 @@ public class TernaryOperator extends Exp {
 
 	@Override
 	public String checkLinter(CheckStateLinter s) {
+		if (condition.getIsInsideParenthesis()) CheckStateLinter.addError16(condition.line, condition.column);
 		Exp optimizado=condition.optimize();
 		if (optimizado instanceof TruthValue){
 			if (((TruthValue) optimizado).value){
