@@ -26,7 +26,8 @@ class rule7 extends Specification {
   s"The case1: '$case1' string" should {
     s"contain message $error07" in {
       CheckStateLinter.errores.clear()
-      Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(state)
+      val newState = Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(state)
+      CheckStateLinter.generateErrors(newState)
       atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error07)
     }
   }
@@ -34,7 +35,8 @@ class rule7 extends Specification {
   s"The case2: '$case2' string" should {
     s"not contain message $error07" in {
       CheckStateLinter.errores.clear()
-      Parser.parse(case2).value.asInstanceOf[Stmt].checkLinter(state)
+      val newState = Parser.parse(case2).value.asInstanceOf[Stmt].checkLinter(state)
+      CheckStateLinter.generateErrors(newState)
       forall (CheckStateLinter.errores.asScala) ((_:String) must not startWith error07)
     }
   }
@@ -42,7 +44,9 @@ class rule7 extends Specification {
   s"The case3: '$case3' string" should {
     s"not contain messages:\n $error07\n and $error11\n and $error17" in {
       CheckStateLinter.errores.clear()
-      Parser.parse(case3).value.asInstanceOf[Stmt].checkLinter(state)
+      val newState = Parser.parse(case3).value.asInstanceOf[Stmt].checkLinter(state)
+      CheckStateLinter.generateErrors(newState)
+
       forall (CheckStateLinter.errores.asScala) ((_:String) must not startWith error07) and
         atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error11) and
           atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error17)

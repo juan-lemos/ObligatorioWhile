@@ -18,17 +18,28 @@ class rule8 extends Specification {
 
   val case1 = "{int a=1; int b=2; int c=3; a=1; b=d;}"
 
+  val errorLocal08 = "Offense detected - 8: Variable d no declarada."
+
   s"The case3: '$case1' string" should {
-    s"contain messages:\n $error02\n $error08\n $error15" in {
-      CheckStateLinter.errores.clear()
-      Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(state)
-//      println(CheckStateLinter.errores.asScala.mkString("\n"))
-      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error02) and
-        atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error08) and
-          atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error15)
+//    s"contain messages:\n $error02\n $error08\n $error15" in {
+
+    CheckStateLinter.errores.clear()
+    val newState = Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(state)
+    CheckStateLinter.generateErrors(newState)
+//    println(CheckStateLinter.errores.asScala.mkString("\n"))
+
+    s"contain messages: $error02" in {
+      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error02)
+    }
+
+    s"contain messages: $errorLocal08" in {
+      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith errorLocal08)
+    }
+
+    s"contain messages: $error15" in {
+      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error15)
     }
   }
-
 
 }
 

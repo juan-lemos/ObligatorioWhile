@@ -72,7 +72,7 @@ public class FunctionCall extends Exp {
 				for (int i = 0; i < this.parameters.size(); i++){
 					String parameterType = this.parameters.get(i).checkLinter(s);
 					String expectedType = (String) functionDeclaration.parameters.values().toArray()[i];
-					if (!(parameterType == expectedType)) {
+					if (!(parameterType.equals(expectedType))) {
 						CheckStateLinter.addError10B(expectedType, parameterType, line, column);
 					}
 				}

@@ -40,7 +40,8 @@ class rule2 extends Specification {
   s"The '$case1' string" should {
     s"case1 not contain message $error02" in {
       CheckStateLinter.clear()
-      Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(state)
+      val newState = Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(state)
+      CheckStateLinter.generateErrors(newState)
       forall (CheckStateLinter.errores.asScala) ((_:String) must not startWith(error02))
     }
   }
@@ -48,7 +49,8 @@ class rule2 extends Specification {
   s"The '$case2' string" should {
     s"case2 not contain message $error02" in {
       CheckStateLinter.clear()
-      Parser.parse(case2).value.asInstanceOf[Stmt].checkLinter(state)
+      val newState = Parser.parse(case2).value.asInstanceOf[Stmt].checkLinter(state)
+      CheckStateLinter.generateErrors(newState)
       forall (CheckStateLinter.errores.asScala) ((_:String) must not startWith(error02))
     }
   }
@@ -56,7 +58,8 @@ class rule2 extends Specification {
   s"The '$case3' string" should {
     s"case3 not contain message $error02" in {
       CheckStateLinter.clear()
-      Parser.parse(case3).value.asInstanceOf[Stmt].checkLinter(state)
+      val newState = Parser.parse(case3).value.asInstanceOf[Stmt].checkLinter(state)
+      CheckStateLinter.generateErrors(newState)
       forall (CheckStateLinter.errores.asScala) ((_:String) must not startWith(error02))
     }
   }
@@ -64,7 +67,8 @@ class rule2 extends Specification {
   s"The '$case4' string" should {
     s"case4 not contain message $error02" in {
       CheckStateLinter.errores.clear()
-      Parser.parse(case5).value.asInstanceOf[Stmt].checkLinter(state)
+      val newState = Parser.parse(case5).value.asInstanceOf[Stmt].checkLinter(state)
+      CheckStateLinter.generateErrors(newState)
       forall (CheckStateLinter.errores.asScala) ((_:String) must not startWith(error02))
     }
   }
@@ -72,7 +76,8 @@ class rule2 extends Specification {
   s"The '$case5' string" should {
     s"case5 not contain message $error02" in {
       CheckStateLinter.errores.clear()
-      Parser.parse(case5).value.asInstanceOf[Stmt].checkLinter(state)
+      val newState = Parser.parse(case5).value.asInstanceOf[Stmt].checkLinter(state)
+      CheckStateLinter.generateErrors(newState)
       forall (CheckStateLinter.errores.asScala) ((_:String) must not startWith(error02))
     }
   }
@@ -80,9 +85,9 @@ class rule2 extends Specification {
   s"The '$case6' string" should {
     s"case6 contain message $error02" in {
       CheckStateLinter.errores.clear()
-      Parser.parse(case6).value.asInstanceOf[Stmt].checkLinter(state)
-      println(CheckStateLinter.errores)
-      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must startWith(error02))
+      val newState = Parser.parse(case6).value.asInstanceOf[Stmt].checkLinter(state)
+      CheckStateLinter.generateErrors(newState)
+      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error02)
     }
   }
 

@@ -75,6 +75,11 @@ public class FunctionDeclaration extends Stmt {
 		putIntoLineColumn(s,this.line,this.column);//regla2
 		body.idFunction=id;//regla 12
 		if (Character.isUpperCase(id.charAt(0))) CheckStateLinter.addError7(line, column);
+		for (Map.Entry<String, String> element : parameters.entrySet()) {
+			String parameter = element.getKey();
+			if (Character.isUpperCase(parameter.charAt(0)) || parameter.charAt(0) == '_')
+				CheckStateLinter.addError6(line, column);
+		}
 		if (body.countNestingLevels() > 5) CheckStateLinter.addError21(body.countNestingLevels(), line, column);
 		if (s.mapa.containsKey(id) && s.mapa.get(id).isFunction()) CheckStateLinter.addError13(id, line, column);
 		s.mapa.keySet().forEach((key) -> {
@@ -83,7 +88,6 @@ public class FunctionDeclaration extends Stmt {
 		});
 		
 		s.mapa.put(id, new ObjectState(type, false, 1, this));//revisar
-		
 		
 		CheckStateLinter cslForOutsideVariables = new CheckStateLinter();
 		Map<String,ObjectState> clonedMap = CheckState.clonarMapa(s.mapa);

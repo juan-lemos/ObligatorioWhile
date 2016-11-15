@@ -20,12 +20,13 @@ class rule6 extends Specification {
 
   val case2 =  "{int a=1; int _ad=2; }"
 
-  val case3 =  "function int myfuncion(int _a, int A){skip;}"  // TODO ask for
+  val case3 =  "function int myfuncion(int _a, int A){skip;}"  // TODO si se controla
 
   s"The case1: '$case1' string" should {
     s"contain message $error06" in {
       CheckStateLinter.errores.clear()
-      Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(state)
+      val newState = Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(state)
+      CheckStateLinter.generateErrors(newState)
       atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error06)
     }
   }
@@ -33,7 +34,8 @@ class rule6 extends Specification {
   s"The case2: '$case2' string" should {
     s"contain message $error06" in {
       CheckStateLinter.errores.clear()
-      Parser.parse(case2).value.asInstanceOf[Stmt].checkLinter(state)
+      val newState = Parser.parse(case2).value.asInstanceOf[Stmt].checkLinter(state)
+      CheckStateLinter.generateErrors(newState)
       atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error06)
     }
   }

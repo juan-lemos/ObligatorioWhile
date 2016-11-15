@@ -104,7 +104,13 @@ public class CompareLessOrEqual extends BExp {
 			}else{
 				rightNumberValue =((Double)((Numeral)rightOptimized).number);
 			}
-			return new TruthValue(leftNumberValue <= rightNumberValue, left.line, left.column);
+			
+			
+			int returnValue=leftNumberValue.compareTo(rightNumberValue);
+			boolean finalValue=true;
+			if (returnValue==0 || returnValue<0){finalValue=true;}
+			else{finalValue=false;}
+			return new TruthValue(finalValue, left.line, left.column);
 		}
 		else{
 			return this;

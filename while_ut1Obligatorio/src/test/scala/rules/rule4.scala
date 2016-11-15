@@ -18,13 +18,15 @@ class rule4 extends Specification {
   val case1 = "{int a=1; int b=2; int c=3; a=1; b=a;}"
 
 
-  val error = "Offense detected - variable definida sin usar"
+  val error = "Offense detected - "
 
   s"atLeastOnce parsing '$case1'" should {
     s"contain message $error" in {
       CheckStateLinter.errores.clear()
-      Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(state)
-      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error)
+      val newState = Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(state)
+      CheckStateLinter.generateErrors(newState)
+//      println(CheckStateLinter.errores)
+      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error).setMessage(CheckStateLinter.errores.asScala.mkString(","))
     }
   }
 
