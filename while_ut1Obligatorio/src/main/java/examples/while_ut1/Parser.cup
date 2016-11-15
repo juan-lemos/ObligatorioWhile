@@ -105,9 +105,9 @@ stmtBasics ::=
   	|	tipo:$5 ID:$1 SEMICOLON:$4
     	{: RESULT = new AssignmentStmtWithType($5, $1,null,$5left, $5right); :}
     |	LEFT_CURLY_BRACKET:$1 repeat$stmtBasics:$2 RIGHT_CURLY_BRACKET:$3
-		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()]), $1left, $1right); :} 
+		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()]), false,$1left, $1right); :} 
 	|	SKIP:$1 SEMICOLON:$2
-		{: RESULT = new Sequence(new Stmt[0], $1left, $1right); :}
+		{: RESULT = new Sequence(new Stmt[0],true ,$1left, $1right); :}
 	|	WHILE:$1 exp:$2 DO:$3 stmtBasics:$4
 		{: RESULT = new WhileDo($2, $4,$1left,$1right); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtBasics:$4
@@ -129,9 +129,9 @@ stmtMain ::=
   	|	tipo:$5 ID:$1 SEMICOLON:$4
     	{: RESULT = new AssignmentStmtWithType($5, $1,null,$5left, $5right); :}
     |	LEFT_CURLY_BRACKET:$1 repeat$stmtMain:$2 RIGHT_CURLY_BRACKET:$3
-		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()]), $1left, $1right); :} 
+		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()]), false,$1left, $1right); :} 
 	|	SKIP:$1 SEMICOLON:$2
-		{: RESULT = new Sequence(new Stmt[0], $1left, $1right); :}
+		{: RESULT = new Sequence(new Stmt[0], true,$1left, $1right); :}
 	|	WHILE:$1 exp:$2 DO:$3 stmtBasics:$4
 		{: RESULT = new WhileDo($2, $4,$1left,$1right); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtBasics:$4
@@ -154,10 +154,10 @@ stmtFunctions ::=
 	  	{: RESULT = new AssignmentStmtWithType($5, $1, $3, $5left, $5right); :}
 	| 	tipo:$5 ID:$1 SEMICOLON:$4
 		{: RESULT = new AssignmentStmtWithType($5, $1,null,$5left, $5right); :} 
-	|	SKIP:$1 SEMICOLON:$2
-		{: RESULT = new Sequence(new Stmt[0], $1left, $1right); :}
 	|	LEFT_CURLY_BRACKET:$1 repeat$stmtFunctions:$2 RIGHT_CURLY_BRACKET:$3
-		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()]), $1left, $1right); :}
+		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()]), false,$1left, $1right); :}
+	|	SKIP:$1 SEMICOLON:$2
+		{: RESULT = new Sequence(new Stmt[0], true,$1left, $1right); :}
 	|	WHILE:$1 exp:$2 DO:$3 stmtFunctions:$4
 		{: RESULT = new WhileDo($2, $4,$1left,$1right); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtFunctions:$4
@@ -283,10 +283,6 @@ repeat$stmtBasics ::=
 		{: List<Stmt> $0;
 		$1.add($2); $0 = $1;
 		RESULT = $0; :}
-	|	repeat$stmtBasics:$1 NEW_LINE stmtBasics:$2
-		{: List<Stmt> $0;
-		$1.add($2); $0 = $1;
-		RESULT = $0; :}
 ;
 
 repeat$stmtFunctions ::=
@@ -297,10 +293,7 @@ repeat$stmtFunctions ::=
 		{: List<Stmt> $0;
 		$1.add($2); $0 = $1;
 		RESULT = $0; :}
-	|	repeat$stmtFunctions:$1 NEW_LINE stmtFunctions:$2
-		{: List<Stmt> $0;
-		$1.add($2); $0 = $1;
-		RESULT = $0; :}	
+
 ;
 
 repeat$stmtMain ::=
@@ -311,10 +304,7 @@ repeat$stmtMain ::=
 		{: List<Stmt> $0;
 		$1.add($2); $0 = $1;
 		RESULT = $0; :}
-	|	repeat$stmtMain:$1 NEW_LINE stmtMain:$2
-		{: List<Stmt> $0;
-		$1.add($2); $0 = $1;
-		RESULT = $0; :}	
+
 ;
 
 

@@ -3,7 +3,8 @@ package rules
 object Errores {
 
   val error01 = "Offense detected - 1: Existe mas de un salto de linea consecutivo"
-  val error02 = "Offense detected - 2: No debe haber mas de un statement en la misma linea"
+  val error02 = "Offense detected - 2: No debe haber mas de un statement en la misma linea."
+  val error3 = "Offense detected - 3: Funcion declarada sin llamar."
   val error06 = "Offense detected - 6: Las variables deben comenzar con minuscula y sin guiones bajos"
   val error07 = "Offense detected - 7: Los nombres de metodos deben comenzar con minuscula."
   val error08 = "Offense detected - 8: Variable d no declarada."

@@ -21,48 +21,34 @@ class rule13 extends Specification {
     CheckStateLinter.errores.clear()
     val newState = Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
     CheckStateLinter.generateErrors(newState)
+    println(CheckStateLinter.errores.asScala.toList.mkString("\n"))
+    s"contain messages:}" in {
+      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error3) and
+//        atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error02) and
+          atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error13("fun1"))
+    }
+  }
 
-    s"contain messages: $error02 \n ${error13("fun1")}" in {
-      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error02) and
+  val case2 =
+    """{
+      | function int fun1(int a) skip;
+      | function int fun2(int b) skip;
+      | function int fun3(int b) skip;
+      | function int fun1(int c) skip;
+      | }""".stripMargin
+
+  s"The case2: '$case2' string" should {
+//    println("-----------------------"+ case2)
+    CheckStateLinter.errores.clear()
+    val newState = Parser.parse(case2).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
+    CheckStateLinter.generateErrors(newState)
+
+    s"contain messages: ${error13("fun1")}" in {
       atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error13("fun1"))
     }
   }
 
 
-
-//  val case2 =
-//    """{
-//      | function int fun1(int a) skip;
-//      | function int fun2(int b) skip;
-//      | function int fun3(int c) skip;
-//      | function int fun4(int d) skip;
-//      | function int fun5(int e) skip;
-//      | function int fun6(int f) skip;
-//      | function int fun7(int g) skip;
-//      | function int fun8(int h) skip;
-//      | function int fun9(int i) skip;
-//      | function int fun1(int error) skip;
-//      | }
-//      |"""".stripMargin
-
-//  val case2 =
-//    """{
-//      | function int fun1(int a) skip;
-//      | int a = 1;
-//      | function int fun1(int a) skip;
-//      | }""".stripMargin.toString
-//
-//
-//  s"The case2: '$case2' string" should {
-//    println("-----------------------"+ case2)
-//    CheckStateLinter.errores.clear()
-//    val newState = Parser.parse(case2).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
-//    CheckStateLinter.generateErrors(newState)
-//
-//    s"contain messages: ${error13("fun1")}" in {
-//      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error13("fun1"))
-//    }
-//  }
 
 }
 
