@@ -234,7 +234,7 @@ exp ::=
 	|	LENGTH LEFT_PARENTHESIS exp:$1 RIGHT_PARENTHESIS
 		{: RESULT = new Length($1); :}
 	|	LEFT_PARENTHESIS  exp:$1 RIGHT_PARENTHESIS QUESTION_MARK exp:$2 COLON exp:$3
-		{: RESULT = new TernaryOperator($1, $2, $3); :}
+		{: RESULT = new TernaryOperator($1, $2, $3, $1left, $1right); :}
 	|	ID:$4 LEFT_PARENTHESIS parametros:$2 RIGHT_PARENTHESIS
 		{: RESULT = new FunctionCall($4, $2, $4left, $4right); :}
 ;

@@ -8,10 +8,12 @@ public class TernaryOperator extends Exp {
 	public final Exp thenExp;
 	public final Exp elseExp;
 
-	public TernaryOperator(Exp condition, Exp thenExp, Exp elseExp) {
+	public TernaryOperator(Exp condition, Exp thenExp, Exp elseExp, int line, int column) {
 		this.condition = condition;
 		this.thenExp = thenExp;
 		this.elseExp = elseExp;
+		this.line = line;
+		this.column = column;
 	}
 
 	@Override
@@ -134,12 +136,12 @@ public class TernaryOperator extends Exp {
 
 	@Override
 	public int getLine() {
-		return 0;
+		return line;
 	}
 
 	@Override
 	public int getColumn() {
-		return 0;
+		return column;
 	}
 
 	@Override
