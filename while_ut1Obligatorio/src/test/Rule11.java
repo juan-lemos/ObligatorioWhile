@@ -34,7 +34,7 @@ public class Rule11 extends TestCase {
 
 	public void testData() {
 		try {
-			int numTest =3;   // Setear este valor
+			int numTest =1;   // Setear este valor
 
 			Object obj = Parse.parse(datosPruebas.get(numTest));
 			logger.log(Level.INFO, obj.toString());

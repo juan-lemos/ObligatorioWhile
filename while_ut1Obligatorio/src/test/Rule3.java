@@ -42,12 +42,12 @@ public class Rule3 extends TestCase {
 			CheckStateLinter.generateErrors(check);
 			
 			String actual = check.toString();
-//			logger.log(Level.INFO, actual); //borrar
+			logger.log(Level.INFO, actual); //borrar
 			String expected = "";
 			
 			switch (numTest){
-				case 1: expected = "3: Funcion jj declarada sin llamar. Line: 0, Column: 29";break;
-				case 2: expected = "3: Funcion Hola declarada sin llamar. Line: 0, Column: 0";break;
+				case 1: expected = "3: Funcion Hola declarada sin llamar. Line: 0, Column: 0";break;
+				case 2: expected = "3: Funcion jj declarada sin llamar. Line: 0, Column: 29";break;
 				
 			}
 

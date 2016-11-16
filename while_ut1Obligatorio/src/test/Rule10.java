@@ -39,7 +39,7 @@ public class Rule10 extends TestCase {
 
 	public void testData() {
 		try {
-			int numTest =4;   // Setear este valor
+			int numTest =6;   // Setear este valor
 
 			Object obj = Parse.parse(datosPruebas.get(numTest));
 			logger.log(Level.INFO, obj.toString());
@@ -48,14 +48,14 @@ public class Rule10 extends TestCase {
 			CheckStateLinter.generateErrors(check);
 
 			String actual = check.toString();
-			//logger.log(Level.INFO, actual); //borrar
+//			logger.log(Level.INFO, actual); //borrar
 			String expected = "";
 
 			switch (numTest){
-				case 1: expected = "10B: Parametro de funcion de tipo incorrecto. Esperado: Integer, actual: Double. Line: 0, Column: 34";break;
+				case 1: expected = "10B: Parametro de funcion de tipo incorrecto. Esperado: int, actual: num. Line: 0, Column: 34";break;
 				case 2: expected = "10A: Cantidad de parametros de funcion incorrectos. Line: 0, Column: 34";break;
 				case 3: expected = "10A: Cantidad de parametros de funcion incorrectos. Line: 0, Column: 34";break;
-				case 4: expected = "10B: Parametro de funcion de tipo incorrecto. Esperado: Integer, actual: Double. Line: 0, Column: 40";break;
+				case 4: expected = "10B: Parametro de funcion de tipo incorrecto. Esperado: int, actual: num. Line: 0, Column: 40";break;
 				case 5: expected = "10A: Cantidad de parametros de funcion incorrectos. Line: 0, Column: 40";break;
 				case 6: expected = "10A: Cantidad de parametros de funcion incorrectos. Line: 0, Column: 40";break;
 			}

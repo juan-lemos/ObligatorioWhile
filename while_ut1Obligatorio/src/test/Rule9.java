@@ -48,8 +48,8 @@ public class Rule9 extends TestCase {
 			String expected = "";
 			
 			switch (numTest){
-				case 1: expected = "9B: La funcion no devuelve el tipo esperado. Line: 0, Column: 33";break;
-				case 2: expected = "9A: La funcion no devuelve valor alguno. Line: 0, Column: 34";break;
+				case 1: expected = "9A: La funcion no devuelve valor alguno. Line: 0, Column: 34";break;
+				case 2: expected = "9B: La funcion no devuelve el tipo esperado. Line: 0, Column: 33";break;
 				case 3: expected = "9: Funcion no definida. Line: 0, Column: 7";break;
 				case 4: expected = "9B: La funcion no devuelve el tipo esperado. Line: 0, Column: 40";break;
 			}

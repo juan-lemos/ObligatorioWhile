@@ -60,8 +60,9 @@ public class Sequence extends Stmt {
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
 		if (!isSkip){
 			if (statements.length == 0) CheckStateLinter.addError17(line, column);
-			if (countNestingLevels() > 5) CheckStateLinter.addError21(countNestingLevels(), line, column);
-
+//			if (countNestingLevels() > 5) CheckStateLinter.addError21(countNestingLevels(), line, column);
+			countNestingLevels();
+			
 			for (int i=0; i<statements.length; i++){
 				if (statements[i] instanceof Sequence) {
 					CheckStateLinter.addError17(line, column);

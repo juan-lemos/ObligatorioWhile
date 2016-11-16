@@ -32,7 +32,7 @@ public class Rule12 extends TestCase {
 		datosPruebas.put(3,"function Void a(){ int j=3; if (j==4)then{while (j==3)do{return 2;}}}");
 
 		//12B
-		datosPruebas.put(4,"function num a(){ return 3;});");
+		datosPruebas.put(4,"function num a(){ return 3;}");
 		datosPruebas.put(5,"function str a(){ int j=3; if (j==4)then{return 2;}}");
 		datosPruebas.put(6,"function bool a(){ int j=3; if (j==4)then{while (j==3)do{return 2;}}}");
 
@@ -48,7 +48,7 @@ public class Rule12 extends TestCase {
 
 	public void testData() {
 		try {
-			int numTest =2;   // Setear este valor
+			int numTest =8;   // Setear este valor
 
 			Object obj = Parse.parse(datosPruebas.get(numTest));
 			logger.log(Level.INFO, obj.toString());
