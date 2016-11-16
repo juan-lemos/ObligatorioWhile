@@ -29,7 +29,7 @@ public class Rule18 extends TestCase {
 		datosPruebas.put(1, "{int c=10; int C=11;}");//ok
 		datosPruebas.put(2, "{while(15<=10)do{ int yYY=2;\n int yyy=3; }}"); //ok
 		datosPruebas.put(3, "{while(15<=10)do{int y=2;\n int x=3; }}"); //ok 
-		datosPruebas.put(4, "{function Void Hola(int x){} function Void hola(int x){}}"); //
+		datosPruebas.put(4, "{function Void Hola(int x){} \n function Void hola(int x){}}"); //
 		datosPruebas.put(5, "{Hola(y,x); Chau(y,x);}"); // No funciona
 		
 	}
@@ -41,26 +41,28 @@ public class Rule18 extends TestCase {
 			Object obj = Parse.parse(datosPruebas.get(numTest));
 			logger.log(Level.INFO, obj.toString());
 			
-			CheckStateLinter check = ((Stmt) obj).checkLinter(state); 
+			CheckStateLinter check = ((Stmt) obj).checkLinter(state);
 			CheckStateLinter.generateErrors(check);
 			
 			String actual = check.toString();
-			logger.log(Level.INFO, actual); //borrar
+			
+			
+			System.out.println(actual);
+//			logger.log(Level.INFO, actual); //borrar
 			String expected = "";
 			
-			if (numTest==5||numTest==3)
-				expected = "";
-			else{ 
+ 
 				if(numTest ==1)
 					expected = "Offense detected - 18B: La variable C se encuentra definida como c.";
-				}
+				
 				if(numTest ==2){
 					expected = "Offense detected - 18B: La variable yyy se encuentra definida como yYY.";
 				}
 				if(numTest ==4){
-					expected = "Offense detected - 18A: La funcion hola se encuentra definida como Hola.";
+					expected = "Offense detected - 18A: La funcion hol se encuentra definida como Hola.";
 				}
 			
+				
 			
 			assertTrue("Se esperaba " + expected + "pero el resultado fue " + actual, actual.contains(expected));
 			
