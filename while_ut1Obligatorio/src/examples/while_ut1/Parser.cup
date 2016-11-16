@@ -168,8 +168,8 @@ stmtFunctions ::=
 		{: RESULT = new Print($1,$2left, $2right); :}
 	|	ID:$4 LEFT_PARENTHESIS parametros:$2 RIGHT_PARENTHESIS SEMICOLON
 		{: RESULT = new FunctionCallStmt($4, $2, $4left, $4right); :}
-	|	RETURN exp:$1 SEMICOLON
-		{: RESULT = new Return($1, $1left, $1right); :}
+	|	RETURN:$0 exp:$1 SEMICOLON
+		{: RESULT = new Return($1, $0left, $0right); :}
 ;	
 
 tipo ::=

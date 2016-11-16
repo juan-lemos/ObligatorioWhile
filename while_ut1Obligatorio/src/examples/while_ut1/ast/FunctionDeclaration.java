@@ -74,7 +74,9 @@ public class FunctionDeclaration extends Stmt {
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
 		putIntoLineColumn(s,this.line,this.column);//regla2
 		body.idFunction=id;//regla 12
-		regla12c();
+		if (!type.equals("Void")){
+			regla12c();
+		}
 		if (Character.isUpperCase(id.charAt(0))) CheckStateLinter.addError7(line, column);
 		for (Map.Entry<String, String> element : parameters.entrySet()) {
 			String parameter = element.getKey();
@@ -123,7 +125,7 @@ public class FunctionDeclaration extends Stmt {
 
 	private void regla12c(){
 		if (!  ((body instanceof Return) ||
-				(body instanceof IfThenElse) ||
+				(body instanceof IfThenElse && ((IfThenElse)body).haveReturn()) ||
 				(body instanceof Sequence && ((Sequence)body).haveReturnRegla12()))
 				){
 			CheckStateLinter.addError12C(this.id, this.line, this.column);
