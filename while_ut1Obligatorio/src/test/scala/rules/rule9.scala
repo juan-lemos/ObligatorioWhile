@@ -23,7 +23,7 @@ class rule9 extends Specification {
       | print(b);
       |}""".stripMargin
 
-  s"The case2: '$case1' string" should {
+  s"The case1: '$case1' string" should {
     //    println("-----------------------"+ case2)
 
     s"contain messages:\n" in {
@@ -34,7 +34,7 @@ class rule9 extends Specification {
 
       atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error08("a")) and
         atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error9B) and
-          atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error10B("Integer", "Double")) and
+          atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error10B("int", "num")) and
             atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must not startWith error15("b")) and
               atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error15("c"))
     }

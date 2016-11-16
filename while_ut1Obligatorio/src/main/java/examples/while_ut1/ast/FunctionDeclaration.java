@@ -26,12 +26,13 @@ public class FunctionDeclaration extends Stmt {
 
 	@Override public String toString() {
 		String devolver="function "+type+" "+id+" (";
-		List <String>keys=(List) parameters.values();
 		int i=0;
-		for (String parameter:keys){
-			devolver+=parameter+" "+parameters.get(parameter);
+		for (Map.Entry<String, String> element : parameters.entrySet()) {
+			String typeParameter= element.getValue();
+			String paramter=element.getKey();
+			devolver+=typeParameter+" "+paramter;
 			i++;
-			if (i!=keys.size()){
+			if (i!=parameters.entrySet().size()){
 				devolver+=",";
 			}
 		}
