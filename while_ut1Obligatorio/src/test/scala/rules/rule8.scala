@@ -16,8 +16,6 @@ class rule8 extends Specification {
 
   val case1 = "{int a=1; int b=2; int c=3; a=1; b=d;}"
 
-  val errorLocal08 = "Offense detected - 8: Variable d no declarada."
-
   s"The case3: '$case1' string" should {
 //    s"contain messages:\n $error02\n $error08\n $error15" in {
 
@@ -30,13 +28,17 @@ class rule8 extends Specification {
       atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error02)
     }
 
-    s"contain messages: $errorLocal08" in {
-      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith errorLocal08)
+    s"contain messages: ${error08("d")}" in {
+      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error08("d"))
     }
 
-    s"contain messages: $error15" in {
-      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error15)
+    s"contain messages: ${error15("b")}" in {
+      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error15("b"))
     }
+
+//    s"contain messages: ${error15("a")}" in {
+//      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error15("a"))
+   // }
   }
 
 }
