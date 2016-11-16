@@ -72,7 +72,6 @@ public class AssignmentStmt extends Stmt {
 		if (expression.countOperators() > 7) CheckStateLinter.addError20(expression.countOperators(), line, column);
 		String expressionType = this.expression.checkLinter(s);
 		if (s.mapa.containsKey(id)) {
-			s.mapa.get(id).used = true;
 			s.mapa.get(id).assigned=true;
 
 			ArrayList <String> tiposAceptados=new ArrayList<String>();
