@@ -16,10 +16,10 @@ public class CheckStateLinter {
 			ObjectState objState = element.getValue();
 			if (!objState.used) {
 				if (objState.isFunction()) {
-					addError3(objState.getLine(), objState.getColumn());
+					addError3(element.getKey() ,objState.getLine(), objState.getColumn());
 				}
 				else if(objState.isVariable()){
-					addError4(objState.getLine(), objState.getColumn());
+					addError4(element.getKey(),objState.getLine(), objState.getColumn());
 				}
 			}
 		}
@@ -44,12 +44,12 @@ public class CheckStateLinter {
 		addError("2", "No debe haber mas de un statement en la misma linea", line, column);
 	}
 
-	public static void addError3(int line, int column) {
-		addError("3", "Funcion declarada sin llamar", line, column); 
+	public static void addError3(String functionName,int line, int column) {
+		addError("3", "Funcio "+functionName+" declarada sin llamar", line, column); 
 	}
 
-	public static void addError4(int line, int column) {
-		addError("4", "Variable definida sin usar", line, column); 
+	public static void addError4(String variableName,int line, int column) {
+		addError("4", "Variable "+variableName+" definida sin usar", line, column); 
 	}
 
 	public static void addError5A(int line, int column) {
@@ -100,8 +100,8 @@ public class CheckStateLinter {
 		addError("10B", "Parametro de funcion de tipo incorrecto. Esperado: " + expectedType + ", actual: " + parameterType, line, column);
 	}
 
-	public static void addError11(int line, int column) {
-		addError("11", "Parametro sin usar", line, column); 
+	public static void addError11(String parameterName,int line, int column) {
+		addError("11", "Parametro "+parameterName+" sin usar", line, column); 
 	}
 
 	public static void addError12A(String functionName, int line, int column) {
@@ -174,7 +174,7 @@ public class CheckStateLinter {
 		for (Map.Entry<String, ObjectState> element : cslint.mapa.entrySet()) {
 			ObjectState objState = element.getValue();
 			if (!objState.used && objState.isParameter()) {
-				addError11(objState.getLine(), objState.getColumn());
+				addError11(element.getKey(),objState.getLine(), objState.getColumn());
 			}
 		}
 	}
