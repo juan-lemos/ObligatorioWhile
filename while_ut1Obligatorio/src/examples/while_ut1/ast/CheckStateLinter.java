@@ -45,7 +45,7 @@ public class CheckStateLinter {
 	}
 
 	public static void addError3(String functionName,int line, int column) {
-		addError("3", "Funcio "+functionName+" declarada sin llamar", line, column); 
+		addError("3", "Funcion "+functionName+" declarada sin llamar", line, column); 
 	}
 
 	public static void addError4(String variableName,int line, int column) {
