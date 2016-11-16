@@ -17,12 +17,8 @@ class rule7 extends Specification {
 
   val case1 =  "function int MiFuncion(int _a, int A){skip;}"
 
-  val case2 =  "function int miFuncion(int _a, int A){skip;}"
-
-  val case3 =   "function int _mi_Funcion(int _a, int A) {skip;}"
-
   s"The case1: '$case1' string" should {
-    s"contain message $error07" in {
+    s"contain message:" in {
       CheckStateLinter.errores.clear()
       val newState = Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
       CheckStateLinter.generateErrors(newState)
@@ -30,8 +26,10 @@ class rule7 extends Specification {
     }
   }
 
+  val case2 =  "function int miFuncion(int _a, int A){skip;}"
+
   s"The case2: '$case2' string" should {
-    s"not contain message $error07" in {
+    s"contain message:\n${getAll()} " in {
       CheckStateLinter.errores.clear()
       val newState = Parser.parse(case2).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
       CheckStateLinter.generateErrors(newState)
@@ -39,15 +37,18 @@ class rule7 extends Specification {
     }
   }
 
+  val case3 =   "function int _mi_Funcion(int _a, int A) {skip;}"
+
   s"The case3: '$case3' string" should {
-    s"not contain messages:\n $error07\n and $error11\n and $error17" in {
+    s"contain messages:\n${getAll()}" in {
       CheckStateLinter.errores.clear()
       val newState = Parser.parse(case3).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
       CheckStateLinter.generateErrors(newState)
 
       forall (CheckStateLinter.errores.asScala) ((_:String) must not startWith error07) and
-        atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error11) and
-          atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error17)
+        atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error11("_a")) and
+          atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error11("A")) and
+            atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error17)
     }
   }
 

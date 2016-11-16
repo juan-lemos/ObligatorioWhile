@@ -92,4 +92,32 @@ public class Sequence extends Stmt {
 		}
 		return maxNestingLevels;
 	}
+
+	public boolean haveReturnRegla12(){
+		if (!isSkip){
+			for (Stmt stmt : statements) {
+				if (stmt instanceof Return || 
+						(stmt instanceof IfThenElse && ((IfThenElse)stmt).haveReturn())){
+					return true;
+				}else if(stmt instanceof Sequence){
+					if (((Sequence) stmt).haveReturnRegla12()){
+						return true;
+					}
+				}
+			}
+			return false;
+		}else{
+			return false;
+		}
+	}
+
+	public boolean returnInFirstLevel(){
+		for (Stmt stmt : statements) {
+			if (stmt instanceof Return){
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

@@ -86,7 +86,7 @@ public class IfThen extends Stmt {
 		thenBody.idFunction=this.idFunction;//regla 12
 		if (countNestingLevels() > 5) CheckStateLinter.addError21(countNestingLevels(), line, column);
 		if (condition.countOperators() > 7) CheckStateLinter.addError20(condition.countOperators(), line, column);
-		
+
 		Exp optimizado=condition.optimize();
 		if (optimizado instanceof TruthValue){
 			if (((TruthValue) optimizado).value){
@@ -95,7 +95,7 @@ public class IfThen extends Stmt {
 				CheckStateLinter.addError5B(line, column);
 			}
 		}
-		
+
 		ArrayList <String> tiposAceptados=new ArrayList<String>();
 		tiposAceptados.add("Boolean");
 		CheckStateLinter.evaluarRegla9(this.condition, s, tiposAceptados);
@@ -106,7 +106,7 @@ public class IfThen extends Stmt {
 		cslThen.mapa=clonMapaThen;
 		thenBody.checkLinter(cslThen);
 		CheckStateLinter.generateErrors(CheckStateLinter.variablesNuevas(s, cslThen));
-		
+
 		CheckStateLinter.setVariableUsedIfUsedInside(s, cslThen);
 		return s;
 	}
@@ -120,9 +120,10 @@ public class IfThen extends Stmt {
 	public int getColumn() {
 		return column;
 	}
-	
+
 	@Override
 	public int countNestingLevels() {
 		return 1 + thenBody.countNestingLevels();
 	}
+
 }

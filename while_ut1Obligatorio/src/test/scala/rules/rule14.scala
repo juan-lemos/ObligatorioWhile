@@ -17,12 +17,12 @@ class rule14 extends Specification {
 
   val case1 = "{int a=1; int a=3;}"
 
-  s"The case1: '$case1' string" should {
+  s"contain message:" in {
     CheckStateLinter.errores.clear()
     val newState = Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
     CheckStateLinter.generateErrors(newState)
 
-    s"contain messages: $error02 \n $error1419" in {
+    s"contain message:" in {
       atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error02) and
       atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error1419)
     }
@@ -35,7 +35,7 @@ class rule14 extends Specification {
     val newState = Parser.parse(case2).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
     CheckStateLinter.generateErrors(newState)
 
-    s"contain messages: $error02 \n $error1419" in {
+    s"contain message:" in {
       atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error02) and
       atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error1419)
     }
@@ -49,7 +49,7 @@ class rule14 extends Specification {
     val newState = Parser.parse(case3).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
     CheckStateLinter.generateErrors(newState)
 
-    s"contain messages: $error02 \n $error1419" in {
+    s"contain message:" in {
       atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error02) and
         atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error1419)
     }
@@ -62,7 +62,7 @@ class rule14 extends Specification {
     val newState = Parser.parse(case4).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
     CheckStateLinter.generateErrors(newState)
 
-    s"contain messages: $error02 \n $error1419" in {
+    s"contain message:" in {
       atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error02) and
         atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error1419)
     }
@@ -75,7 +75,7 @@ class rule14 extends Specification {
     val newState = Parser.parse(case5).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
     CheckStateLinter.generateErrors(newState)
 
-    s"contain messages: $error02 \n $error1419" in {
+    s"contain message:" in {
       atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error02) and
         atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error1419)
     }
@@ -88,7 +88,7 @@ class rule14 extends Specification {
     val newState = Parser.parse(case6).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
     CheckStateLinter.generateErrors(newState)
 
-    s"contain messages: $error02 \n $error1419" in {
+    s"contain message:" in {
       atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error02) and
         atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error1419)
     }

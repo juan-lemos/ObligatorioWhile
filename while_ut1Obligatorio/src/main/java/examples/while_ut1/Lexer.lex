@@ -100,6 +100,8 @@ String =	\"([^\"\\\n]|\\[bntrf\"\\/]|\\u[0-9a-fA-F]{4})*\"
 	{ return new Symbol(LENGTH, yyline, yycolumn, yytext()); }
 "defined"
 	{ return new Symbol(DEFINED, yyline, yycolumn, yytext()); }
+"Void"
+  	{ return new Symbol(VOID, yyline, yycolumn, yytext()); }
 "bool"
 	{ return new Symbol(TBOOL, yyline, yycolumn, yytext()); }
 "int"
@@ -108,8 +110,6 @@ String =	\"([^\"\\\n]|\\[bntrf\"\\/]|\\u[0-9a-fA-F]{4})*\"
   	{ return new Symbol(TNUM, yyline, yycolumn, yytext()); }
 "function"
   	{ return new Symbol(FUNCTION, yyline, yycolumn, yytext()); }
-"void"
-  	{ return new Symbol(VOID, yyline, yycolumn, yytext()); }
 "return"
   	{ return new Symbol(RETURN, yyline, yycolumn, yytext()); }  	
 "str"

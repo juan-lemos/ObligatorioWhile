@@ -112,7 +112,6 @@ public class AssignmentExp extends Exp {
 	public String checkLinter(CheckStateLinter s) {
 		String expressionType = this.expression.checkLinter(s);
 		if (s.mapa.containsKey(id)) {
-			s.mapa.get(id).used = true;
 			s.mapa.get(id).assigned=true;
 
 			

@@ -24,21 +24,14 @@ class rule8 extends Specification {
     CheckStateLinter.generateErrors(newState)
 //    println(CheckStateLinter.errores.asScala.mkString("\n"))
 
-    s"contain messages: $error02" in {
-      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error02)
-    }
-
-    s"contain messages: ${error08("d")}" in {
-      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error08("d"))
-    }
-
-    s"contain messages: ${error15("b")}" in {
-      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error15("b"))
-    }
+    s"contain message:" in {
+      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error02) and
+        atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error08("d")) and
+          atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error15("b"))
 
 //    s"contain messages: ${error15("a")}" in {
 //      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error15("a"))
-   // }
+    }
   }
 
 }

@@ -58,7 +58,7 @@ public class IfThenElse extends Stmt {
 		else {
 			throw new IllegalStateException(this.unparse());
 		}
-		
+
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class IfThenElse extends Stmt {
 		elseBody.idFunction=this.idFunction;//regla 12
 		if (countNestingLevels() > 5) CheckStateLinter.addError21(countNestingLevels(), line, column);
 		if (condition.countOperators() > 7) CheckStateLinter.addError20(condition.countOperators(), line, column);
-		
+
 		Exp optimizado=condition.optimize();
 		if (optimizado instanceof TruthValue){
 			if (((TruthValue) optimizado).value){
@@ -108,13 +108,13 @@ public class IfThenElse extends Stmt {
 				CheckStateLinter.addError5D(line, column);
 			}
 		}
-		
-		
+
+
 		ArrayList <String> tiposAceptados=new ArrayList<String>();
 		tiposAceptados.add("Boolean");
 		CheckStateLinter.evaluarRegla9(this.condition, s, tiposAceptados);
-		
-		
+
+
 		condition.checkLinter(s);
 		Map<String,ObjectState> clonMapaThen= CheckState.clonarMapa(s.mapa);
 		CheckStateLinter cslThen=new CheckStateLinter();
@@ -126,9 +126,9 @@ public class IfThenElse extends Stmt {
 		cslElse.mapa=clonMapaElse;
 		elseBody.checkLinter(cslElse);
 		CheckStateLinter.generateErrors(CheckStateLinter.variablesNuevas(s, cslElse));
-		
-		
-		
+
+
+
 		CheckStateLinter.setVariableUsedIfUsedInside(s, cslThen);
 		CheckStateLinter.setVariableUsedIfUsedInside(s, cslElse);
 		return s;
@@ -149,5 +149,22 @@ public class IfThenElse extends Stmt {
 		int thenNestingLevels = thenBody.countNestingLevels();
 		int elseNestingLevels = elseBody.countNestingLevels(); 
 		return 1 + (thenNestingLevels > elseNestingLevels ? thenNestingLevels : elseNestingLevels);
+	}
+
+
+	public boolean haveReturn(){
+		if (   (
+				(elseBody instanceof Return)||
+				(elseBody instanceof Sequence && ((Sequence)elseBody).returnInFirstLevel() )
+				)			
+				&&
+				(
+						(thenBody instanceof Return)||
+						(thenBody instanceof Sequence && ((Sequence)thenBody).returnInFirstLevel() )
+						)
+				)
+		{
+			return true;
+		}else return false;
 	}
 }

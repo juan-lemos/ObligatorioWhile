@@ -25,12 +25,13 @@ class rule9 extends Specification {
 
   s"The case2: '$case1' string" should {
     //    println("-----------------------"+ case2)
-    CheckStateLinter.errores.clear()
-    val newState = Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
-    CheckStateLinter.generateErrors(newState)
 
+    s"contain messages:\n" in {
 
-    s"contain messages:\n${getAll()}" in {
+      CheckStateLinter.errores.clear()
+      val newState = Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
+      CheckStateLinter.generateErrors(newState)
+
       atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error08("a")) and
         atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error9B) and
           atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error10B("Integer", "Double")) and

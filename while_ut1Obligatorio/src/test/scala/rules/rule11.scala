@@ -33,12 +33,15 @@ class rule11 extends Specification {
     CheckStateLinter.generateErrors(newState)
 
 
-    s"contain messages:\n${getAll()}" in {
+    s"contain messages:\n" in {
 //      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error08("a")) and
 //        atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error9B) and
 //          atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error10B) and
 //            atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must not startWith error15("b")) and
-              atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error11)
+        atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error11("a")) and
+          atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error11("b")) and
+            atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error11("c")) and
+              atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error11("d"))
     }
   }
 

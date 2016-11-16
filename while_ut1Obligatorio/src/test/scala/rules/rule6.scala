@@ -21,7 +21,7 @@ class rule6 extends Specification {
   val case3 =  "function int myfuncion(int _a, int A){skip;}"  // TODO si se controla
 
   s"The case1: '$case1' string" should {
-    s"contain message $error06" in {
+    s"contain message:" in {
       CheckStateLinter.errores.clear()
       val newState = Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
       CheckStateLinter.generateErrors(newState)
@@ -30,7 +30,7 @@ class rule6 extends Specification {
   }
 
   s"The case2: '$case2' string" should {
-    s"contain message $error06" in {
+    s"contain message:" in {
       CheckStateLinter.errores.clear()
       val newState = Parser.parse(case2).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
       CheckStateLinter.generateErrors(newState)

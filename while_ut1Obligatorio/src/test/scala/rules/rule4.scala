@@ -20,7 +20,7 @@ class rule4 extends Specification {
   val error = "Offense detected - "
 
   s"atLeastOnce parsing '$case1'" should {
-    s"contain message $error" in {
+    s"contain message:" in {
       CheckStateLinter.errores.clear()
       val newState = Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
       CheckStateLinter.generateErrors(newState)

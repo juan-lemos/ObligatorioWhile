@@ -22,8 +22,8 @@ class rule13 extends Specification {
     val newState = Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
     CheckStateLinter.generateErrors(newState)
     // println(CheckStateLinter.errores.asScala.toList.mkString("\n"))
-    s"contain messages:}" in {
-      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error3) and
+    s"contain messages:\n" in {
+      atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error3("fun1")) and
 //        atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error02) and
           atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error13("fun1"))
     }
@@ -43,7 +43,7 @@ class rule13 extends Specification {
     val newState = Parser.parse(case2).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
     CheckStateLinter.generateErrors(newState)
 
-    s"contain messages:\n${error13("fun1")}" in {
+    s"contain messages:\n" in {
       atLeastOnce (CheckStateLinter.errores.asScala) ((_:String) must be startWith error13("fun1"))
     }
   }

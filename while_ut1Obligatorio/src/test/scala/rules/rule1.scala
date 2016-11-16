@@ -21,7 +21,7 @@ class rule1 extends Specification {
   val case4 = "{y=2;\n\n\n\ny=3;}"
 
   s"The '$case1' string" should {
-    s"not contain message $error01" in {
+    s"contain message:" in {
       CheckStateLinter.clear()
       val newState = Parser.parse(case1).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
       CheckStateLinter.generateErrors(newState)
@@ -30,7 +30,7 @@ class rule1 extends Specification {
   }
 
   s"The '$case2' string" should {
-    s"not contain message $error01" in {
+    s"contain message:" in {
       CheckStateLinter.clear()
       val newState = Parser.parse(case2).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
       CheckStateLinter.generateErrors(newState)
@@ -39,7 +39,7 @@ class rule1 extends Specification {
   }
 
   s"The '$case3' string" should {
-    s"contain message $error01" in {
+    s"contain message:" in {
       CheckStateLinter.clear()
       val newState = Parser.parse(case3).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
       CheckStateLinter.generateErrors(newState)
@@ -48,7 +48,7 @@ class rule1 extends Specification {
   }
 
   s"The '$case4' string" should {
-    s"contain message $error01" in {
+    s"contain message:" in {
       CheckStateLinter.clear()
       val newState = Parser.parse(case4).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
       CheckStateLinter.generateErrors(newState)

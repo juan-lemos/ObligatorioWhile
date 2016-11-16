@@ -14,10 +14,10 @@ public class CheckStateLinter {
 			ObjectState objState = element.getValue();
 			if (!objState.used) {
 				if (objState.isFunction()) {
-					addError3(objState.getLine(), objState.getColumn());
+					addError3(element.getKey() ,objState.getLine(), objState.getColumn());
 				}
 				else if(objState.isVariable()){
-					addError4(objState.getLine(), objState.getColumn());
+					addError4(element.getKey(),objState.getLine(), objState.getColumn());
 				}
 			}
 		}
@@ -46,19 +46,19 @@ public class CheckStateLinter {
 	}
 
 	public static void addError1(int line, int column) {
-		addError("1", "Existe mas de un salto de linea consecutivo", line, column);
+		addError("1", "Existe mas de un salto de linea consecutivo", line, column); 
 	}
 
 	public static void addError2(int line, int column) {
 		addError("2", "No debe haber mas de un statement en la misma linea", line, column);
 	}
 
-	public static void addError3(int line, int column) {
-		addError("3", "Funcion declarada sin llamar", line, column);
+	public static void addError3(String functionName,int line, int column) {
+		addError("3", "Funcion "+functionName+" declarada sin llamar", line, column);
 	}
 
-	public static void addError4(int line, int column) {
-		addError("4", "Variable definida sin usar", line, column);
+	public static void addError4(String variableName,int line, int column) {
+		addError("4", "Variable "+variableName+" definida sin usar", line, column);
 	}
 
 	public static void addError5A(int line, int column) {
@@ -78,11 +78,11 @@ public class CheckStateLinter {
 	}
 
 	public static void addError6(int line, int column) {
-		addError("6", "Las variables deben comenzar con minuscula y sin guiones bajos", line, column);
+		addError("6", "Las variables deben comenzar con minuscula y sin guiones bajos", line, column); 
 	}
 
 	public static void addError7(int line, int column) {
-		addError("7", "Los nombres de metodos deben comenzar con minuscula", line, column);
+		addError("7", "Los nombres de metodos deben comenzar con minuscula", line, column); 
 	}
 
 	public static void addError8(String variableId, int line, int column) {
@@ -109,20 +109,24 @@ public class CheckStateLinter {
 		addError("10B", "Parametro de funcion de tipo incorrecto. Esperado: " + expectedType + ", actual: " + parameterType, line, column);
 	}
 
-	public static void addError11(int line, int column) {
-		addError("11", "Parametro sin usar", line, column);
+	public static void addError11(String parameterName,int line, int column) {
+		addError("11", "Parametro "+parameterName+" sin usar", line, column);
 	}
 
 	public static void addError12A(String functionName, int line, int column) {
-		addError("12A", "La funcion " + functionName + " no devuelve nada segun su definicion", line, column);
+		addError("12A", "La funcion " + functionName + " no devuelve nada segun su definicion", line, column); 
 	}
 
 	public static void addError12B(String functionName, int line, int column) {
-		addError("12B", "El tipo de la expresion del return no coincide con el la funcion " + functionName, line, column);
+		addError("12B", "El tipo de la expresion del return no coincide con el la funcion " + functionName, line, column); 
+	}
+
+	public static void addError12C(String functionName, int line, int column) {
+		addError("12C", "Falta return en funcion " + functionName, line, column);
 	}
 
 	public static void addError13(String functionName, int line, int column) {
-		addError("13", "La funcion " + functionName + " ya se encuentra definida", line, column);
+		addError("13", "La funcion " + functionName + " ya se encuentra definida", line, column); 
 	}
 
 	public static void addError14_19(String variableId, int line, int column) {
@@ -185,7 +189,7 @@ public class CheckStateLinter {
 		for (Map.Entry<String, ObjectState> element : cslint.mapa.entrySet()) {
 			ObjectState objState = element.getValue();
 			if (!objState.used && objState.isParameter()) {
-				addError11(objState.getLine(), objState.getColumn());
+				addError11(element.getKey(),objState.getLine(), objState.getColumn());
 			}
 		}
 	}
