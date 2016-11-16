@@ -42,7 +42,7 @@ scalacOptions ++= Seq("-unchecked", "-deprecation")
 
 scalaSource in Compile := baseDirectory.value / "while_ut1Obligatorio" / "src"
 
-scalaSource in Test := baseDirectory.value / "while_ut1Obligatorio" / "while_ut1Obligatorio" / "src" / "test"
+scalaSource in Test := baseDirectory.value / "while_ut1Obligatorio" / "src" / "test"
 
 	
 // seq(ScctPlugin.scctSettings: _*)
