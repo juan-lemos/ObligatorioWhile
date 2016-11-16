@@ -74,6 +74,7 @@ public class FunctionDeclaration extends Stmt {
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
 		putIntoLineColumn(s,this.line,this.column);//regla2
 		body.idFunction=id;//regla 12
+		regla12c();
 		if (Character.isUpperCase(id.charAt(0))) CheckStateLinter.addError7(line, column);
 		for (Map.Entry<String, String> element : parameters.entrySet()) {
 			String parameter = element.getKey();
@@ -86,9 +87,9 @@ public class FunctionDeclaration extends Stmt {
 			if (key.toLowerCase().equals(id.toLowerCase()) && !key.equals(id) && s.mapa.get(key).isFunction())
 				CheckStateLinter.addError18A(id, key, line, column);
 		});
-		
+
 		s.mapa.put(id, new ObjectState(type, false, 1, this));//revisar
-		
+
 		CheckStateLinter cslForOutsideVariables = new CheckStateLinter();
 		Map<String,ObjectState> clonedMap = CheckState.clonarMapa(s.mapa);
 		cslForOutsideVariables.mapa = clonedMap;
@@ -96,11 +97,11 @@ public class FunctionDeclaration extends Stmt {
 			clonedMap.put(parameter.getKey(), new ObjectState(parameter.getValue(), true, 3, this));
 		}
 		cslForOutsideVariables = body.checkLinter(cslForOutsideVariables);
-		
+
 
 		CheckStateLinter.generateErrors(CheckStateLinter.variablesNuevas(s, cslForOutsideVariables));
 		CheckStateLinter.evaluarRegla11(cslForOutsideVariables);
-		
+
 		CheckStateLinter.setVariableUsedIfUsedInside(s, cslForOutsideVariables);
 		return s;
 	}
@@ -114,9 +115,19 @@ public class FunctionDeclaration extends Stmt {
 	public int getColumn() {
 		return column;
 	}
-	
+
 	@Override
 	public int countNestingLevels() {
 		return body.countNestingLevels();
 	}
+
+	private void regla12c(){
+		if (!  ((body instanceof Return) ||
+				(body instanceof IfThenElse) ||
+				(body instanceof Sequence && ((Sequence)body).haveReturnRegla12()))
+				){
+			CheckStateLinter.addError12C(this.id, this.line, this.column);
+		}
+	}
+
 }

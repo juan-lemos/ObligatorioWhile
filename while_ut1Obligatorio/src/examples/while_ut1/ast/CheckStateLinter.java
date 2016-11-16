@@ -112,6 +112,10 @@ public class CheckStateLinter {
 		addError("12B", "El tipo de la expresion del return no coincide con el la funcion " + functionName, line, column); 
 	}
 
+	public static void addError12C(String functionName, int line, int column) {
+		addError("12C", "Falta return en funcion " + functionName, line, column); 
+	}
+	
 	public static void addError13(String functionName, int line, int column) {
 		addError("13", "La funcion " + functionName + " ya se encuentra definida", line, column); 
 	}
