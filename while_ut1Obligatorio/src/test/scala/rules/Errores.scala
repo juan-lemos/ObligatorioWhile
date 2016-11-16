@@ -19,6 +19,7 @@ object Errores {
   val error1419 = "Offense detected - 14-19: La variable a ya se encuentra declarada."
   def error15(v:String) = s"Offense detected - 15: El tipo de la variable $v y la expresion no coinciden."
   val error17 = "Offense detected - 17: Existen llaves superfluas."
+  def error20(v:String) = s"Offense detected - 20: Existe una expresion con $v operadores."
 
 
   def getAll() = CheckStateLinter.errores.asScala.toList.mkString("\n")
