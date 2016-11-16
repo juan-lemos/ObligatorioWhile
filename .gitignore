@@ -14,6 +14,9 @@
 /while_ut1Obligatorio/project/target/
 /while_ut1Obligatorio/target/
 /target/
-/while_ut1Obligatorio/.classpath
+/project/project
+/project/target
+/while_ut1Obli
+gatorio/.classpath
 !/while_ut1Obligatorio/.travis.yml
 !/.travis.yml

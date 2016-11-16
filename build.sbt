@@ -19,15 +19,14 @@ name := "Obligatorio Compiladores"
 
 version := "0.1.0"
 
-scalaVersion := "2.10.3"
+scalaVersion := "2.11.7"
 
 organization := "com.mycode"
 
 libraryDependencies ++= {
   	Seq(
-	    "org.specs2" % "specs2_2.10" % "2.4" % "test",
-  	    // "org.specs2" % "specs2" % "2.3.4" % "test",
-  	    "org.scalatest" % "scalatest_2.10" % "2.0" % "test",
+	    "org.specs2" %% "specs2" % "2.3.13",
+  	    "org.scalatest" %% "scalatest" % "2.1.7",
 	    "com.github.vbmacher" % "java-cup-runtime" %"11b-20160615"
   	)
 }
