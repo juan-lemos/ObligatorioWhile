@@ -11,9 +11,9 @@ import examples.while_ut1.ast.Stmt;
 import junit.framework.TestCase;
 
 /**
- * Regla n�mero 18 - No escribir nombres de variables o métodos iguales pero que se diferencien en solamente en mayúsculas y minúsculas Ej: ''numeric a=23; numeric A=23''
+ * Regla nï¿½mero 20 - Warning expresiones con más de 7 operadores.
  */
-public class Rule18 extends TestCase {
+public class Rule20 extends TestCase {
 
 	Map<Integer, String> datosPruebas = new HashMap<Integer, String>();
 	Logger logger = Logger.getAnonymousLogger();
@@ -26,17 +26,17 @@ public class Rule18 extends TestCase {
 	}
 
 	protected void loadData() {
-		datosPruebas.put(1, "{int c=10; int C=11;}");//ok
-		datosPruebas.put(2, "{while(15<=10)do{ int yYY=2;\n int yyy=3; }}"); //ok
-		datosPruebas.put(3, "{while(15<=10)do{int y=2;\n int x=3; }}"); //ok 
-		datosPruebas.put(4, "{function Void Hola(int x){} function Void hola(int x){}}"); //No funciona
-		datosPruebas.put(5, "{Hola(y,x); Chau(y,x);}"); // No funciona
-		
+		datosPruebas.put(1, "{int x=(((5-4)+(4-2))*((7*8)+(3-1)))+(2*5);}");//(ok)9 operadores, deberia reportarlo
+		datosPruebas.put(2, "{int x=(5+6)+8;}"); //(ok) 2 operadores, esta bien
+		datosPruebas.put(3, "{int x=((3-2)*(9*2)+(3+7)-(4/2))+1;}"); //(ok)8 operadores, deberia reportarlo 
+		datosPruebas.put(4, "{int y=3+((5+5)*(6+4)-((5+2)+(2*2)));}");//(ok)8 operadores contando el =, deberia reportarlo
+		datosPruebas.put(5, "{int x=4+2;int y=(1+7+8+4+9)*(10/2);}"); //La segunda asignacion tiene 7 operadores incluido el =, esta bien 
+		datosPruebas.put(6, "{int x=((8-7+8+9+8+7)+(6/6))*2*2;}"); //9 operadores, deberia reportar
 	}
 
 	public void testData() {
 		try {
-			Integer numTest =4;   // Setear este valor
+			Integer numTest =6;   // Setear este valor
 			
 			Object obj = Parse.parse(datosPruebas.get(numTest));
 			logger.log(Level.INFO, obj.toString());
@@ -48,20 +48,16 @@ public class Rule18 extends TestCase {
 			logger.log(Level.INFO, actual); //borrar
 			String expected = "";
 			
-			if (numTest==5||numTest==3)
+			if (numTest == 2 || numTest ==5)
 				expected = "";
 			else{ 
-				if(numTest ==1)
-					expected = "Offense detected - 18B: La variable C se encuentra definida como c.";
+				if(numTest ==1||numTest ==6){					
+					expected = "Offense detected - 20: Existe una expresion con 9 operadores";
 				}
-				if(numTest ==2){
-					expected = "Offense detected - 18B: La variable yyy se encuentra definida como yYY.";
+				if(numTest ==3||numTest ==4){					
+					expected = "Offense detected - 20: Existe una expresion con 8 operadores";
 				}
-				if(numTest ==4){
-					expected = "Offense detected - 18A: La funcion hola se encuentra definida como Hola.";
-				}
-			
-			
+			}
 			assertTrue("Se esperaba " + expected + "pero el resultado fue " + actual, actual.contains(expected));
 			
 		} catch (Exception e) {
