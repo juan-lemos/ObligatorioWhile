@@ -43,12 +43,12 @@ public class Rule1 extends TestCase {
 			CheckStateLinter check = ((Stmt) obj).checkLinter(state); 
 			
 			String actual = check.toString();
-			String expected = "Error 1: existe mas de un salto de linea consecutivo.";
+			String expected = "1: Existe mas de un salto de linea consecutivo.";
 			
 			if (numTest == 1 || numTest ==2)
 				expected = "";
 			else 
-				expected = "Error 1: existe mas de un salto de linea consecutivo.";
+				expected = "1: Existe mas de un salto de linea consecutivo.";
 				
 			assertTrue("Se esperaba " + expected + "pero el resultado fue " + actual, actual.contains(expected));
 			

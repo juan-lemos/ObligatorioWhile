@@ -31,19 +31,19 @@ public class Rule5 extends TestCase {
 		datosPruebas.put(2, "{if(15<=10)then {y=2;} else{x=3;}}"); //ok
 		datosPruebas.put(3, "{while(15<=10)do{ y=2;\n x=3; }}"); // ok
 		datosPruebas.put(4, "{int y=3;int x=32 ;int z= (15==10) ? 2 : 3;}"); //ok
-		datosPruebas.put(5, "{int z= (10==10) ? 15<=10 : 15==10;}"); // Aca lo que no ejecuta es el codigo del else
+		datosPruebas.put(5, "{int z= (10==10) ? 15<=10 : 15==10;}"); // ok
 		datosPruebas.put(6, "{int y=3;int x=32 ;int z= (15<=10) ? 15<=10 : 15==10;}"); //ok
 	}
 
 	public void testData() {
 		try {
-			Integer numTest =5;   // Setear este valor
+			Integer numTest =6;   // Setear este valor
 			
 			Object obj = Parse.parse(datosPruebas.get(numTest));
 			logger.log(Level.INFO, obj.toString());
 			
 			CheckStateLinter check = ((Stmt) obj).checkLinter(state); 
-			//logger.log(Level.INFO, "Despues");
+			CheckStateLinter.generateErrors(check);
 			
 			String actual = check.toString();
 			logger.log(Level.INFO, actual); //borrar
@@ -53,11 +53,11 @@ public class Rule5 extends TestCase {
 				expected = "";
 			else{ 
 				if(numTest ==1|| numTest ==5)
-					expected = "Offense detected - 5C: El codigo del else no ejecutar� nunca";				
+					expected = "Offense detected - 5C: El codigo del else no ejecutara nunca";				
 				else if(numTest ==2 || numTest ==4)
-					expected = "Offense detected - 5D: El codigo del then no ejecutar� nunca";
+					expected = "Offense detected - 5D: El codigo del then no ejecutara nunca";
 				else if(numTest ==3)
-					expected = "Offense detected - 5B: El codigo interno no se ejecutar� nunca";
+					expected = "Offense detected - 5B: El codigo interno no se ejecutara nunca";
 				 
 				}
 			
