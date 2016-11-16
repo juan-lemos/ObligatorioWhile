@@ -23,7 +23,7 @@ H.R. Nielson & F. Nielson: "Semantic with Applications: A formal introduction". 
 | 9 | Chequear llamado a funciones que en el caso que se quiera asignar su retorno retornen algo y el tipo coincida. | JP | X |  |
 | 10 | Chequear que la cantidad de variables que se le pasa a una función sea igual a la definición así como los tipos. | MC | x |  |
 | 11 | Detectar parámetros de funciones que no son utilizados. | MC | x |  |
-| 12 | Chequear que las funciones que deben devolver algo lo hagan y lo hagan en el tipo definido en la firma así como las que no devuelven nada no lo hagan | JP | X |  |
+| 12 | Chequear que las funciones que deben devolver algo lo hagan y lo hagan en el tipo definido en la firma así como las que no devuelven nada no lo hagan | JP | X | JP |
 | 13 | No se puede redefinir funciones | MC | x | x |
 | 14 | No se puede redefinir variables | MC | x | x |
 | 15 | Comprobar que el tipo de la variable y la expresión coincidan al momento de asignar | JP | x |  |
