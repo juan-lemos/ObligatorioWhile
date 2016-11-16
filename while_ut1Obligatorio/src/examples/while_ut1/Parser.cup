@@ -65,10 +65,9 @@ terminal LESS_THAN_OR_EQUAL;
 terminal QUESTION_MARK;
 terminal COLON;
 terminal FUNCTION;
-terminal VOID;
 terminal RETURN;
 terminal COMMA;
-terminal NEW_LINE;
+
 
 terminal DO;
 terminal SKIP;
@@ -76,6 +75,7 @@ terminal WHILE;
 terminal PRINT;
 terminal LENGTH;
 terminal DEFINED;
+terminal String VOID;
 terminal String TBOOL;
 terminal String TINT;
 terminal String TNUM;
@@ -187,7 +187,7 @@ tipoFuncionesDef ::=
 		tipo:$1
 		{: RESULT= $1; :}
 		| 	VOID:$1
-		{: RESULT=new String("Void"); :}	
+		{: RESULT=new String("Void"); :}
 ;
 
 exp ::=
