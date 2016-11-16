@@ -13,7 +13,7 @@ import junit.framework.TestCase;
 /**
  * Regla n�mero 18 - No escribir nombres de variables o métodos iguales pero que se diferencien en solamente en mayúsculas y minúsculas Ej: ''numeric a=23; numeric A=23''
  */
-public class Rule18 extends TestCase {
+public class Rule19 extends TestCase {
 
 	Map<Integer, String> datosPruebas = new HashMap<Integer, String>();
 	Logger logger = Logger.getAnonymousLogger();
@@ -26,17 +26,15 @@ public class Rule18 extends TestCase {
 	}
 
 	protected void loadData() {
-		datosPruebas.put(1, "{int c=10; int C=11;}");//ok
-		datosPruebas.put(2, "{while(15<=10)do{ int yYY=2;\n int yyy=3; }}"); //ok
-		datosPruebas.put(3, "{while(15<=10)do{int y=2;\n int x=3; }}"); //ok 
-		datosPruebas.put(4, "{function Void Hola(int x){} function Void hola(int x){}}"); //
-		datosPruebas.put(5, "{Hola(y,x); Chau(y,x);}"); // No funciona
+		datosPruebas.put(1, "{function Void hola(int x){int x=10;int x=20;} function Void hola(int x){}}");//ok
+		//datosPruebas.put(2, "{while(15<=10)do{ int yYY=2;\n int yyy=3; }}"); //ok
+
 		
 	}
 
 	public void testData() {
 		try {
-			Integer numTest =4;   // Setear este valor
+			Integer numTest =1;   // Setear este valor
 			
 			Object obj = Parse.parse(datosPruebas.get(numTest));
 			logger.log(Level.INFO, obj.toString());
@@ -52,14 +50,9 @@ public class Rule18 extends TestCase {
 				expected = "";
 			else{ 
 				if(numTest ==1)
-					expected = "Offense detected - 18B: La variable C se encuentra definida como c.";
+					expected = "Offense detected - 14-19: La variable c ya se encuentra declarada.";
 				}
-				if(numTest ==2){
-					expected = "Offense detected - 18B: La variable yyy se encuentra definida como yYY.";
-				}
-				if(numTest ==4){
-					expected = "Offense detected - 18A: La funcion hola se encuentra definida como Hola.";
-				}
+				
 			
 			
 			assertTrue("Se esperaba " + expected + "pero el resultado fue " + actual, actual.contains(expected));
