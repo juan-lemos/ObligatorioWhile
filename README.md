@@ -7,6 +7,7 @@ Integrantes: Juan Lemos, Mauricio Coniglio, Cynthia Duhalde, Fernando Torterolo,
 [NIELSON1999] (http://www.daimi.au.dk/~bra8130/Wiley_book/wiley.html)
 H.R. Nielson & F. Nielson: "Semantic with Applications: A formal introduction". John Wiley & Sons, revised edition ISBN 0-471-92980-8.
 
+[![Build Status](https://travis-ci.org/juanpale/ObligatorioWhile.svg?branch=specification)](https://travis-ci.org/juanpale/ObligatorioWhile)
 
 ## Reglas
 
