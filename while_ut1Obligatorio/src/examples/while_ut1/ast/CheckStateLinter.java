@@ -97,7 +97,7 @@ public class CheckStateLinter {
 	}
 
 	public static void addError10B(String expectedType, String parameterType, int line, int column) {
-		addError("10B", "Parametro de funcion de tipo incorrecto. Esperado: " + expectedType + ", actual: " + parameterType, line, column);
+		addError("10B", "Parametro de funcion de tipo incorrecto. Esperado: " + javaTypeTowhileType(expectedType) + ", actual: " + javaTypeTowhileType(parameterType), line, column);
 	}
 
 	public static void addError11(String parameterName,int line, int column) {
@@ -227,5 +227,14 @@ public class CheckStateLinter {
 	}
 
 
-
+	private static String javaTypeTowhileType(String javaType){
+		switch(javaType){
+			case "Void":return "Void";
+			case "String": return "str";
+			case "Integer": return "int";
+			case "Double": return "num";
+			case "Boolean": return "bool";
+		}
+		return "num";
+	}
 }
