@@ -11,7 +11,7 @@ import examples.while_ut1.ast.Stmt;
 import junit.framework.TestCase;
 
 /**
- * Regla número 4
+ * Regla nï¿½mero 4
  * Detectar variables declaradas sin usar
  */
 public class Rule4 extends TestCase {
