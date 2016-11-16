@@ -29,7 +29,7 @@ class rule20 extends Specification {
       | print(i);
       | }""".stripMargin
 
-  s"case 1:" should {
+  s"$case1" should {
 
     s"contain message:${error20("8")}" in {
       CheckStateLinter.errores.clear()
@@ -55,7 +55,7 @@ class rule20 extends Specification {
       | print(i);
       | }""".stripMargin
 
-  s"case 2:" should {
+  s"$case2" should {
     s"contain message:${error20("7")}" in {
       CheckStateLinter.errores.clear()
       val newState = Parser.parse(case2).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
@@ -78,7 +78,7 @@ class rule20 extends Specification {
       |  print(i);
       |}""".stripMargin
 
-  s"case 3:" should {
+  s"$case3" should {
     s"contain message:${error20("9")}" in {
       CheckStateLinter.errores.clear()
       val newState = Parser.parse(case3).value.asInstanceOf[Stmt].checkLinter(new CheckStateLinter())
