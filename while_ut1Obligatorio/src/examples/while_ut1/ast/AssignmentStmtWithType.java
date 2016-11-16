@@ -129,7 +129,6 @@ public class AssignmentStmtWithType extends Stmt {
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
 		putIntoLineColumn(s,this.line,this.column);//regla2
-		if (expression.countOperators() > 7) CheckStateLinter.addError20(expression.countOperators(), line, column);
 		if (Character.isUpperCase(id.charAt(0)) || id.charAt(0) == '_') CheckStateLinter.addError6(line, column);
 		if (s.mapa.containsKey(id) && !s.mapa.get(id).isFunction()) CheckStateLinter.addError14_19(id, line, column);
 		s.mapa.keySet().forEach((key) -> {
@@ -139,19 +138,23 @@ public class AssignmentStmtWithType extends Stmt {
 		
 		Boolean assigned=false;
 		if(!(expression==null)){
+			if (expression.countOperators() > 7) CheckStateLinter.addError20(expression.countOperators(), line, column);
+			
 			assigned=true;
 			String expressionType = this.expression.checkLinter(s);
 			if(!expressionType.equals(this.type)){
 				CheckStateLinter.addError15(this.line, this.column, this.id);
 			}
+			
+			ArrayList <String> tiposAceptados=new ArrayList<String>();
+			tiposAceptados.add(this.type);
+			CheckStateLinter.evaluarRegla9(expression, s, tiposAceptados);
 		}
 		ObjectState objState = new ObjectState(this.type, assigned, 2, this);//revisar 
 		s.mapa.put(this.id, objState);//revisar
 		
 		
-		ArrayList <String> tiposAceptados=new ArrayList<String>();
-		tiposAceptados.add(this.type);
-		CheckStateLinter.evaluarRegla9(expression, s, tiposAceptados);
+		
 		
 		
 		return s;
