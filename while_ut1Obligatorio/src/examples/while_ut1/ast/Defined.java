@@ -7,8 +7,10 @@ import java.util.*;
 public class Defined extends BExp {
 	public final String id;
 
-	public Defined(String id) {
+	public Defined(String id, int line, int column) {
 		this.id = id;
+		this.line=line;
+		this.column=column;
 	}
 
 	@Override public String unparse() {

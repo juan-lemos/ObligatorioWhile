@@ -65,10 +65,9 @@ terminal LESS_THAN_OR_EQUAL;
 terminal QUESTION_MARK;
 terminal COLON;
 terminal FUNCTION;
-terminal VOID;
 terminal RETURN;
 terminal COMMA;
-terminal NEW_LINE;
+
 
 terminal DO;
 terminal SKIP;
@@ -76,6 +75,7 @@ terminal WHILE;
 terminal PRINT;
 terminal LENGTH;
 terminal DEFINED;
+terminal String VOID;
 terminal String TBOOL;
 terminal String TINT;
 terminal String TNUM;
@@ -105,15 +105,15 @@ stmtBasics ::=
   	|	tipo:$5 ID:$1 SEMICOLON:$4
     	{: RESULT = new AssignmentStmtWithType($5, $1,null,$5left, $5right); :}
     |	LEFT_CURLY_BRACKET:$1 repeat$stmtBasics:$2 RIGHT_CURLY_BRACKET:$3
-		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()]), $1left, $1right); :} 
+		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()]), false,$1left, $1right); :} 
 	|	SKIP:$1 SEMICOLON:$2
-		{: RESULT = new Sequence(new Stmt[0], $1left, $1right); :}
+		{: RESULT = new Sequence(new Stmt[0],true ,$1left, $1right); :}
 	|	WHILE:$1 exp:$2 DO:$3 stmtBasics:$4
-		{: RESULT = new WhileDo($2, $4); :}
+		{: RESULT = new WhileDo($2, $4,$1left,$1right); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtBasics:$4
-		{: RESULT = new IfThen($2, $4, $2left, $2right); :}
+		{: RESULT = new IfThen($2, $4, $1left, $1right); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtBasics:$4 ELSE:$5 stmtBasics:$6
-		{: RESULT = new IfThenElse($2, $4, $6, $2left, $2right); :}
+		{: RESULT = new IfThenElse($2, $4, $6, $1left, $1right); :}
 	|	PRINT:$2 LEFT_PARENTHESIS exp:$1 RIGHT_PARENTHESIS SEMICOLON
 		{: RESULT = new Print($1,$2left, $2right); :}
 	|	ID:$4 LEFT_PARENTHESIS parametros:$2 RIGHT_PARENTHESIS SEMICOLON
@@ -129,15 +129,15 @@ stmtMain ::=
   	|	tipo:$5 ID:$1 SEMICOLON:$4
     	{: RESULT = new AssignmentStmtWithType($5, $1,null,$5left, $5right); :}
     |	LEFT_CURLY_BRACKET:$1 repeat$stmtMain:$2 RIGHT_CURLY_BRACKET:$3
-		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()]), $1left, $1right); :} 
+		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()]), false,$1left, $1right); :} 
 	|	SKIP:$1 SEMICOLON:$2
-		{: RESULT = new Sequence(new Stmt[0], $1left, $1right); :}
+		{: RESULT = new Sequence(new Stmt[0], true,$1left, $1right); :}
 	|	WHILE:$1 exp:$2 DO:$3 stmtBasics:$4
-		{: RESULT = new WhileDo($2, $4); :}
+		{: RESULT = new WhileDo($2, $4,$1left,$1right); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtBasics:$4
-		{: RESULT = new IfThen($2, $4, $2left, $2right); :}
+		{: RESULT = new IfThen($2, $4, $1left, $1right); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtBasics:$4 ELSE:$5 stmtBasics:$6
-		{: RESULT = new IfThenElse($2, $4, $6, $2left, $2right); :}
+		{: RESULT = new IfThenElse($2, $4, $6, $1left, $1right); :}
 	|	PRINT:$2 LEFT_PARENTHESIS exp:$1 RIGHT_PARENTHESIS SEMICOLON
 		{: RESULT = new Print($1,$2left, $2right); :}
 	|	ID:$4 LEFT_PARENTHESIS parametros:$2 RIGHT_PARENTHESIS SEMICOLON
@@ -154,16 +154,16 @@ stmtFunctions ::=
 	  	{: RESULT = new AssignmentStmtWithType($5, $1, $3, $5left, $5right); :}
 	| 	tipo:$5 ID:$1 SEMICOLON:$4
 		{: RESULT = new AssignmentStmtWithType($5, $1,null,$5left, $5right); :} 
-	|	SKIP:$1 SEMICOLON:$2
-		{: RESULT = new Sequence(new Stmt[0], $1left, $1right); :}
 	|	LEFT_CURLY_BRACKET:$1 repeat$stmtFunctions:$2 RIGHT_CURLY_BRACKET:$3
-		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()]), $1left, $1right); :}
+		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()]), false,$1left, $1right); :}
+	|	SKIP:$1 SEMICOLON:$2
+		{: RESULT = new Sequence(new Stmt[0], true,$1left, $1right); :}
 	|	WHILE:$1 exp:$2 DO:$3 stmtFunctions:$4
-		{: RESULT = new WhileDo($2, $4); :}
+		{: RESULT = new WhileDo($2, $4,$1left,$1right); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtFunctions:$4
-		{: RESULT = new IfThen($2, $4, $2left, $2right); :}
+		{: RESULT = new IfThen($2, $4, $1left, $1right); :}
 	|	IF:$1 exp:$2 THEN:$3 stmtFunctions:$4 ELSE:$5 stmtFunctions:$6
-		{: RESULT = new IfThenElse($2, $4, $6, $2left, $2right); :}
+		{: RESULT = new IfThenElse($2, $4, $6, $1left, $1right); :}
 	|	PRINT:$2 LEFT_PARENTHESIS exp:$1 RIGHT_PARENTHESIS SEMICOLON
 		{: RESULT = new Print($1,$2left, $2right); :}
 	|	ID:$4 LEFT_PARENTHESIS parametros:$2 RIGHT_PARENTHESIS SEMICOLON
@@ -187,26 +187,26 @@ tipoFuncionesDef ::=
 		tipo:$1
 		{: RESULT= $1; :}
 		| 	VOID:$1
-		{: RESULT=new String("Void"); :}	
+		{: RESULT=new String("Void"); :}
 ;
 
 exp ::=
 		NUM:$1
 		{: RESULT = new Numeral($1, $1left, $1right); :}
 	|	NUMInt:$1
-		{: RESULT = new  Numeral($1); :}
+		{: RESULT = new  Numeral($1,$1left, $1right); :}
 	|	STR:$1
 		{: RESULT = new Str($1, $1left, $1right); :}
 	|	ID:$1
 		{: RESULT = new Variable($1,$1left,$1right); :}
 	|	exp:$1 ASTERISK:$2 exp:$3
-		{: RESULT = new Multiplication($1, $3); :}
+		{: RESULT = new Multiplication($1, $3, $2left, $2right); :}
 	|	exp:$1 SLASH:$2 exp:$3
-		{: RESULT = new Division($1, $3);:}
+		{: RESULT = new Division($1, $3,  $2left, $2right);:}
 	|	exp:$1 PLUS_SIGN:$2 exp:$3
-		{: RESULT = new Addition($1, $3); :}
+		{: RESULT = new Addition($1, $3,$2left, $2right); :}
 	|	exp:$1 HYPHEN_MINUS:$2 exp:$3
-		{: RESULT = new Subtraction($1, $3); :}
+		{: RESULT = new Subtraction($1, $3,$2left, $2right); :}
 	|	LEFT_PARENTHESIS:$1 exp:$2 RIGHT_PARENTHESIS:$3
 		{:
 			if ($2.getIsInsideParenthesis())
@@ -220,19 +220,19 @@ exp ::=
 	|	FALSE:$1
 		{: RESULT = new TruthValue(false, $1left, $1right); :}
 	|	exp:$1 DOUBLE_EQUALS_SIGN:$2 exp:$3
-		{: RESULT = new CompareEqual($1, $3); :}
+		{: RESULT = new CompareEqual($1, $3,$2left,$2right); :}
 	|	exp:$1 LESS_THAN_OR_EQUAL:$2 exp:$3
-		{: RESULT = new CompareLessOrEqual($1, $3); :}
+		{: RESULT = new CompareLessOrEqual($1, $3,$2left,$2right); :}
 	|	EXCLAMATION_MARK:$1 exp:$2
 		{: RESULT = new Negation($2, $1left, $1right); :}
 	|	exp:$1 DOUBLE_AMPERSAND:$2 exp:$3
-		{: RESULT = new Conjunction($1, $3); :}
+		{: RESULT = new Conjunction($1, $3, $2left,$2right); :}
 	|	ID:$1 EQUALS_SIGN:$2 exp:$3
 		{: RESULT = new AssignmentExp($1, $3, $1left, $1right); :}
-	|	DEFINED LEFT_PARENTHESIS ID:$1 RIGHT_PARENTHESIS
-		{: RESULT = new Defined($1); :}
-	|	LENGTH LEFT_PARENTHESIS exp:$1 RIGHT_PARENTHESIS
-		{: RESULT = new Length($1); :}
+	|	DEFINED:$0 LEFT_PARENTHESIS ID:$1 RIGHT_PARENTHESIS
+		{: RESULT = new Defined($1,$0left,$0right); :}
+	|	LENGTH:$0 LEFT_PARENTHESIS exp:$1 RIGHT_PARENTHESIS
+		{: RESULT = new Length($1,$0left,$0right); :}
 	|	LEFT_PARENTHESIS:$0  exp:$1 RIGHT_PARENTHESIS QUESTION_MARK exp:$2 COLON exp:$3
 		{: RESULT = new TernaryOperator($1, $2, $3, $0left, $0right); :}
 	|	ID:$4 LEFT_PARENTHESIS parametros:$2 RIGHT_PARENTHESIS
@@ -283,10 +283,6 @@ repeat$stmtBasics ::=
 		{: List<Stmt> $0;
 		$1.add($2); $0 = $1;
 		RESULT = $0; :}
-	|	repeat$stmtBasics:$1 NEW_LINE stmtBasics:$2
-		{: List<Stmt> $0;
-		$1.add($2); $0 = $1;
-		RESULT = $0; :}
 ;
 
 repeat$stmtFunctions ::=
@@ -297,10 +293,7 @@ repeat$stmtFunctions ::=
 		{: List<Stmt> $0;
 		$1.add($2); $0 = $1;
 		RESULT = $0; :}
-	|	repeat$stmtFunctions:$1 NEW_LINE stmtFunctions:$2
-		{: List<Stmt> $0;
-		$1.add($2); $0 = $1;
-		RESULT = $0; :}	
+
 ;
 
 repeat$stmtMain ::=
@@ -311,10 +304,7 @@ repeat$stmtMain ::=
 		{: List<Stmt> $0;
 		$1.add($2); $0 = $1;
 		RESULT = $0; :}
-	|	repeat$stmtMain:$1 NEW_LINE stmtMain:$2
-		{: List<Stmt> $0;
-		$1.add($2); $0 = $1;
-		RESULT = $0; :}	
+
 ;
 
 

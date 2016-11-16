@@ -13,7 +13,7 @@ public class Numeral extends AExp {
 		this.column = column;
 	}
 
-	public Numeral(Integer number) {
+	public Numeral(Integer number, int line, int column) {
 		this.number = number;
 	}
 

@@ -8,9 +8,11 @@ public class WhileDo extends Stmt {
 	public final Exp condition;
 	public final Stmt body;
 
-	public WhileDo(Exp condition, Stmt body) {
+	public WhileDo(Exp condition, Stmt body,int line, int column) {
 		this.condition = condition;
 		this.body = body;
+		this.line=line;
+		this.column=column;
 	}
 
 	@Override public String unparse() {
@@ -36,12 +38,12 @@ public class WhileDo extends Stmt {
 				&& (this.body == null ? other.body == null : this.body.equals(other.body));
 	}
 
-	public static WhileDo generate(Random random, int min, int max) {
-		BExp condition; Stmt body; 
-		condition = BExp.generate(random, min-1, max-1);
-		body = Stmt.generate(random, min-1, max-1);
-		return new WhileDo(condition, body);
-	}
+//	public static WhileDo generate(Random random, int min, int max) {
+//		BExp condition; Stmt body; 
+//		condition = BExp.generate(random, min-1, max-1);
+//		body = Stmt.generate(random, min-1, max-1);
+//		return new WhileDo(condition, body);
+//	}
 
 	@Override
 	public State evaluate(State state) {
