@@ -11,7 +11,7 @@ import examples.while_ut1.ast.Stmt;
 import junit.framework.TestCase;
 
 /**
- * Regla n�mero 18 - No escribir nombres de variables o métodos iguales pero que se diferencien en solamente en mayúsculas y minúsculas Ej: ''numeric a=23; numeric A=23''
+ * Regla n�mero 19 - No permitir redefinici�n de variables con el mismo nombre dentro de las funciones como variables locales
  */
 public class Rule19 extends TestCase {
 
@@ -27,14 +27,14 @@ public class Rule19 extends TestCase {
 
 	protected void loadData() {
 		datosPruebas.put(1, "{int j; function int a(){int j=3;} j=2;}");//ok
-		//datosPruebas.put(2, "{while(15<=10)do{ int yYY=2;\n int yyy=3; }}"); //ok
+		datosPruebas.put(2, "{int x; function int a(){int j=3;int x=35;} x=2;}"); //ok
 
 		
 	}
 
 	public void testData() {
 		try {
-			Integer numTest =1;   // Setear este valor
+			Integer numTest =2;   // Setear este valor
 			
 			Object obj = Parse.parse(datosPruebas.get(numTest));
 			logger.log(Level.INFO, obj.toString());
@@ -51,8 +51,12 @@ public class Rule19 extends TestCase {
 			else{ 
 				if(numTest ==1)
 					expected = "14-19: La variable j ya se encuentra declarada. Line: 0, Column: 25";
-				}
+				if(numTest ==2)
+					expected = "14-19: La variable x ya se encuentra declarada. ";
 				
+			}
+			
+			
 			
 			
 			assertTrue("Se esperaba " + expected + "pero el resultado fue " + actual, actual.contains(expected));
